@@ -10,23 +10,23 @@ import java.util.ArrayList;
 
 public class BusLocation {
 
-    private BusLine busLine;
+    private BusLineMap busLineMap;
     private StopListSet stopList;
     private GetApiData getApiData;
-    private String id;
-    private String busName;
+    private int id;
+    private String lineName;
     private String curStopId;
     private int busCount;
     private ArrayList<String> busNumberList = new ArrayList<>();
     private ArrayList<String> curStopNameList = new ArrayList<>();
     private ArrayList<String> isLowBusList = new ArrayList<>();
 
-    public BusLocation(String id) throws IOException, ParseException {
+    public BusLocation(int id) throws IOException, ParseException {
         this.id = id;
-        this.busLine = new BusLine(id);
+        this.busLineMap = new BusLineMap(id);
         this.stopList = new StopListSet();
         this.getApiData = new GetApiData("BUS_LOCATION", id);
-        this.busName = busLine.getBusName();
+        this.lineName = busLineMap.getLineName();
         setData();
     }
 
@@ -60,8 +60,8 @@ public class BusLocation {
     public int getBusCount(){
         return busCount;
     }
-    public String getBusName(){
-        return busName;
+    public String getLineName(){
+        return lineName;
     }
     public ArrayList<String> getBusNumberList(){
         return busNumberList;

@@ -8,10 +8,10 @@ import java.io.IOException;
 
 
 public class BusLineMap {
-    public BusLine[] BusLines;
-    public int size;
-    public int lineId;
-    public String lineName;
+    private BusLine[] BusLines;
+    private int size;
+    private int lineId;
+    private String lineName;
 
 
     public BusLineMap(int id)throws IOException, org.json.simple.parser.ParseException{
@@ -58,6 +58,9 @@ public class BusLineMap {
                 return "<<회차>>";
             else
                 return "[종점]";
+    }
+    public String getLineName(){
+        return lineName;
     }
 
 }
