@@ -42,7 +42,7 @@ public class BusLocation {
              bus = (JSONObject)busArray.get(i);
              curStopId = bus.get("CURR_STOP_ID").toString();
              busNumberList.add(bus.get("CARNO").toString());
-             curStopNameList.add(getCurStopName(bus.get("CURR_STOP_ID").toString()));
+//             curStopNameList.add(getCurStopName(bus.get("CURR_STOP_ID").toString()));
              isLowBusList.add(isLowBus(bus.get("LOW_BUS").toString()));
         }
 
@@ -53,9 +53,9 @@ public class BusLocation {
         else
             return "저상";
     }
-    private String getCurStopName(String curStopId){
-        return stopList.getStop(curStopId);
-    }
+//    private String getCurStopName(String curStopId){
+//        return stopList.getStop(curStopId);
+//    }
 
     public int getBusCount(){
         return busCount;

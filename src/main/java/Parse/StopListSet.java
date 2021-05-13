@@ -23,6 +23,10 @@ public class StopListSet {
         System.out.println("정류장번호: " +StopLists[i].curStopId +"현재 정류장 이름: "+StopLists[i].curStopName+"다음 정류장 이름: " +StopLists[i].nextStopName);
         }
 
+//        public String getStop(int id){
+//
+//        }
+
 }
      /*for(int i =0;i<3;i++){
             JSONObject jsonObjectSub = (JSONObject)  jsonArray.get(i);
