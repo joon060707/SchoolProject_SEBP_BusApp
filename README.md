@@ -3,7 +3,7 @@
 ## 클래스 만들기
 1) Arrive: 완료
 2) BusLine: 완료
-3) BusLocation: 완료(단, BusList와 호환 적용 필요)
+3) BusLocation: 완료(단, BusLine과 호환 적용 필요)
 4) StopList: 진행중(HashMap 전환 필요)
 5) BusList: 진행중
 
