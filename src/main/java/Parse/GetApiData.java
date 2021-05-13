@@ -27,10 +27,10 @@ public class GetApiData {
             put("BUS_LOCATION", "busLocationInfo");
 
     }};
-    private HashMap<String, String> idType= new HashMap<>(){{
+    private HashMap<String, String> idType= new HashMap<>() {{
         put("lineStationInfo", "LINE_ID");
         put("busLocationInfo", "LINE_ID");
-        put("arriveInfo","BUSSTOP_ID");
+        put("arriveInfo", "BUSSTOP_ID");
     }};
 
     public GetApiData(String type){
@@ -52,6 +52,8 @@ public class GetApiData {
         }
 
         return urlBuilder.toString();
+
+        //http://api.gwangju.go.kr/json/lineStationInfo?serviceKey=6NJ+9v8lLytvSPezq+1BfBxvNrXCxjoJBuGKqv0HCIC2JCguk1J7zsghyyfWnEZdXUsaVLsQFBMF6GPsYW4Wig==&LINE_ID=9
     }
 
     public JSONObject callApi() throws IOException, ParseException {
@@ -87,7 +89,7 @@ public class GetApiData {
     }
 
 //    public static void main(String[] args) throws IOException, ParseException {
-//        JSONObject jsonObject =  new GetApiData("BUS_LOCATION", 9).getData();
+//        JSONObject jsonObject =  new GetApiData("STATION").getData();
 //        System.out.println("전체 JsonObject: "+jsonObject.toJSONString());
 //
 //        //key 값으로 value 얻기.
