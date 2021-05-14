@@ -1,10 +1,12 @@
 package Parse;
 
+import GUI.BusGUI;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -56,30 +58,38 @@ public class GetApiData {
         //http://api.gwangju.go.kr/json/lineStationInfo?serviceKey=6NJ+9v8lLytvSPezq+1BfBxvNrXCxjoJBuGKqv0HCIC2JCguk1J7zsghyyfWnEZdXUsaVLsQFBMF6GPsYW4Wig==&LINE_ID=9
     }
 
-    public JSONObject getData() throws IOException, ParseException {
-        URL url = new URL(makeUrl());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
+    public JSONObject getData() {
 
-        BufferedReader rd;
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        try {
+
+            URL url = new URL(makeUrl());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-type", "application/json");
+
+            BufferedReader rd;
+            if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+            rd.close();
+            conn.disconnect();
+
+            JSONParser parser = new JSONParser();
+
+            return (JSONObject) parser.parse(sb.toString());
+
+        }catch (Exception e){
+            BusGUI.alertPopup("에러", "인터넷 연결을 확인해 주세요.", Color.red, 20).start();
+            return new JSONObject();
         }
-
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-
-        JSONParser parser = new JSONParser();
-
-        return (JSONObject) parser.parse(sb.toString());
 
     }
 
