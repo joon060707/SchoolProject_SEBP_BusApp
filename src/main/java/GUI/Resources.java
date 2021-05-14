@@ -18,7 +18,7 @@ public class Resources {
     }
 
 
-    // 리스트 검색 결과 반환 메소드
+    // 리스트에서 해당 문자열을 갖는 항목을 반환
     public static String[][] search(String[][] list, String what){
 
        ArrayList<String[]> found=new ArrayList<>();
@@ -34,6 +34,7 @@ public class Resources {
         return find;
     }
 
+    // 리스트에서 해당 문자열의 번호를 반환
     public static int[] searchindex(String[][] list, String what){
         ArrayList<Integer> found=new ArrayList<>();
 

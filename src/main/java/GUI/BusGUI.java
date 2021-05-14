@@ -175,9 +175,8 @@ public class BusGUI extends JFrame {
     //////////////////////////////////////// Stop Selection Screen ////////////////////////////////////////////////
 
     private static BusGUI stopSelection(){
-        BusGUI window=new BusGUI(640, 720, "정류장 검색", Resources.IMG_BUS1, 320, 180);
+        BusGUI window=new BusGUI(640, 720, "정류장 검색", Resources.IMG_STOP1, 320, 180);
         window.setMinimumSize(new Dimension(320, 360));
-        window.setIconImage(Resources.getWindowIco(Resources.IMG_STOP1));
         return insetWindow(window, SelectionInner(TYPE_STOP), 1, 10, 10, 10);
     }
 
@@ -193,7 +192,7 @@ public class BusGUI extends JFrame {
         if(type==TYPE_STOP){
             labelStr="정류장 검색";
             labelColor=Resources.COLOR_PURPLE;
-            src=Resources.testArray(567);
+            src=Resources.testArray(2121);
         } else{
             labelStr="노선 검색";
             labelColor=Resources.COLOR_SKY;
@@ -235,8 +234,15 @@ public class BusGUI extends JFrame {
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                for(int i: Resources.searchindex(data, list.getSelectedValue()))
-                alertPopup("선택됨", "선택된 숫자: "+i, Color.BLACK, 20).start();
+                int[] found = Resources.searchindex(data, list.getSelectedValue());
+                if(found.length>1) {
+                    String lst="";
+                    for(int i: found) lst=lst.concat(i+" ");
+                    // 보통 다음 정류장이 없는 경우 발생. 창 2개 다 띄울 것인가?
+                    alertPopup("여러 항목이 검색되었습니다", "선택된 숫자: "+lst, Color.BLACK, 20).start();
+                }
+//                else alertPopup("선택됨", "선택된 숫자: "+found[0], Color.BLACK, 20).start();
+                else stopArrive(found[0]).start();
             }
         });
         JScrollPane scrollList=new JScrollPane(list);
@@ -248,10 +254,9 @@ public class BusGUI extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 String[][] find=Resources.search(data, textField.getText());
-                for(String s: find[0])System.out.print(s+" ");
-                list.setCellRenderer(new Render(find[0]));      // 이게 먼저 와야 함.
+//                for(String s: find[0])System.out.print(s+" ");
+                list.setCellRenderer(new Render(find[0]));      // 이게 먼저 와야 함. 왜 그럴까?
                 list.setListData(find[1]);
-
             }});
 
         center.add(textField, BorderLayout.NORTH);
@@ -263,6 +268,150 @@ public class BusGUI extends JFrame {
 
 
     ///////////////////////////////////////// Stop Notify Screen /////////////////////////////////////////////////
+
+    private static BusGUI stopArrive(int id){
+
+        Arrive arrive;
+        try {
+            arrive=new Arrive(id);
+        } catch (Exception e){
+            return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
+        }
+
+        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 360, 80);
+        window.setMinimumSize(new Dimension(320, 360));
+        return insetWindow(window, stopArriveInner(arrive), 20, 20, 10, 20);
+
+    }
+
+    private static JPanel stopArriveInner(Arrive arrive){
+        JPanel panel=new JPanel();
+        panel.setLayout(new BorderLayout(0, 40));
+        panel.setBackground(Color.white);
+
+        JPanel stop=new JPanel();
+        stop.setLayout(new BorderLayout(0, 20));
+        stop.setBackground(Color.white);
+
+        JLabel stopName=new JLabel(arrive.getStopName());
+        stopName.setForeground(Resources.COLOR_BLUE_DARK);
+        stopName.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
+        stopName.setHorizontalAlignment(SwingConstants.CENTER);
+        stopName.setVerticalAlignment(SwingConstants.CENTER);
+
+        JLabel stopTo=new JLabel(arrive.getStopTo());
+        stopTo.setForeground(Resources.COLOR_GRAY);
+        stopTo.setFont(Resources.nsq(Resources.FONT_NORMAL, 28));
+        stopTo.setHorizontalAlignment(SwingConstants.CENTER);
+        stopTo.setVerticalAlignment(SwingConstants.CENTER);
+
+        stop.add(stopName, BorderLayout.NORTH);
+        stop.add(stopTo, BorderLayout.CENTER);
+
+        panel.add(stop, BorderLayout.NORTH);
+        arrive.print();
+
+        JScrollPane arriveInfo = new JScrollPane(arriveInfo(arrive));
+        arriveInfo.setBorder(null);
+
+        panel.add(arriveInfo, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private static JPanel arriveInfo(Arrive arrive){
+
+        JPanel panel=new JPanel();
+        panel.setLayout(new BorderLayout(0,0));
+        panel.setBackground(Color.white);
+
+        JPanel legend=new JPanel();
+        legend.setLayout(new GridLayout(1, 3));
+        legend.setBackground(Resources.COLOR_PURPLE);
+
+        JLabel[] legendLab=new JLabel[4];
+        String[] legendStr={"노선", "현 위치", "시간", "정류장 수"};
+        for(int i=0; i<2; i++){
+            legendLab[i]=new JLabel(legendStr[i]);
+            legendLab[i].setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
+            legendLab[i].setForeground(Color.white);
+            legendLab[i].setHorizontalAlignment(SwingConstants.CENTER);
+            legend.add(legendLab[i]);
+        }
+        JPanel legendTime=new JPanel();
+        legendTime.setLayout(new GridLayout(1, 2));
+        legendTime.setBackground(Resources.COLOR_PURPLE);
+        for(int i=0; i<2; i++){
+            legendLab[i]=new JLabel(legendStr[i+2]);
+            legendLab[i].setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
+            legendLab[i].setForeground(Color.white);
+            legendLab[i].setHorizontalAlignment(SwingConstants.CENTER);
+            legendTime.add(legendLab[i]);
+        }
+        legend.add(legendTime);
+
+        panel.add(heightedPanel(legend, 50, Color.white), BorderLayout.NORTH);
+        panel.add(arriveInfoInner(arrive), BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private static JPanel arriveInfoInner(Arrive arrive){
+
+        ArriveLine[] lines = arrive.getLines();
+        JPanel arriveInfo=new JPanel();
+        arriveInfo.setBackground(Color.white);
+        arriveInfo.setLayout(new GridLayout(lines.length, 1));
+
+        for(ArriveLine l: lines){
+            JPanel lineInfo=new JPanel();
+            lineInfo.setLayout(new GridLayout(1, 3));
+
+            JButton lineBt=new JButton(l.getLineName());
+            JButton stopBt=new JButton(l.getCurStopName());
+            lineBt.setFont(Resources.nsq(Resources.FONT_BOLD, 25));
+            stopBt.setFont(Resources.nsq(Resources.FONT_BOLD, 20));
+            lineBt.setForeground(Color.white);
+
+
+            JPanel times=new JPanel();
+            times.setLayout(new GridLayout(1, 2));
+            times.setBackground(Color.white);
+            JLabel time=new JLabel(l.getRemainMin()+"분");
+            JLabel stop=new JLabel(l.getRemainStop()+"정류장");
+            for(JLabel lab : new JLabel[]{time, stop}){
+                lab.setFont(Resources.nsq(Resources.FONT_BOLD, 20));
+                lab.setHorizontalAlignment(SwingConstants.CENTER);
+            }
+
+            if(l.getRemainStop()<2)
+                for(Component c:new Component[]{lineBt, stopBt, time, stop, times}) {
+                    c.setBackground(Color.yellow);
+                    c.setForeground(Color.red);
+                    time.setText("곧 도착!");
+                }
+            else {
+                for(Component c:new Component[]{lineBt, stopBt, time, stop}) c.setBackground(Color.white);
+                lineBt.setBackground(busColor(1));
+            }
+
+            times.add(time);
+            times.add(stop);
+            lineInfo.add(lineBt);
+            lineInfo.add(stopBt);
+            lineInfo.add(times);
+
+            arriveInfo.add(heightedPanel(lineInfo, 70, Color.white));
+        }
+
+        return arriveInfo;
+    }
+
+    private static Color busColor(int id){
+        // BusList의 kind를 불러와서 해당하는 색상 반환
+//        switch(BusList.getBusList().get(id).getkind())
+        return Resources.COLOR_YELLOW_BUS;
+    }
 
 
     //////////////////////////////////////// Line Selection Screen ////////////////////////////////////////////////
@@ -312,6 +461,7 @@ public class BusGUI extends JFrame {
     // 출처: https://www.codejava.net/java-se/swing/jlist-custom-renderer-example
     // Android에서 RecyclerView와 비슷한 역할을 함
     static class Render extends JLabel implements ListCellRenderer<String>{
+        // extends 원하는 요소 implements ListCellRenderer<원하는 클래스(String, BusList, StopList...)>
 
         String[] indexList;
         Render(String[] indexList){
@@ -344,6 +494,16 @@ public class BusGUI extends JFrame {
     }
 
 
+    // 원하는 높이로 바꿔주는 패널
+    private static JPanel heightedPanel(JPanel panel, int height, Color bg){
+        JPanel wrapper=new JPanel();
+        wrapper.setLayout(new BorderLayout(0,0));
+        wrapper.add(emptyPanel(1, height, bg), BorderLayout.WEST);
+        wrapper.add(panel, BorderLayout.CENTER);
+        return wrapper;
+    }
+    
+    // 바깥 여백을 주는 패널
     private static JPanel insetPanel(int top, int bottom, int left, int right){
         JPanel panel=new JPanel();
         panel.setLayout(new BorderLayout(30,30));
@@ -356,6 +516,7 @@ public class BusGUI extends JFrame {
         return panel;
     }
 
+    // 바깥 여백을 주는 창
     private static BusGUI insetWindow(BusGUI window, JPanel center, int top, int bottom, int left, int right){
 
         window.add(emptyPanel(left, 1, Color.white), BorderLayout.WEST);
