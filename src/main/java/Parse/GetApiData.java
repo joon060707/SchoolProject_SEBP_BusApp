@@ -56,7 +56,7 @@ public class GetApiData {
         //http://api.gwangju.go.kr/json/lineStationInfo?serviceKey=6NJ+9v8lLytvSPezq+1BfBxvNrXCxjoJBuGKqv0HCIC2JCguk1J7zsghyyfWnEZdXUsaVLsQFBMF6GPsYW4Wig==&LINE_ID=9
     }
 
-    public JSONObject callApi() throws IOException, ParseException {
+    public JSONObject getData() throws IOException, ParseException {
         URL url = new URL(makeUrl());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -78,14 +78,9 @@ public class GetApiData {
         conn.disconnect();
 
         JSONParser parser = new JSONParser();
-        JSONObject string2Json = (JSONObject) parser.parse(sb.toString());
 
-        return string2Json;
+        return (JSONObject) parser.parse(sb.toString());
 
-    }
-
-    public JSONObject getData() throws IOException, ParseException {
-        return callApi();
     }
 
 //    public static void main(String[] args) throws IOException, ParseException {

@@ -19,7 +19,7 @@ public class StopListSet {
         }
         public void StopListPrint(){
         for(int i =0;i<size;i++)
-        System.out.println("정류장번호: " +StopLists[i].getCurStopId() +"현재 정류장 이름: "+StopLists[i].getCurStopName()+"다음 정류장 이름: " +StopLists[i].getNextStopName());
+        System.out.println("정류장번호: " +StopLists[i].getCurStopId() +" 현재 정류장 이름: "+StopLists[i].getCurStopName()+" 다음 정류장 이름: " +StopLists[i].getNextStopName());
         }
 
 //        public String getStop(int id){

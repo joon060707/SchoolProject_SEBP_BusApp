@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="커밋 테스트입니다">
+    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="커밋 테스트 2입니다(public -&gt; private)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/GetApiData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/GetApiData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/BusLine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLineMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/BusLineMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/StopList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/StopList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/StopListSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/StopListSet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +83,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620950876263</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="커밋 테스트 2입니다(public -&gt; private)">
+      <created>1620951818721</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1620951818721</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -105,6 +119,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sync" />
     <MESSAGE value="커밋 테스트입니다" />
-    <option name="LAST_COMMIT_MESSAGE" value="커밋 테스트입니다" />
+    <MESSAGE value="커밋 테스트 2입니다(public -&gt; private)" />
+    <option name="LAST_COMMIT_MESSAGE" value="커밋 테스트 2입니다(public -&gt; private)" />
   </component>
 </project>
