@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="도착 정보 화면">
+    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="노선 검색, 정보 화면 구성">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620980817703</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="노선 검색, 정보 화면 구성">
+      <created>1620981015272</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1620981015272</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,6 +188,7 @@
     <MESSAGE value="팝업창, 인터넷 연결 오류 예외, 글꼴" />
     <MESSAGE value="노선, 정류장 검색 화면" />
     <MESSAGE value="도착 정보 화면" />
-    <option name="LAST_COMMIT_MESSAGE" value="도착 정보 화면" />
+    <MESSAGE value="노선 검색, 정보 화면 구성" />
+    <option name="LAST_COMMIT_MESSAGE" value="노선 검색, 정보 화면 구성" />
   </component>
 </project>

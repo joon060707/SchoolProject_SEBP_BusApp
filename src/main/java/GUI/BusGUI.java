@@ -2,6 +2,7 @@ package GUI;
 
 import Parse.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -30,6 +31,7 @@ public class BusGUI extends JFrame {
 
     // window.start() : 창 띄우기
     // window.dispose() : 창 닫기
+    // setBorder(new EmptyBorder(위, 왼, 아래, 오른)) : 여백 추가.... ㅠㅠ
 
     //////////////////////////////////////////////// Main Screen ///////////////////////////////////////////////////
 
@@ -328,29 +330,27 @@ public class BusGUI extends JFrame {
         JPanel legend=new JPanel();
         legend.setLayout(new GridLayout(1, 3));
         legend.setBackground(Resources.COLOR_PURPLE);
+//        legend.setBorder(new EmptyBorder(30,0,30,0));
 
         JLabel[] legendLab=new JLabel[4];
         String[] legendStr={"노선", "현 위치", "시간", "정류장 수"};
-        for(int i=0; i<2; i++){
+        for(int i=0; i<4; i++){
             legendLab[i]=new JLabel(legendStr[i]);
             legendLab[i].setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
             legendLab[i].setForeground(Color.white);
             legendLab[i].setHorizontalAlignment(SwingConstants.CENTER);
-            legend.add(legendLab[i]);
+            legendLab[i].setBorder(new EmptyBorder(30,0,30,0));   // 여백
         }
+        for(int i=0; i<2; i++) legend.add(legendLab[i]);
+
         JPanel legendTime=new JPanel();
         legendTime.setLayout(new GridLayout(1, 2));
         legendTime.setBackground(Resources.COLOR_PURPLE);
-        for(int i=0; i<2; i++){
-            legendLab[i]=new JLabel(legendStr[i+2]);
-            legendLab[i].setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
-            legendLab[i].setForeground(Color.white);
-            legendLab[i].setHorizontalAlignment(SwingConstants.CENTER);
-            legendTime.add(legendLab[i]);
-        }
+        for(int i=2; i<4; i++) legendTime.add(legendLab[i]);
         legend.add(legendTime);
 
-        panel.add(heightedPanel(legend, 50, Color.white), BorderLayout.NORTH);
+//        panel.add(legend);
+        panel.add(borderPanel(legend), BorderLayout.NORTH);
         panel.add(arriveInfoInner(arrive), BorderLayout.CENTER);
 
         return panel;
@@ -384,6 +384,9 @@ public class BusGUI extends JFrame {
                 lab.setHorizontalAlignment(SwingConstants.CENTER);
             }
 
+            for(JComponent c:new JComponent[]{lineBt, stopBt, time, stop})
+                c.setBorder(new EmptyBorder(25,0,25,0));
+
             if(l.getRemainStop()<2)
                 for(Component c:new Component[]{lineBt, stopBt, time, stop, times}) {
                     c.setBackground(Color.yellow);
@@ -401,7 +404,7 @@ public class BusGUI extends JFrame {
             lineInfo.add(stopBt);
             lineInfo.add(times);
 
-            arriveInfo.add(heightedPanel(lineInfo, 70, Color.white));
+            arriveInfo.add(borderPanel(lineInfo));
         }
 
         return arriveInfo;
@@ -495,10 +498,10 @@ public class BusGUI extends JFrame {
 
 
     // 원하는 높이로 바꿔주는 패널
-    private static JPanel heightedPanel(JPanel panel, int height, Color bg){
+    private static JPanel borderPanel(JPanel panel){
         JPanel wrapper=new JPanel();
         wrapper.setLayout(new BorderLayout(0,0));
-        wrapper.add(emptyPanel(1, height, bg), BorderLayout.WEST);
+//        wrapper.add(emptyPanel(1, height, bg), BorderLayout.WEST);
         wrapper.add(panel, BorderLayout.CENTER);
         return wrapper;
     }
