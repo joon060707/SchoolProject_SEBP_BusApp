@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="불필요 그림 제거">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="팝업창 추가, 인터넷 연결 오류 체크">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/GetApiData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/GetApiData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BusGUI.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/ArriveLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/ArriveLine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/GetApiData$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/GetApiData$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/GetApiData$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/GetApiData$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/GetApiData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/GetApiData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Resources.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +28,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUITest" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -117,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620955009691</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="팝업창 추가, 인터넷 연결 오류 체크">
+      <created>1620961076367</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1620961076367</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,6 +150,7 @@
     <MESSAGE value="커밋 테스트 3입니다(callApi, getData 통합)" />
     <MESSAGE value="getBtImage 코드 축약" />
     <MESSAGE value="불필요 그림 제거" />
-    <option name="LAST_COMMIT_MESSAGE" value="불필요 그림 제거" />
+    <MESSAGE value="팝업창 추가, 인터넷 연결 오류 체크" />
+    <option name="LAST_COMMIT_MESSAGE" value="팝업창 추가, 인터넷 연결 오류 체크" />
   </component>
 </project>

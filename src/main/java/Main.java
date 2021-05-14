@@ -21,7 +21,7 @@ public class Main {
         new BusLineMap(9).BusLinePrint();
 
         BusGUI.mainMenu().start();
-        BusGUI.alertPopup("알림창", "알림창 테스트입니다. 알림창 테스트입니다.", Color.red, 15).start();
+        BusGUI.alertPopup("알림창", "알림창 테스트입니다. 알림창 테스트입니다.", Color.red, 20).start();
 
 
 

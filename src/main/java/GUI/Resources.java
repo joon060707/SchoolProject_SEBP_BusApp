@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class Resources {
 
@@ -55,10 +56,28 @@ public class Resources {
     static final String FONT_BOLD = "Bold";
     static final String FONT_NORMAL = "Normal";
 
+//    static Font nsq(String type, int size) {
+//        if (type.equals(FONT_BOLD))
+//            return new Font(FONT_NanumSqBold, Font.PLAIN, size);
+//        else return new Font(FONT_NanumSq, Font.PLAIN, size);
+//    }
+
     static Font nsq(String type, int size) {
+        Font nsq;
+
         if (type.equals(FONT_BOLD))
-            return new Font(FONT_NanumSqBold, Font.PLAIN, size);
-        else return new Font(FONT_NanumSq, Font.PLAIN, size);
+        try {
+            nsq=Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/NanumSquareB.ttf")).deriveFont((float) size);
+        } catch (Exception e){
+            nsq=new Font(FONT_NanumSqBold, Font.PLAIN, size);
+        }
+        else try {
+            nsq=Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/NanumSquareR.ttf")).deriveFont((float) size);
+        } catch (Exception e){
+            nsq=new Font(FONT_NanumSq, Font.PLAIN, size);
+        }
+
+        return nsq;
     }
 
 }

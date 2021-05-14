@@ -123,10 +123,10 @@ public class BusGUI extends JFrame {
     private static JPanel mainRight(){
 
         JPanel panel=new JPanel();
-        panel.setBackground(Color.gray);
+        panel.setBackground(Resources.COLOR_GRAY);
 
         JPanel road1=new JPanel();
-        road1.setBackground(Color.gray);
+        road1.setBackground(Resources.COLOR_GRAY);
         road1.setLayout(new GridLayout(6,1));
         road1.add(emptyLabel(80,130));
 
@@ -145,7 +145,7 @@ public class BusGUI extends JFrame {
 
         JPanel road3=new JPanel();
         road3.setLayout(new GridLayout(6,1));
-        road3.setBackground(Color.gray);
+        road3.setBackground(Resources.COLOR_GRAY);
 
         JButton redBt = new JButton("통계");
         redBt.setBackground(Resources.COLOR_RED_BUS);
@@ -191,16 +191,16 @@ public class BusGUI extends JFrame {
         window.mainContainer.setBackground(Color.white);
 
         JLabel msg=new JLabel(message);
-        msg.setFont(Resources.nsq(Resources.FONT_BOLD, 24));
+        msg.setFont(Resources.nsq(Resources.FONT_BOLD, fontSize));
         msg.setForeground(color);
         msg.setHorizontalAlignment(SwingConstants.CENTER);
-        msg.setBounds(0,0,400,100);
+        msg.setBounds(0,0,380,100);
 
         JButton button=new JButton("확인");
-        button.setFont(Resources.nsq(Resources.FONT_NORMAL, fontSize));
+        button.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
         button.setBackground(Color.yellow);
         button.setForeground(Color.black);
-        button.setBounds(100,100,180,60);
+        button.setBounds(90,100,190,60);
         button.addActionListener(e -> window.dispose());   // 창 닫기
 
         window.add(msg);
