@@ -192,7 +192,7 @@ public class BusGUI extends JFrame {
         if(type==TYPE_STOP){
             labelStr="정류장 검색";
             labelColor=Resources.COLOR_PURPLE;
-            src=Resources.testArray(2121);
+            src=Resources.testArray(5000);
         } else{
             labelStr="노선 검색";
             labelColor=Resources.COLOR_SKY;
