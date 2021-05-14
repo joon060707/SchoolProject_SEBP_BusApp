@@ -3,7 +3,6 @@ package Parse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.io.IOException;
-import java.text.ParseException;
 
 public class StopListSet {
     public StopList[] StopLists;
@@ -20,7 +19,7 @@ public class StopListSet {
         }
         public void StopListPrint(){
         for(int i =0;i<size;i++)
-        System.out.println("정류장번호: " +StopLists[i].curStopId +"현재 정류장 이름: "+StopLists[i].curStopName+"다음 정류장 이름: " +StopLists[i].nextStopName);
+        System.out.println("정류장번호: " +StopLists[i].getCurStopId() +"현재 정류장 이름: "+StopLists[i].getCurStopName()+"다음 정류장 이름: " +StopLists[i].getNextStopName());
         }
 
 //        public String getStop(int id){

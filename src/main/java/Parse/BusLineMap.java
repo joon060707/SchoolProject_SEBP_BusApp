@@ -46,7 +46,7 @@ public class BusLineMap {
     public void BusLinePrint(){
         System.out.println("정류장 개수: "+size);
         for(int i=0;i<size;i++)
-            System.out.println(" 정류장 번호: " +BusLines[i].StopId +" | 정류장 이름 : "+ BusLines[i].StopName+"  | 정류장 종류 : "+ flagData(BusLines[i].flag));
+            System.out.println(" 정류장 번호: " +BusLines[i].getStopId() +" | 정류장 이름 : "+ BusLines[i].getStopName()+"  | 정류장 종류 : "+ flagData(BusLines[i].getFlag()));
     }
 
     private String flagData(int index) {

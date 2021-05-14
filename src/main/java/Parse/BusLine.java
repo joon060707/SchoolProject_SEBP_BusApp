@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import org.json.simple.JSONObject;
 
 public class BusLine {
-    public String StopName;
-    public int StopId;
-    public int flag;
+    private String StopName;
+    private int StopId;
+    private int flag;
 
     public BusLine(JSONObject jsonObject){
         StopName = jsonObject.get("BUSSTOP_NAME").toString();
@@ -16,6 +16,9 @@ public class BusLine {
         flag = Integer.parseInt(jsonObject.get("RETURN_FLAG").toString());
     }
 
+    public int getFlag() { return flag; }
+    public String getStopName() { return StopName; }
+    public int getStopId() { return StopId; }
 
     //{"RESULT":{"RESULT_MSG":"정상적으로 처리되었습니다.","RESULT_CODE":"SUCCESS"},
     // "BUSSTOP_LIST":[{"BUSSTOP_NAME":"장등동",
