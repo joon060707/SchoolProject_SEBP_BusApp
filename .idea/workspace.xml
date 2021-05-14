@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="팝업창 추가, 인터넷 연결 오류 체크">
+    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="팝업창, 인터넷 연결 오류 예외, 글꼴">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Resources.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Resources.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +116,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620961076367</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="팝업창, 인터넷 연결 오류 예외, 글꼴">
+      <created>1620962107973</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1620962107973</updated>
+    </task>
+    <task id="LOCAL-00011" summary="팝업창, 인터넷 연결 오류 예외, 글꼴">
+      <created>1620962192059</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1620962192059</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,6 +165,7 @@
     <MESSAGE value="getBtImage 코드 축약" />
     <MESSAGE value="불필요 그림 제거" />
     <MESSAGE value="팝업창 추가, 인터넷 연결 오류 체크" />
-    <option name="LAST_COMMIT_MESSAGE" value="팝업창 추가, 인터넷 연결 오류 체크" />
+    <MESSAGE value="팝업창, 인터넷 연결 오류 예외, 글꼴" />
+    <option name="LAST_COMMIT_MESSAGE" value="팝업창, 인터넷 연결 오류 예외, 글꼴" />
   </component>
 </project>

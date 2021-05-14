@@ -3,8 +3,50 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class Resources {
+
+    // 테스트를 위한 배열
+    public static String[][] testArray(int size){
+        String[][] array=new String[2][size];
+        for(int i=0; i<size; i++){
+            array[0][i]=String.valueOf(i);
+            array[1][i]="Value"+String.format("%05d", i);
+        }
+        return array;
+    }
+
+
+    // 리스트 검색 결과 반환 메소드
+    public static String[][] search(String[][] list, String what){
+
+       ArrayList<String[]> found=new ArrayList<>();
+
+        for (int i=0; i<list[0].length; i++){
+            if(list[1][i].contains(what)) found.add(new String[]{list[0][i], list[1][i]});
+        }
+        String[][] find=new String[2][found.size()];
+        for (int i=0; i<found.size(); i++){
+            find[0][i]=found.get(i)[0];
+            find[1][i]=found.get(i)[1];
+        }
+        return find;
+    }
+
+    public static int[] searchindex(String[][] list, String what){
+        ArrayList<Integer> found=new ArrayList<>();
+
+        for (int i=0; i<list[0].length; i++){
+            if(list[1][i].contains(what)) found.add(Integer.parseInt(list[0][i]));
+        }
+        int[] find=new int[found.size()];
+        for (int i=0; i<found.size(); i++){
+            find[i] = found.get(i);
+        }
+        return find;
+    }
+
 
     // Image
     static final String IMG_BUS1 = "bus1.png";
@@ -43,7 +85,7 @@ public class Resources {
     static final Color COLOR_PINK = new Color(238,150,200);
 
     static final Color COLOR_RED_BUS = new Color(255, 84, 84);
-    static final Color COLOR_YELLOW_BUS = new Color(255, 189, 14);
+    static final Color COLOR_YELLOW_BUS = new Color(255, 153, 0);
     static final Color COLOR_GREEN_BUS = new Color(102, 192, 0);
     static final Color COLOR_TOWN_BUS = new Color(164, 255, 61);
     static final Color COLOR_AIR_BUS = new Color(158, 82, 255);

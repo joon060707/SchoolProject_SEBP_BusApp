@@ -3,8 +3,10 @@ package GUI;
 import Parse.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class BusGUI extends JFrame {
 
@@ -14,7 +16,7 @@ public class BusGUI extends JFrame {
         setTitle(title);
         setSize(width, height);
         setIconImage(Resources.getWindowIco(ico));
-        setBackground(Color.white);
+        mainContainer.setBackground(Color.white);
     }
 
     BusGUI(int width, int height, String title, String ico, int startX, int startY){
@@ -32,8 +34,7 @@ public class BusGUI extends JFrame {
     //////////////////////////////////////////////// Main Screen ///////////////////////////////////////////////////
 
     public static BusGUI mainMenu(){
-        BusGUI window=new BusGUI(1280, 720, "Bus Information System", Resources.IMG_BUS1, 200, 300);
-        window.mainContainer.setBackground(Color.white);
+        BusGUI window=new BusGUI(1280, 720, "Bus Information System", Resources.IMG_BUS1, 320, 180);
         window.mainContainer.setLayout(new BorderLayout(0,0));
 
         window.add(mainCenter(), BorderLayout.CENTER);
@@ -59,6 +60,7 @@ public class BusGUI extends JFrame {
         stopBt.setBackground(Resources.COLOR_PURPLE);
         stopBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
         stopBt.setForeground(Color.white);
+        stopBt.addActionListener(e -> BusGUI.stopSelection().start());
         panel.add(stopBt);
 
         JButton lineBt=new JButton(" 노선", Resources.getBtImage(Resources.IMG_BUS1, 120));
@@ -66,6 +68,7 @@ public class BusGUI extends JFrame {
         lineBt.setBackground(Resources.COLOR_SKY);
         lineBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
         lineBt.setForeground(Color.white);
+        lineBt.addActionListener(e -> BusGUI.lineSelection().start());
         panel.add(lineBt);
 
         for (int i=0; i<5; i++) panel.add(new JLabel());
@@ -171,12 +174,104 @@ public class BusGUI extends JFrame {
 
     //////////////////////////////////////// Stop Selection Screen ////////////////////////////////////////////////
 
+    private static BusGUI stopSelection(){
+        BusGUI window=new BusGUI(640, 720, "정류장 검색", Resources.IMG_BUS1, 320, 180);
+        window.setMinimumSize(new Dimension(320, 360));
+        window.setIconImage(Resources.getWindowIco(Resources.IMG_STOP1));
+        return insetWindow(window, SelectionInner(TYPE_STOP), 1, 10, 10, 10);
+    }
+
+    final static int TYPE_STOP=0;
+    final static int TYPE_LINE=1;
+
+    private static JPanel SelectionInner(int type){
+
+        String labelStr;
+        Color labelColor;
+        String[][] src;
+
+        if(type==TYPE_STOP){
+            labelStr="정류장 검색";
+            labelColor=Resources.COLOR_PURPLE;
+            src=Resources.testArray(567);
+        } else{
+            labelStr="노선 검색";
+            labelColor=Resources.COLOR_SKY;
+            src=Resources.testArray(321);
+        }
+
+        JPanel panel=new JPanel();
+        panel.setBackground(Color.white);
+        panel.setLayout(new BorderLayout(0, 10));
+
+        JPanel labelBgWrap=new JPanel();
+        labelBgWrap.setLayout(new BorderLayout());
+        labelBgWrap.setBackground(Color.white);
+        JPanel labelBg=new JPanel();
+        labelBg.setLayout(new FlowLayout(FlowLayout.LEFT));
+        labelBg.setBackground(labelColor);
+        JLabel label=new JLabel(labelStr);
+        label.setFont(Resources.nsq(Resources.FONT_NORMAL, 30));
+        label.setForeground(Color.white);
+
+        labelBg.add(label);
+        labelBgWrap.add(labelBg, BorderLayout.WEST);
+        panel.add(labelBgWrap, BorderLayout.NORTH);
+        panel.add(search(src), BorderLayout.CENTER);
+        return panel;
+    }
+
+    private static JPanel search(String[][] data){
+
+        JPanel center=new JPanel();
+        center.setBackground(Color.white);
+        center.setLayout(new BorderLayout(0, 10));
+
+        JList<String> list=new JList<>(data[1]);
+        list.setFixedCellHeight(40);
+        list.setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
+        list.setForeground(Resources.COLOR_PURPLE);
+        list.setCellRenderer(new Render(data[0]));          // 아래 Render 클래스 참고...
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                for(int i: Resources.searchindex(data, list.getSelectedValue()))
+                alertPopup("선택됨", "선택된 숫자: "+i, Color.BLACK, 20).start();
+            }
+        });
+        JScrollPane scrollList=new JScrollPane(list);
+
+        JTextField textField=new JTextField();
+        textField.setFont(Resources.nsq(Resources.FONT_BOLD, 30));
+        textField.setForeground(Color.gray);
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String[][] find=Resources.search(data, textField.getText());
+                for(String s: find[0])System.out.print(s+" ");
+                list.setCellRenderer(new Render(find[0]));      // 이게 먼저 와야 함.
+                list.setListData(find[1]);
+
+            }});
+
+        center.add(textField, BorderLayout.NORTH);
+        center.add(scrollList, BorderLayout.CENTER);
+
+        return center;
+    }
+
+
 
     ///////////////////////////////////////// Stop Notify Screen /////////////////////////////////////////////////
 
 
     //////////////////////////////////////// Line Selection Screen ////////////////////////////////////////////////
 
+    private static BusGUI lineSelection(){
+        BusGUI window=new BusGUI(640, 720, "노선 검색", Resources.IMG_BUS1, 960, 180);
+        window.setMinimumSize(new Dimension(320, 360));
+        return insetWindow(window, SelectionInner(TYPE_LINE), 1, 10, 10, 10);
+    }
 
     /////////////////////////////////////// Line Information Screen ////////////////////////////////////////////////
 
@@ -205,6 +300,70 @@ public class BusGUI extends JFrame {
 
         window.add(msg);
         window.add(button);
+        return window;
+    }
+
+    //END
+
+    ///////////////////////////////////////////// Tools //////////////////////////////////////////////////////
+
+
+    // Jlist 아이템별 내부 색상을 다르게 하려면 이렇게...
+    // 출처: https://www.codejava.net/java-se/swing/jlist-custom-renderer-example
+    // Android에서 RecyclerView와 비슷한 역할을 함
+    static class Render extends JLabel implements ListCellRenderer<String>{
+
+        String[] indexList;
+        Render(String[] indexList){
+            this.indexList=indexList;
+            setHorizontalAlignment(LEFT);
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) {
+
+            setText(value);
+            setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
+            setForeground(Resources.COLOR_PURPLE);
+
+            switch (Integer.parseInt(indexList[index])%10){
+                case 0: setForeground(Resources.COLOR_YELLOW_BUS);
+                    break;
+                case 1: setForeground(Resources.COLOR_GREEN_BUS);
+                    break;
+                case 2: setForeground(Resources.COLOR_RED_BUS);
+                    break;
+                default: break;
+            }
+            if(isSelected)
+                setBackground(Resources.COLOR_GRAY);
+            else setBackground(list.getBackground());
+            return this;
+        }
+    }
+
+
+    private static JPanel insetPanel(int top, int bottom, int left, int right){
+        JPanel panel=new JPanel();
+        panel.setLayout(new BorderLayout(30,30));
+
+        panel.add(emptyPanel(left, 1, Color.white), BorderLayout.WEST);
+        panel.add(emptyPanel(right, 1, Color.white), BorderLayout.EAST);
+        panel.add(emptyPanel(1, top, Color.white), BorderLayout.NORTH);
+        panel.add(emptyPanel(1, bottom, Color.white), BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    private static BusGUI insetWindow(BusGUI window, JPanel center, int top, int bottom, int left, int right){
+
+        window.add(emptyPanel(left, 1, Color.white), BorderLayout.WEST);
+        window.add(emptyPanel(right, 1, Color.white), BorderLayout.EAST);
+        window.add(emptyPanel(1, top, Color.white), BorderLayout.NORTH);
+        window.add(emptyPanel(1, bottom, Color.white), BorderLayout.SOUTH);
+        window.add(center, BorderLayout.CENTER);
+
         return window;
     }
 
