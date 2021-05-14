@@ -15,8 +15,7 @@ public class Resources {
     // Icon
     // 정상 비율 아이콘: 버튼, 라벨
     public static ImageIcon getBtImage(String imgName, int width) {
-        String defDir = "src/main/resources/";    //src/main/resources 하위 폴더
-        ImageIcon ico = new ImageIcon(defDir + imgName);
+        ImageIcon ico = new ImageIcon("src/main/resources/" + imgName); //src/main/resources 하위 폴더
         Image image = ico.getImage().getScaledInstance(width, -1, Image.SCALE_SMOOTH);  // 두 값 중 하나가 음수면 원본 비율 유지
         ico.setImage(image);
         return ico;
@@ -24,8 +23,7 @@ public class Resources {
 
     // 자유 비율 아이콘: 버튼, 라벨
     public static ImageIcon getBtImage(String imgName, int width, int height) {
-        String defDir = "src/main/resources/";    //src/main/resources 하위 폴더
-        ImageIcon ico = new ImageIcon(defDir + imgName);
+        ImageIcon ico = new ImageIcon("src/main/resources/" + imgName); //src/main/resources 하위 폴더
         Image image = ico.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);  // 두 값 중 하나가 음수면 원본 비율 유지
         ico.setImage(image);
         return ico;
