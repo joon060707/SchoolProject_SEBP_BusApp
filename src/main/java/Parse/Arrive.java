@@ -8,11 +8,10 @@ import java.io.IOException;
 
 public class Arrive {
 
-    public ArriveLine[] arriveLines;
-    public int size;
-    public String stopName;     //
-    public String stopTo;       //
-
+    private final ArriveLine[] arriveLines;
+    private final int size;
+    private String stopName;     // from Stoplist
+    private String stopTo;       // from Stoplist
 
     public Arrive(int id) throws IOException, ParseException {
         JSONObject jsonObject = new GetApiData("ARRIVE", id).getData();
@@ -29,13 +28,16 @@ public class Arrive {
     *
     * */
 
-
     public void print(){
+
         System.out.println(stopName+" 도착 정보");
         System.out.println("노선\t현재 위치\t\t남은 시간\t남은 정거장");
         for (ArriveLine l : arriveLines)
-            System.out.println(l.lineName+"\t"+l.curStopName+"\t"+l.remainMin+"\t\t"+l.remainStop);
+            System.out.println(l.getLineName()+"\t"+l.getCurStopName()+"\t"+l.getRemainMin()+"\t\t"+l.getRemainStop());
     }
+
+    public ArriveLine[] getLines() { return arriveLines; }
+    public int getSize() { return size; }
 
 }
 

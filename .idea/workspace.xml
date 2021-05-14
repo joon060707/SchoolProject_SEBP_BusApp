@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="sync">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/StopListSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/StopListSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/GetApiData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/GetApiData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/Arrive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/Arrive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/ArriveLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/ArriveLine.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +58,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620950070425</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="sync">
+      <created>1620950370678</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1620950370678</updated>
+    </task>
+    <task id="LOCAL-00003" summary="sync">
+      <created>1620950396116</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1620950396116</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

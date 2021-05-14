@@ -4,12 +4,12 @@ import org.json.simple.JSONObject;
 
 public class ArriveLine {
 
-    public int lineId;
-    public String lineName;
-    public int curStopId;
-    public String curStopName;
-    public int remainMin;
-    public int remainStop;
+    private final int lineId;
+    private final String lineName;
+    private final int curStopId;
+    private final String curStopName;
+    private final int remainMin;
+    private final int remainStop;
 
     public ArriveLine(JSONObject jsonObject) {
         lineId = Integer.parseInt(jsonObject.get("LINE_ID").toString());
@@ -20,6 +20,12 @@ public class ArriveLine {
         remainStop = Integer.parseInt(jsonObject.get("REMAIN_STOP").toString());
     }
 
+    public int getLineId() { return lineId; }
+    public String getLineName() { return lineName; }
+    public int getCurStopId() { return curStopId; }
+    public String getCurStopName() { return curStopName; }
+    public int getRemainMin() { return remainMin; }
+    public int getRemainStop() { return remainStop; }
 }
 
 /*
