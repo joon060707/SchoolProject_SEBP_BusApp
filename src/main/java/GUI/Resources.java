@@ -87,8 +87,8 @@ public class Resources {
 
     static final Color COLOR_RED_BUS = new Color(255, 84, 84);
     static final Color COLOR_YELLOW_BUS = new Color(255, 153, 0);
-    static final Color COLOR_GREEN_BUS = new Color(102, 192, 0);
-    static final Color COLOR_TOWN_BUS = new Color(164, 255, 61);
+    static final Color COLOR_TOWN_BUS = new Color(102, 192, 0);
+    static final Color COLOR_GREEN_BUS = new Color(60, 113, 0);
     static final Color COLOR_AIR_BUS = new Color(158, 82, 255);
 
 

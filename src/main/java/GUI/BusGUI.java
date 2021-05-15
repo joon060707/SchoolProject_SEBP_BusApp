@@ -219,11 +219,11 @@ public class BusGUI extends JFrame {
         labelBg.add(label);
         labelBgWrap.add(labelBg, BorderLayout.WEST);
         panel.add(labelBgWrap, BorderLayout.NORTH);
-        panel.add(search(src), BorderLayout.CENTER);
+        panel.add(search(src, type), BorderLayout.CENTER);
         return panel;
     }
 
-    private static JPanel search(String[][] data){
+    private static JPanel search(String[][] data, int type){
 
         JPanel center=new JPanel();
         center.setBackground(Color.white);
@@ -232,8 +232,8 @@ public class BusGUI extends JFrame {
         JList<String> list=new JList<>(data[1]);
         list.setFixedCellHeight(40);
         list.setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
-        list.setForeground(Resources.COLOR_PURPLE);
-        list.setCellRenderer(new Render(data[0]));          // 아래 Render 클래스 참고...
+        list.setForeground(Color.black);
+        if(type==TYPE_LINE) list.setCellRenderer(new Render(data[0]));          // 아래 Render 클래스 참고...
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -258,7 +258,7 @@ public class BusGUI extends JFrame {
             public void keyReleased(KeyEvent e) {
                 String[][] find=Resources.search(data, textField.getText());
 //                for(String s: find[0])System.out.print(s+" ");
-                list.setCellRenderer(new Render(find[0]));      // 이게 먼저 와야 함. 왜 그럴까?
+                if(type==TYPE_LINE) list.setCellRenderer(new Render(find[0]));      // 이게 먼저 와야 함. 왜 그럴까?
                 list.setListData(find[1]);
             }});
 
@@ -481,7 +481,7 @@ public class BusGUI extends JFrame {
 
             setText(value);
             setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
-            setForeground(Resources.COLOR_PURPLE);
+            setForeground(Color.black);
 
             switch (Integer.parseInt(indexList[index])%10){
                 case 0: setForeground(Resources.COLOR_YELLOW_BUS);
@@ -489,6 +489,10 @@ public class BusGUI extends JFrame {
                 case 1: setForeground(Resources.COLOR_GREEN_BUS);
                     break;
                 case 2: setForeground(Resources.COLOR_RED_BUS);
+                    break;
+                case 3: setForeground(Resources.COLOR_TOWN_BUS);
+                    break;
+                case 4: setForeground(Resources.COLOR_AIR_BUS);
                     break;
                 default: break;
             }
