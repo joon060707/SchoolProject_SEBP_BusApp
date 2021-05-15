@@ -3,6 +3,7 @@ package GUI;
 import Parse.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -311,7 +312,7 @@ public class BusGUI extends JFrame {
         stop.add(stopTo, BorderLayout.CENTER);
 
         panel.add(stop, BorderLayout.NORTH);
-        arrive.print();
+//        arrive.print();
 
         JScrollPane arriveInfo = new JScrollPane(arriveInfo(arrive));
         arriveInfo.setBorder(null);
@@ -384,8 +385,10 @@ public class BusGUI extends JFrame {
                 lab.setHorizontalAlignment(SwingConstants.CENTER);
             }
 
-            for(JComponent c:new JComponent[]{lineBt, stopBt, time, stop})
-                c.setBorder(new EmptyBorder(25,0,25,0));
+            for(JButton c:new JButton[]{lineBt, stopBt})
+                c.setMargin(new Insets(25,0,25,0));                 // 선을 넣고 여백을 주려면 이것
+            for(JComponent c:new JComponent[]{time, stop})
+                c.setBorder(new EmptyBorder(25,0,25,0));            // 선을 빼고 여백을 주려면 이것
 
             if(l.getRemainStop()<2)
                 for(Component c:new Component[]{lineBt, stopBt, time, stop, times}) {
