@@ -277,7 +277,7 @@ public class BusGUI extends JFrame {
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
         }
 
-        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 80, 80);
+        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 40, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, stopArriveInner(arrive), 20, 20, 20, 20);
 
@@ -438,7 +438,7 @@ public class BusGUI extends JFrame {
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
         }
 
-        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_STOP1, 1040, 80);
+        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_STOP1, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, lineInfoInner(busLineMap, busLocation), 20, 20, 20, 20);
     }
