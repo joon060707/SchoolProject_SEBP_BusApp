@@ -49,7 +49,7 @@ public class BusLineMap {
             System.out.println(" 정류장 번호: " +BusLines[i].getStopId() +" | 정류장 이름 : "+ BusLines[i].getStopName()+"  | 정류장 종류 : "+ flagData(BusLines[i].getFlag()));
     }
 
-    private String flagData(int index) {
+    public String flagData(int index) {     // 플래그 데이터는 BusLine 안에 들어가는 게 맞아 보여요!
             if (index == 1)
                 return "일반";
             else if (index == 2)
@@ -59,8 +59,8 @@ public class BusLineMap {
             else
                 return "[종점]";
     }
-    public String getLineName(){
-        return lineName;
-    }
+    public String getLineName(){ return lineName; }
+    public BusLine[] getBusLines() { return BusLines; }
+    public int getLineId() { return lineId; }
 
 }

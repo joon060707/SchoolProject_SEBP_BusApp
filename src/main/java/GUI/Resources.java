@@ -35,7 +35,7 @@ public class Resources {
     }
 
     // 리스트에서 해당 문자열의 번호를 반환
-    public static int[] searchindex(String[][] list, String what){
+    public static int[] searchIndex(String[][] list, String what){
         ArrayList<Integer> found=new ArrayList<>();
 
         for (int i=0; i<list[0].length; i++){

@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="노선 검색, 정보 화면 구성">
+    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="정류장, 버스 구분">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusLineMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLineMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Resources.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Resources.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLineMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/BusLineMap.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +153,28 @@
       <option name="project" value="LOCAL" />
       <updated>1620981015272</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="setBorder 수정">
+      <created>1620982926892</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1620982926892</updated>
+    </task>
+    <task id="LOCAL-00016" summary="setBorder 수정 2">
+      <created>1621041614923</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1621041614923</updated>
+    </task>
+    <task id="LOCAL-00017" summary="정류장, 버스 구분">
+      <created>1621042668804</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1621042668804</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -164,7 +188,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="HEAD" />
                       </list>
                     </value>
                   </entry>
@@ -189,6 +213,9 @@
     <MESSAGE value="노선, 정류장 검색 화면" />
     <MESSAGE value="도착 정보 화면" />
     <MESSAGE value="노선 검색, 정보 화면 구성" />
-    <option name="LAST_COMMIT_MESSAGE" value="노선 검색, 정보 화면 구성" />
+    <MESSAGE value="setBorder 수정" />
+    <MESSAGE value="setBorder 수정 2" />
+    <MESSAGE value="정류장, 버스 구분" />
+    <option name="LAST_COMMIT_MESSAGE" value="정류장, 버스 구분" />
   </component>
 </project>

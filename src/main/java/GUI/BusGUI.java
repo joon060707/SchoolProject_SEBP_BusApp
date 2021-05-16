@@ -2,13 +2,10 @@ package GUI;
 
 import Parse.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class BusGUI extends JFrame {
 
@@ -199,7 +196,7 @@ public class BusGUI extends JFrame {
         } else{
             labelStr="노선 검색";
             labelColor=Resources.COLOR_SKY;
-            src=Resources.testArray(321);
+            src=Resources.testArray(150);
         }
 
         JPanel panel=new JPanel();
@@ -237,15 +234,15 @@ public class BusGUI extends JFrame {
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                int[] found = Resources.searchindex(data, list.getSelectedValue());
-                if(found.length>1) {
-                    String lst="";
-                    for(int i: found) lst=lst.concat(i+" ");
+                int[] found = Resources.searchIndex(data, list.getSelectedValue());
+                if(type==TYPE_STOP)
+                    if(found.length>1) {
+                        String lst="";
+                        for(int i: found) lst=lst.concat(i+" ");
                     // 보통 다음 정류장이 없는 경우 발생. 창 2개 다 띄울 것인가?
                     alertPopup("여러 항목이 검색되었습니다", "선택된 숫자: "+lst, Color.BLACK, 20).start();
-                }
-//                else alertPopup("선택됨", "선택된 숫자: "+found[0], Color.BLACK, 20).start();
-                else stopArrive(found[0]).start();
+                    } else stopArrive(found[0]).start();
+                else lineInfo(found[0]).start();
             }
         });
         JScrollPane scrollList=new JScrollPane(list);
@@ -283,7 +280,7 @@ public class BusGUI extends JFrame {
 
         BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 360, 80);
         window.setMinimumSize(new Dimension(320, 360));
-        return insetWindow(window, stopArriveInner(arrive), 20, 20, 10, 20);
+        return insetWindow(window, stopArriveInner(arrive), 20, 20, 20, 20);
 
     }
 
@@ -398,7 +395,7 @@ public class BusGUI extends JFrame {
                 }
             else {
                 for(Component c:new Component[]{lineBt, stopBt, time, stop}) c.setBackground(Color.white);
-                lineBt.setBackground(busColor(1));
+                lineBt.setBackground(busColor(l.getLineId()));
             }
 
             times.add(time);
@@ -415,7 +412,7 @@ public class BusGUI extends JFrame {
 
     private static Color busColor(int id){
         // BusList의 kind를 불러와서 해당하는 색상 반환
-//        switch(BusList.getBusList().get(id).getkind())
+//        switch(BusList.getBusList().get(id).getKind())
         return Resources.COLOR_YELLOW_BUS;
     }
 
@@ -430,7 +427,137 @@ public class BusGUI extends JFrame {
 
     /////////////////////////////////////// Line Information Screen ////////////////////////////////////////////////
 
+    private static BusGUI lineInfo(int id) {
+        BusLocation busLocation;
+        BusLineMap busLineMap;
+        try {
+            busLineMap = new BusLineMap(id);
+            busLocation = new BusLocation(id);
+        } catch (Exception var4) {
+            return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
+        }
 
+        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), "stop1.png", 1000, 80);
+        window.setMinimumSize(new Dimension(320, 360));
+        return insetWindow(window, lineInfoInner(busLineMap, busLocation), 20, 20, 20, 20);
+    }
+
+    private static JPanel lineInfoInner(BusLineMap busLineMap, BusLocation busLocation) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JPanel lineDesc = new JPanel();
+        lineDesc.setLayout(new BorderLayout());
+        lineDesc.setBackground(Color.white);
+
+        JLabel lineName = new JLabel(busLineMap.getLineName());
+        lineName.setForeground(busColor(busLineMap.getLineId()));
+        lineName.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
+        lineName.setHorizontalAlignment(SwingConstants.CENTER);
+        lineName.setVerticalAlignment(SwingConstants.CENTER);
+        lineName.setBorder(new EmptyBorder(10, 0, 30, 0));
+
+        JPanel lineInfo = new JPanel();
+        lineInfo.setLayout(new GridLayout(2, 2));
+        lineInfo.setBackground(Color.white);
+
+        String[] lineInfoRes = {"기점: "+busLineMap.getBusLines()[0].getStopName(), "종점: 종점", "첫차: 00:00", "막차: 23:59"};
+        for(int i = 0; i < 4; i++) {
+            JLabel lineInfos = new JLabel(lineInfoRes[i]);
+            lineInfos.setForeground(Resources.COLOR_GRAY);
+            lineInfos.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
+            lineInfos.setHorizontalAlignment(SwingConstants.CENTER);
+            lineInfos.setVerticalAlignment(SwingConstants.CENTER);
+            lineInfos.setBorder(new EmptyBorder(10, 20, 10, 20));
+            lineInfo.add(lineInfos);
+        }
+
+        lineDesc.add(lineName, BorderLayout.NORTH);
+        lineDesc.add(lineInfo, BorderLayout.CENTER);
+        panel.add(lineDesc, BorderLayout.NORTH);
+
+        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocation));
+        lineStopList.setBorder(null);
+        panel.add(lineStopList, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private static JPanel lineStopList(BusLineMap busLineMap, BusLocation busLocation) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JPanel legend1 = new JPanel();
+        legend1.setLayout(new GridLayout(1, 2));
+        legend1.setBackground(Resources.COLOR_SKY);
+
+        String[] legendStr = new String[]{"정류장 이름", "버스", "저상", "비고"};
+        JLabel[] legendLab = new JLabel[4];
+        for(int i = 0; i < 4; i++) {
+            legendLab[i] = new JLabel(legendStr[i]);
+            legendLab[i].setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
+            legendLab[i].setForeground(Color.white);
+            legendLab[i].setHorizontalAlignment(0);
+            legendLab[i].setBorder(new EmptyBorder(30, 0, 30, 0));
+        }
+
+        JPanel legend2 = new JPanel();
+        legend2.setLayout(new GridLayout(1, 3));
+        legend2.setBackground(Resources.COLOR_SKY);
+
+        legend1.add(legendLab[0]);
+        for(int i = 1; i < 4; i++) legend2.add(legendLab[i]);
+        legend1.add(legend2);
+
+        panel.add(legend1, BorderLayout.NORTH);
+        panel.add(lineStopListInner(busLineMap, busLocation), BorderLayout.CENTER);
+        return panel;
+    }
+
+    private static JPanel lineStopListInner(BusLineMap busLineMap, BusLocation busLocation) {
+
+        BusLine[] busLines = busLineMap.getBusLines();
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(busLines.length, 1));
+        panel.setBackground(Color.white);
+
+        for(BusLine l : busLines) {
+            JPanel stopPanel = new JPanel();
+            stopPanel.setLayout(new GridLayout(1, 2));
+
+            JButton stopBt = new JButton(l.getStopName());
+            stopBt.setFont(Resources.nsq(Resources.FONT_BOLD, 25));
+            stopBt.setBackground(Color.white);
+            stopBt.setForeground(Resources.COLOR_PURPLE);
+            stopBt.addActionListener((e) -> stopArrive(l.getStopId()).start());
+
+            JPanel stopPanel2 = new JPanel();
+            stopPanel2.setLayout(new GridLayout(1, 3));
+            stopPanel2.setBackground(Color.white);
+            String[] str = new String[]{"차량 번호", "예", busLineMap.flagData(l.getFlag())};
+            JLabel[] labels = new JLabel[3];
+
+            for(int i = 0; i < 3; i++) {
+                labels[i] = new JLabel(str[i]);
+                labels[i].setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
+                labels[i].setHorizontalAlignment(0);
+                labels[i].setBorder(new EmptyBorder(30, 0, 30, 0));
+                stopPanel2.add(labels[i]);
+            }
+
+            if (!labels[2].getText().equals("일반")) {
+                labels[2].setFont(Resources.nsq(Resources.FONT_BOLD, 25));
+                labels[2].setForeground(Color.red);
+            }
+
+            stopPanel.add(stopBt);
+            stopPanel.add(stopPanel2);
+            panel.add(stopPanel);
+        }
+
+        return panel;
+    }
 
     ///////////////////////////////////////////// Etc Screen //////////////////////////////////////////////////////
 
