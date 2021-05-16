@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="정류장, 버스 구분">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="노선 정보 화면 일부 구성">
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusLineMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLineMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Resources.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Resources.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLineMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/BusLineMap.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621042668804</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="노선 정보 화면 일부 구성">
+      <created>1621148830769</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1621148830769</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,6 +218,7 @@
     <MESSAGE value="setBorder 수정" />
     <MESSAGE value="setBorder 수정 2" />
     <MESSAGE value="정류장, 버스 구분" />
-    <option name="LAST_COMMIT_MESSAGE" value="정류장, 버스 구분" />
+    <MESSAGE value="노선 정보 화면 일부 구성" />
+    <option name="LAST_COMMIT_MESSAGE" value="노선 정보 화면 일부 구성" />
   </component>
 </project>

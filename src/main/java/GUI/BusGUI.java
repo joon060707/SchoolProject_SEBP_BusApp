@@ -2,7 +2,6 @@ package GUI;
 
 import Parse.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -278,7 +277,7 @@ public class BusGUI extends JFrame {
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
         }
 
-        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 360, 80);
+        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 80, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, stopArriveInner(arrive), 20, 20, 20, 20);
 
@@ -371,6 +370,8 @@ public class BusGUI extends JFrame {
             stopBt.setFont(Resources.nsq(Resources.FONT_BOLD, 20));
             lineBt.setForeground(Color.white);
 
+            lineBt.addActionListener(e -> lineInfo(l.getLineId()).start());
+            stopBt.addActionListener(e -> stopArrive(l.getCurStopId()).start());
 
             JPanel times=new JPanel();
             times.setLayout(new GridLayout(1, 2));
@@ -433,11 +434,11 @@ public class BusGUI extends JFrame {
         try {
             busLineMap = new BusLineMap(id);
             busLocation = new BusLocation(id);
-        } catch (Exception var4) {
+        } catch (Exception e) {
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
         }
 
-        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), "stop1.png", 1000, 80);
+        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_STOP1, 1040, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, lineInfoInner(busLineMap, busLocation), 20, 20, 20, 20);
     }
