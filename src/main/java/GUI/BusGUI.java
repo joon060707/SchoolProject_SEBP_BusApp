@@ -33,7 +33,7 @@ public class BusGUI extends JFrame {
     //////////////////////////////////////////////// Main Screen ///////////////////////////////////////////////////
 
     public static BusGUI mainMenu(){
-        BusGUI window=new BusGUI(1280, 720, "Bus Information System", Resources.IMG_BUS1, 320, 180);
+        BusGUI window=new BusGUI(1280, 720, "Bus Information System", Resources.IMG_BUS_ORANGE, 320, 180);
         window.mainContainer.setLayout(new BorderLayout(0,0));
 
         window.add(mainCenter(), BorderLayout.CENTER);
@@ -62,7 +62,7 @@ public class BusGUI extends JFrame {
         stopBt.addActionListener(e -> BusGUI.stopSelection().start());
         panel.add(stopBt);
 
-        JButton lineBt=new JButton(" 노선", Resources.getBtImage(Resources.IMG_BUS1, 120));
+        JButton lineBt=new JButton(" 노선", Resources.getBtImage(Resources.IMG_BUS_ORANGE, 120));
         lineBt.setMargin(new Insets(0,0,0,0));
         lineBt.setBackground(Resources.COLOR_SKY);
         lineBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
@@ -80,7 +80,8 @@ public class BusGUI extends JFrame {
         panel.setLayout(new BorderLayout(0,0));
         panel.setBackground(Resources.COLOR_BLUE_DARK);
 
-        JLabel title=new JLabel("Gwangju City Bus Information System   ");
+        JLabel title=new JLabel("Gwangju City Bus Information System");
+        title.setBorder(new EmptyBorder(30, 0, 30, 40));
         title.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
         title.setForeground(Color.white);
         panel.add(title, BorderLayout.EAST);
@@ -90,7 +91,7 @@ public class BusGUI extends JFrame {
         titleImg.setBackground(Resources.COLOR_BLUE_DARK);
 
         titleImg.add(emptyLabel(40, 10));
-        JLabel busImg=new JLabel(Resources.getBtImage(Resources.IMG_BUS2, -1, 80));
+        JLabel busImg=new JLabel(Resources.getBtImage(Resources.IMG_BUS_ORANGE2, -1, 80));
         titleImg.add(busImg);
         titleImg.add(emptyLabel(30, 10));
         JLabel stopImg=new JLabel(Resources.getBtImage(Resources.IMG_STOP2, -1, 100));
@@ -133,6 +134,7 @@ public class BusGUI extends JFrame {
         road1.add(emptyLabel(80,130));
 
         JButton yellowBt = new JButton("도움말");
+        yellowBt.setMargin(new Insets(50, 10, 50, 10));
         yellowBt.setBackground(Resources.COLOR_YELLOW_BUS);
         yellowBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
         yellowBt.setForeground(Color.white);
@@ -142,7 +144,7 @@ public class BusGUI extends JFrame {
 
         JPanel road2=new JPanel();
         road2.setBackground(Color.yellow);
-        road2.add(emptyLabel(10, 900));
+        road2.setBorder(new EmptyBorder(450,5,450,5));
 
 
         JPanel road3=new JPanel();
@@ -150,6 +152,7 @@ public class BusGUI extends JFrame {
         road3.setBackground(Resources.COLOR_GRAY);
 
         JButton redBt = new JButton("통계");
+        redBt.setMargin(new Insets(50, 20, 50, 20));
         redBt.setBackground(Resources.COLOR_RED_BUS);
         redBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
         redBt.setForeground(Color.white);
@@ -195,7 +198,7 @@ public class BusGUI extends JFrame {
         } else{
             labelStr="노선 검색";
             labelColor=Resources.COLOR_SKY;
-            src=Resources.testArray(1000);
+            src=Resources.testArray(222);
         }
 
         JPanel panel=new JPanel();
@@ -286,7 +289,7 @@ public class BusGUI extends JFrame {
 
     private static JPanel stopArriveInner(Arrive arrive){
         JPanel panel=new JPanel();
-        panel.setLayout(new BorderLayout(0, 40));
+        panel.setLayout(new BorderLayout(0, 0));
         panel.setBackground(Color.white);
 
         JPanel stop=new JPanel();
@@ -305,30 +308,12 @@ public class BusGUI extends JFrame {
         stopTo.setHorizontalAlignment(SwingConstants.CENTER);
         stopTo.setVerticalAlignment(SwingConstants.CENTER);
 
-        stop.add(stopName, BorderLayout.NORTH);
-        stop.add(stopTo, BorderLayout.CENTER);
 
-        panel.add(stop, BorderLayout.NORTH);
-//        arrive.print();
-
-        JScrollPane arriveInfo = new JScrollPane(arriveInfo(arrive));
-        arriveInfo.setBorder(null);
-
-        panel.add(arriveInfo, BorderLayout.CENTER);
-
-        return panel;
-    }
-
-    private static JPanel arriveInfo(Arrive arrive){
-
-        JPanel panel=new JPanel();
-        panel.setLayout(new BorderLayout(0,0));
-        panel.setBackground(Color.white);
-
+        // legend
         JPanel legend=new JPanel();
         legend.setLayout(new GridLayout(1, 3));
         legend.setBackground(Resources.COLOR_PURPLE);
-//        legend.setBorder(new EmptyBorder(30,0,30,0));
+        if(arrive.getLines().length>=7) legend.setBorder(new EmptyBorder(0,0,0,20));
 
         JLabel[] legendLab=new JLabel[4];
         String[] legendStr={"노선", "현 위치", "시간", "정류장 수"};
@@ -347,14 +332,22 @@ public class BusGUI extends JFrame {
         for(int i=2; i<4; i++) legendTime.add(legendLab[i]);
         legend.add(legendTime);
 
-//        panel.add(legend);
-        panel.add(borderPanel(legend), BorderLayout.NORTH);
-        panel.add(arriveInfoInner(arrive), BorderLayout.CENTER);
+        stop.add(stopName, BorderLayout.NORTH);
+        stop.add(stopTo, BorderLayout.CENTER);
+        stop.add(legend, BorderLayout.SOUTH);
+
+
+        panel.add(stop, BorderLayout.NORTH);
+
+        JScrollPane arriveInfo = new JScrollPane(arriveInfo(arrive));
+        arriveInfo.setBorder(null);
+
+        panel.add(arriveInfo, BorderLayout.CENTER);
 
         return panel;
     }
 
-    private static JPanel arriveInfoInner(Arrive arrive){
+    private static JPanel arriveInfo(Arrive arrive){
 
         ArriveLine[] lines = arrive.getLines();
         JPanel arriveInfo=new JPanel();
@@ -422,7 +415,7 @@ public class BusGUI extends JFrame {
     //////////////////////////////////////// Line Selection Screen ////////////////////////////////////////////////
 
     private static BusGUI lineSelection(){
-        BusGUI window=new BusGUI(640, 720, "노선 검색", Resources.IMG_BUS1, 960, 180);
+        BusGUI window=new BusGUI(640, 720, "노선 검색", Resources.IMG_BUS_ORANGE, 960, 180);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, SelectionInner(TYPE_LINE), 1, 10, 10, 10);
     }
@@ -440,7 +433,7 @@ public class BusGUI extends JFrame {
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
         }
 
-        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_BUS1, 1000, 80);
+        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_BUS_ORANGE, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, lineInfoInner(busLineMap, busLocation), 20, 20, 20, 20);
     }
@@ -475,24 +468,13 @@ public class BusGUI extends JFrame {
             lineInfo.add(lineInfos);
         }
 
-        lineDesc.add(lineName, BorderLayout.NORTH);
-        lineDesc.add(lineInfo, BorderLayout.CENTER);
-        panel.add(lineDesc, BorderLayout.NORTH);
 
-        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocation));
-        lineStopList.setBorder(null);
-        panel.add(lineStopList, BorderLayout.CENTER);
 
-        return panel;
-    }
-
-    private static JPanel lineStopList(BusLineMap busLineMap, BusLocation busLocation) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
+        // legend
         JPanel legend1 = new JPanel();
         legend1.setLayout(new GridLayout(1, 2));
         legend1.setBackground(Resources.COLOR_SKY);
+        if(busLineMap.getBusLines().length>=7) legend1.setBorder(new EmptyBorder(0,0,0,15));
 
         String[] legendStr = new String[]{"정류장 이름", "버스", "저상", "비고"};
         JLabel[] legendLab = new JLabel[4];
@@ -512,12 +494,21 @@ public class BusGUI extends JFrame {
         for(int i = 1; i < 4; i++) legend2.add(legendLab[i]);
         legend1.add(legend2);
 
-        panel.add(legend1, BorderLayout.NORTH);
-        panel.add(lineStopListInner(busLineMap, busLocation), BorderLayout.CENTER);
+
+        lineDesc.add(lineName, BorderLayout.NORTH);
+        lineDesc.add(lineInfo, BorderLayout.CENTER);
+        lineDesc.add(legend1, BorderLayout.SOUTH);
+
+        panel.add(lineDesc, BorderLayout.NORTH);
+
+        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocation));
+        lineStopList.setBorder(null);
+        panel.add(lineStopList, BorderLayout.CENTER);
+
         return panel;
     }
 
-    private static JPanel lineStopListInner(BusLineMap busLineMap, BusLocation busLocation) {
+    private static JPanel lineStopList(BusLineMap busLineMap, BusLocation busLocation) {
 
         BusLine[] busLines = busLineMap.getBusLines();
 
@@ -614,17 +605,29 @@ public class BusGUI extends JFrame {
             setForeground(Color.black);
 
             switch (Integer.parseInt(indexList[index])%10){
-                case 0: setForeground(Resources.COLOR_YELLOW_BUS);
+                case 0:
+                    setForeground(Resources.COLOR_YELLOW_BUS);
+                    setIcon(Resources.getBtImage(Resources.IMG_BUS_ORANGE, 50));
                     break;
-                case 1: setForeground(Resources.COLOR_GREEN_BUS);
+                case 1:
+                    setForeground(Resources.COLOR_GREEN_BUS);
+                    setIcon(Resources.getBtImage(Resources.IMG_BUS_GREEN, 50));
                     break;
-                case 2: setForeground(Resources.COLOR_RED_BUS);
+                case 2:
+                    setForeground(Resources.COLOR_RED_BUS);
+                    setIcon(Resources.getBtImage(Resources.IMG_BUS_RED, 50));
                     break;
-                case 3: setForeground(Resources.COLOR_TOWN_BUS);
+                case 3:
+                    setForeground(Resources.COLOR_TOWN_BUS);
+                    setIcon(Resources.getBtImage(Resources.IMG_BUS_TOWN, 50));
                     break;
-                case 4: setForeground(Resources.COLOR_WIDE_BUS);
+                case 4:
+                    setForeground(Resources.COLOR_WIDE_BUS);
+                    setIcon(Resources.getBtImage(Resources.IMG_BUS_WIDE, 50));
                     break;
-                default: break;
+                default:
+                    setIcon(null);
+                    break;
             }
             if(isSelected)
                 setBackground(Resources.COLOR_GRAY);

@@ -50,8 +50,12 @@ public class Resources {
 
 
     // Image
-    static final String IMG_BUS1 = "bus1.png";
-    static final String IMG_BUS2 = "bus2.png";
+    static final String IMG_BUS_ORANGE = "bus1.png";
+    static final String IMG_BUS_ORANGE2 = "bus2.png";
+    static final String IMG_BUS_RED = "bus3.png";
+    static final String IMG_BUS_GREEN = "bus4.png";
+    static final String IMG_BUS_TOWN = "bus5.png";
+    static final String IMG_BUS_WIDE = "bus6.png";
     static final String IMG_STOP1 = "stop1.png";
     static final String IMG_STOP2 = "stop2.png";
     static final String IMG_EMPTY = "empty.png";
