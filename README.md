@@ -6,8 +6,8 @@
 1) Arrive / ArriveLine: 완료(단, StopList와 호환 적용 필요)
 2) BusLine / BusLineMap: 완료
 3) BusLocation: 완료(단, StopList와 호환 적용 필요)
-4) StopList / StopListSet: 진행중(HashMap 전환 필요)
-5) BusList / BusListSet: 진행중
+4) StopList / StopListSet: 거의 완료??
+5) BusList / BusListSet: 진행중(HashMap 전환 필요)
 
 ## GUI 만들기
 1) 메인화면: 일부 완료(우측 메뉴 미완)
