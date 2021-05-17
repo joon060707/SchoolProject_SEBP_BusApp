@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="노선 정보 화면, 버튼 상호작용">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parse/BusList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parse/BusListSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Resources.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Resources.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +33,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUITest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/Parse" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\IJProject\SEBP_BusApp_1\src\main\java\Parse" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -183,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621149216721</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="노선 정보 화면, 버튼 상호작용">
+      <created>1621149334010</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1621149334010</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,5 +249,9 @@
     <MESSAGE value="노선 정보 화면 일부 구성" />
     <MESSAGE value="노선 정보 화면, 버튼 상호작용" />
     <option name="LAST_COMMIT_MESSAGE" value="노선 정보 화면, 버튼 상호작용" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

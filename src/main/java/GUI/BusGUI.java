@@ -195,7 +195,7 @@ public class BusGUI extends JFrame {
         } else{
             labelStr="노선 검색";
             labelColor=Resources.COLOR_SKY;
-            src=Resources.testArray(150);
+            src=Resources.testArray(1000);
         }
 
         JPanel panel=new JPanel();
@@ -274,6 +274,7 @@ public class BusGUI extends JFrame {
         try {
             arrive=new Arrive(id);
         } catch (Exception e){
+            e.printStackTrace();
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
         }
 
@@ -435,10 +436,11 @@ public class BusGUI extends JFrame {
             busLineMap = new BusLineMap(id);
             busLocation = new BusLocation(id);
         } catch (Exception e) {
+            e.printStackTrace();
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
         }
 
-        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_STOP1, 1000, 80);
+        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_BUS1, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, lineInfoInner(busLineMap, busLocation), 20, 20, 20, 20);
     }
@@ -620,7 +622,7 @@ public class BusGUI extends JFrame {
                     break;
                 case 3: setForeground(Resources.COLOR_TOWN_BUS);
                     break;
-                case 4: setForeground(Resources.COLOR_AIR_BUS);
+                case 4: setForeground(Resources.COLOR_WIDE_BUS);
                     break;
                 default: break;
             }
@@ -632,7 +634,7 @@ public class BusGUI extends JFrame {
     }
 
 
-    // 원하는 높이로 바꿔주는 패널
+    // BorderLayout으로 바꿔주는 패널
     private static JPanel borderPanel(JPanel panel){
         JPanel wrapper=new JPanel();
         wrapper.setLayout(new BorderLayout(0,0));
