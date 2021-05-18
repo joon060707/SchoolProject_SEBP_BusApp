@@ -2,7 +2,6 @@ import GUI.BusGUI;
 import Parse.*;
 import org.json.simple.parser.ParseException;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class Main {
@@ -18,7 +17,7 @@ public class Main {
 
 //        new BusLineMap(9).BusLinePrint();
 
-        BusLocation b=new BusLocation(9);
+        BusLocationMap b=new BusLocationMap(9);
         System.out.println(b.getBusNumberList().toString());
         System.out.println(b.getCurStopNameList().toString());
         System.out.println(b.isLowBusList().toString());

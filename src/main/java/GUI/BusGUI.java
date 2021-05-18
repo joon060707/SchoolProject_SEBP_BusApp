@@ -423,11 +423,11 @@ public class BusGUI extends JFrame {
     /////////////////////////////////////// Line Information Screen ////////////////////////////////////////////////
 
     private static BusGUI lineInfo(int id) {
-        BusLocation busLocation;
+        BusLocationMap busLocationMap;
         BusLineMap busLineMap;
         try {
             busLineMap = new BusLineMap(id);
-            busLocation = new BusLocation(id);
+            busLocationMap = new BusLocationMap(id);
         } catch (Exception e) {
             e.printStackTrace();
             return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
@@ -435,10 +435,10 @@ public class BusGUI extends JFrame {
 
         BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_BUS_ORANGE, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
-        return insetWindow(window, lineInfoInner(busLineMap, busLocation), 20, 20, 20, 20);
+        return insetWindow(window, lineInfoInner(busLineMap, busLocationMap), 20, 20, 20, 20);
     }
 
-    private static JPanel lineInfoInner(BusLineMap busLineMap, BusLocation busLocation) {
+    private static JPanel lineInfoInner(BusLineMap busLineMap, BusLocationMap busLocationMap) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
@@ -501,14 +501,14 @@ public class BusGUI extends JFrame {
 
         panel.add(lineDesc, BorderLayout.NORTH);
 
-        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocation));
+        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocationMap));
         lineStopList.setBorder(null);
         panel.add(lineStopList, BorderLayout.CENTER);
 
         return panel;
     }
 
-    private static JPanel lineStopList(BusLineMap busLineMap, BusLocation busLocation) {
+    private static JPanel lineStopList(BusLineMap busLineMap, BusLocationMap busLocationMap) {
 
         BusLine[] busLines = busLineMap.getBusLines();
 

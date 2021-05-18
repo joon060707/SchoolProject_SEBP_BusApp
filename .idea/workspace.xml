@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="BusList 추가">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/bus3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/bus4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/bus5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/bus6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLocationMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/StopListSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/StopListSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Resources.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Resources.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/BusLocation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/StopListSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/StopListSet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLocation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +32,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/Parse" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -52,11 +46,25 @@
       <recent name="E:\IJProject\SEBP_BusApp_1\src\main\java\Parse" />
       <recent name="E:\IJProject\SEBP_BusApp_1\src\main\resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Parse" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="maven" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -75,6 +83,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1620949972683</updated>
+      <workItem from="1621325283867" duration="306000" />
     </task>
     <task id="LOCAL-00001" summary="sync">
       <created>1620950070425</created>
@@ -225,6 +234,9 @@
     </task>
     <option name="localTasksCounter" value="22" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
