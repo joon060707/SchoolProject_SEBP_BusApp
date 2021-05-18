@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="getter 수정">
+    <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="BusList 마무리">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusListSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusListSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusLocationMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLocationMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/StopListSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/StopListSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/BusLocation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/StopListSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/StopListSet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621253301055</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="BusList 마무리">
+      <created>1621335942998</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1621335942998</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,7 +285,8 @@
     <MESSAGE value="노선 정보 화면 일부 구성" />
     <MESSAGE value="노선 정보 화면, 버튼 상호작용" />
     <MESSAGE value="BusList 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="BusList 추가" />
+    <MESSAGE value="BusList 마무리" />
+    <option name="LAST_COMMIT_MESSAGE" value="BusList 마무리" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

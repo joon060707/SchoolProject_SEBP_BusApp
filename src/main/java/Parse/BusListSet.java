@@ -11,6 +11,10 @@ public class BusListSet {
     public static int size;
 
     public static HashMap<Integer, BusList> getBusLists(){
+
+        if(buslist!=null) return buslist;
+
+
         JSONObject jsonObject = new GetApiData("LINE").getData();
         JSONArray jsonArray=(JSONArray) jsonObject.get("LINE_LIST");
         size = Integer.parseInt(jsonObject.get("ROW_COUNT").toString());
