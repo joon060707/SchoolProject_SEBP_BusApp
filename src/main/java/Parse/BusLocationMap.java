@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class BusLocationMap {
 
@@ -48,14 +49,7 @@ public class BusLocationMap {
             curStopId = Integer.parseInt(bus.get("CURR_STOP_ID").toString());
             busNumber = bus.get("CARNO").toString();
 //            curStopName = (getCurStopName(bus.get("CURR_STOP_ID").toString()));
-
-            try{
-                isLowBus =(isLowBus(bus.get("LOW_BUS").toString()));
-
-            }catch(NullPointerException e){
-                isLowBus = "일반";
-            }
-
+            isLowBus =(isLowBus(Objects.requireNonNullElse(bus.get("LOW_BUS"),"0").toString()));
             busLocation = new BusLocation(busNumber, isLowBus);
             busLocationMap.put(curStopId, busLocation);
         }
