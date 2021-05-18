@@ -2,16 +2,13 @@ package Parse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 import java.util.HashMap;
 
 public class StopListSet {
     public static HashMap<Integer, StopList> StopLists;
     public static int size;
 
-    public static HashMap<Integer, StopList> getStopLists() throws IOException, ParseException {
+    public static HashMap<Integer, StopList> getStopLists(){
         if (StopLists != null) return StopLists;
 
         JSONObject jsonObject = new GetApiData("STATION").getData();
@@ -25,6 +22,7 @@ public class StopListSet {
 
         return StopLists;
     }
+
 
     public static void StopListPrint(HashMap<Integer, StopList> StopLists) {
         if (StopLists != null)

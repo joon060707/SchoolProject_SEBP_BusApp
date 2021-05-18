@@ -5,19 +5,23 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
 public class BusGUI extends JFrame {
 
     Container mainContainer=getContentPane();
 
-    BusGUI(int width, int height, String title, String ico){
+    static HashMap<Integer, StopList> stopListSet;
+    static HashMap<Integer, BusList> busListSet;
+
+    public BusGUI(int width, int height, String title, String ico){
         setTitle(title);
         setSize(width, height);
         setIconImage(Resources.getWindowIco(ico));
         mainContainer.setBackground(Color.white);
     }
 
-    BusGUI(int width, int height, String title, String ico, int startX, int startY){
+    public BusGUI(int width, int height, String title, String ico, int startX, int startY){
         this(width, height, title, ico);
         setBounds(startX, startY, width, height);
     }
@@ -111,7 +115,8 @@ public class BusGUI extends JFrame {
         signal.setFont(Resources.nsq(Resources.FONT_NORMAL, 30));
 
         try{
-            if(new Arrive(1253).getSize()!=0)
+            stopListSet=StopListSet.getStopLists();
+            if(stopListSet.size()!=0)
             signal.setText("수신 상태: 양호");
             else signal.setText("수신 상태: 버스 끊김");
         } catch (Exception e){
@@ -529,7 +534,10 @@ public class BusGUI extends JFrame {
             JPanel stopPanel2 = new JPanel();
             stopPanel2.setLayout(new GridLayout(1, 3));
             stopPanel2.setBackground(Color.white);
-            String[] str = new String[]{"차량 번호", "예", busLineMap.flagData(l.getFlag())};
+            String[] str = new String[]{
+                    busLocationMap.getBusLocation(String.valueOf(l.getStopId())).getBusNumber(),
+                    busLocationMap.getBusLocation(String.valueOf(l.getStopId())).getIsLowBus(),
+                    busLineMap.flagData(l.getFlag())};
             JLabel[] labels = new JLabel[3];
 
             for(int i = 0; i < 3; i++) {

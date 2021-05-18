@@ -9,18 +9,17 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ParseException {
 
+        // Arrive
 //        new Arrive(907).print();
 
-//        StopListSet.StopListPrint(StopListSet.getStopLists());
+        // StopList
+        StopListSet.StopListPrint(StopListSet.getStopLists());
 
-        new BusListSet(0).BusListPrint();
+        // BusList
+        BusListSet.BusListPrint(BusListSet.getBusLists());
 
 //        new BusLineMap(9).BusLinePrint();
 
-        BusLocationMap b=new BusLocationMap(9);
-        System.out.println(b.getBusNumberList().toString());
-        System.out.println(b.getCurStopNameList().toString());
-        System.out.println(b.isLowBusList().toString());
 
         BusGUI.mainMenu().start();
 //        BusGUI.alertPopup("알림창", "알림창 테스트입니다. 알림창 테스트입니다.", Color.red, 20).start();

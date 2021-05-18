@@ -3,20 +3,29 @@ package Parse;
 import org.json.simple.JSONObject;
 
 public class BusList {
-	public GetApiData getApiData;
-	public int lineId;
-    public String lineName;
-    public String dirDown;
-    public String dirUp;
-    public String lineKind;
-    
-    
+    private int lineId;
+    private String lineName;
+    private String dirDown;
+    private String dirUp;
+    private String lineKind;
+    private String interval;
+    private String firstTime;
+    private String lastTime;
+
+
     public BusList(JSONObject jsonObject) {
         lineId = Integer.parseInt(jsonObject.get("LINE_ID").toString());
         lineName = jsonObject.get("LINE_NAME").toString();
         dirDown = jsonObject.get("DIR_DOWN_NAME").toString();
         dirUp = jsonObject.get("DIR_UP_NAME").toString();
         lineKind = lineKindData(jsonObject.get("LINE_KIND").toString());
+
+        if(jsonObject.get("RUN_INTERVAL")!=null)
+            interval = jsonObject.get("RUN_INTERVAL").toString();
+        if(jsonObject.get("FIRST_RUN_TIME")!=null)
+        firstTime = jsonObject.get("FIRST_RUN_TIME").toString();
+        if(jsonObject.get("LAST_RUN_TIME")!=null)
+        lastTime = jsonObject.get("LAST_RUN_TIME").toString();
     }
 
 
@@ -39,6 +48,18 @@ public class BusList {
     public String getLineName() { return lineName; }
     public String getDirDown() { return dirDown; }
     public String getDirUp() { return dirUp; }
-    public String getlinkKind() { return lineKind; }
-    
+    public String getlineKind() { return lineKind; }
+    public String getinterval() {
+        if(interval!=null) return interval;
+        else return "알 수 없음";
+    }
+    public String getfirstTime() {
+        if(firstTime!=null) return firstTime;
+        else return "알 수 없음";
+    }
+    public String getlastTime() {
+        if(lastTime!=null) return lastTime;
+        else return "알 수 없음";
+    }
+
 }
