@@ -14,13 +14,13 @@ public class BusLocationMap {
     private GetApiData getApiData;
     private int id;
     private String lineName;
-    private String curStopId;
+    private int curStopId;
     private int busCount;
     private String busNumber;
 //    private String curStopName;
     private String isLowBus;
 
-    private HashMap<String, BusLocation> busLocationMap = new HashMap<>();
+    private HashMap<Integer, BusLocation> busLocationMap = new HashMap<>();
     BusLocation busLocation;
 
 
@@ -43,19 +43,26 @@ public class BusLocationMap {
         JSONArray busArray = (JSONArray) data.get("BUSLOCATION_LIST");
 
         for(int i=0; i<busCount; i++){
-             bus = (JSONObject)busArray.get(i);
-             curStopId = bus.get("CURR_STOP_ID").toString();
-             busNumber = (bus.get("CARNO").toString());
-//            curStopName = (getCurStopName(bus.get("CURR_STOP_ID").toString()));
-             isLowBus =(isLowBus(bus.get("LOW_BUS").toString()));
 
-             busLocation = new BusLocation(busNumber, isLowBus);
-             busLocationMap.put(curStopId, busLocation);
+            bus = (JSONObject)busArray.get(i);
+            curStopId = Integer.parseInt(bus.get("CURR_STOP_ID").toString());
+            busNumber = bus.get("CARNO").toString();
+//            curStopName = (getCurStopName(bus.get("CURR_STOP_ID").toString()));
+
+            try{
+                isLowBus =(isLowBus(bus.get("LOW_BUS").toString()));
+
+            }catch(NullPointerException e){
+                isLowBus = "일반";
+            }
+
+            busLocation = new BusLocation(busNumber, isLowBus);
+            busLocationMap.put(curStopId, busLocation);
         }
 
     }
     private String isLowBus(String flag){
-        if(flag.equals("0") || flag == null)
+        if(flag.equals("0"))
             return "일반";
         else
             return "저상";
@@ -63,8 +70,12 @@ public class BusLocationMap {
 //    private String getCurStopName(String curStopId){
 //        return stopList.getStop(curStopId);
 //    }
-    public BusLocation getBusLocation(String stopId){
-        return busLocationMap.get(stopId);
+    public BusLocation getBusLocation(int stopId){
+        if(busLocationMap.containsKey(stopId))
+            return busLocationMap.get(stopId);
+        else
+            return new BusLocation("","");
+
     }
 
     public int getBusCount(){

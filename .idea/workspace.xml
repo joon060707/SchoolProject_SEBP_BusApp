@@ -5,23 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="BusList 마무리">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parse/test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/Arrive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/Arrive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusListSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusListSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLocation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parse/BusLocationMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/BusLocationMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parse/StopList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Parse/StopList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/BusLocation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Parse/StopList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Parse/StopList.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,18 +59,7 @@
       <recent name="Parse" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.test">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="maven" />
@@ -75,8 +67,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Parse.test" />
+      <module name="maven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Parse.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.test" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -90,6 +109,7 @@
       <option name="presentableId" value="Default" />
       <updated>1620949972683</updated>
       <workItem from="1621325283867" duration="306000" />
+      <workItem from="1621345289447" duration="1007000" />
     </task>
     <task id="LOCAL-00001" summary="sync">
       <created>1620950070425</created>

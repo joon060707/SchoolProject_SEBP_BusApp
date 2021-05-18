@@ -2,7 +2,7 @@ package Parse;
 
 public class BusLocation {
     private String busNumber;
-//    private String curStopName;
+    //    private String curStopName;
     private String isLowBus;
 
     public BusLocation(String busNumber, String isLowBus){

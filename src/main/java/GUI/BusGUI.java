@@ -570,8 +570,8 @@ public class BusGUI extends JFrame {
             stopPanel2.setLayout(new GridLayout(1, 3));
             stopPanel2.setBackground(Color.white);
             String[] str = new String[]{
-                    busLocationMap.getBusLocation(String.valueOf(l.getStopId())).getBusNumber(),
-                    busLocationMap.getBusLocation(String.valueOf(l.getStopId())).getIsLowBus(),
+                    busLocationMap.getBusLocation(l.getStopId()).getBusNumber(),
+                    busLocationMap.getBusLocation(l.getStopId()).getIsLowBus(),
                     busLineMap.flagData(l.getFlag())};
             JLabel[] labels = new JLabel[3];
 
