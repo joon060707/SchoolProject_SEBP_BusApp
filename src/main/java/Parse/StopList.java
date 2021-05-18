@@ -9,7 +9,10 @@ public class StopList {
 
     public StopList(JSONObject jsonObject){
         this.curStopId = Integer.parseInt(jsonObject.get("BUSSTOP_ID").toString());
-//        this.nextStopName = jsonObject.get("NEXT_BUSSTOP_NAME").toString();
+        if(nextStopName != null)
+        this.nextStopName = jsonObject.get("NEXT_BUSSTOP_NAME").toString();
+        else
+            System.out.println("다음정류장이 없습니다");
         this.curStopName =jsonObject.get("BUSSTOP_NAME").toString();
     }
 
