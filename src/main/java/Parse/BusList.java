@@ -50,16 +50,16 @@ public class BusList {
     public String getDirUp() { return dirUp; }
     public String getlineKind() { return lineKind; }
     public String getinterval() {
-        if(interval!=null) return interval;
-        else return "알 수 없음";
+        if(interval!=null) return interval+"분";
+        else return "정보 없음";
     }
     public String getfirstTime() {
         if(firstTime!=null) return firstTime;
-        else return "알 수 없음";
+        else return "정보 없음";
     }
     public String getlastTime() {
         if(lastTime!=null) return lastTime;
-        else return "알 수 없음";
+        else return "정보 없음";
     }
 
 }

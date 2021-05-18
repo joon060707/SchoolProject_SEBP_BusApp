@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException {
 
         // Arrive
-//        new Arrive(907).print();
+        new Arrive(907).print();
 
         // StopList
         StopListSet.StopListPrint(StopListSet.getStopLists());
@@ -18,7 +18,7 @@ public class Main {
         // BusList
         BusListSet.BusListPrint(BusListSet.getBusLists());
 
-//        new BusLineMap(9).BusLinePrint();
+        new BusLineMap(9).BusLinePrint();
 
 
         BusGUI.mainMenu().start();

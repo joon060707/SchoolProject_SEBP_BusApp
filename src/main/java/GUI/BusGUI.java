@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class BusGUI extends JFrame {
@@ -116,6 +117,7 @@ public class BusGUI extends JFrame {
 
         try{
             stopListSet=StopListSet.getStopLists();
+            busListSet=BusListSet.getBusLists();
             if(stopListSet.size()!=0)
             signal.setText("수신 상태: 양호");
             else signal.setText("수신 상태: 버스 끊김");
@@ -199,11 +201,29 @@ public class BusGUI extends JFrame {
         if(type==TYPE_STOP){
             labelStr="정류장 검색";
             labelColor=Resources.COLOR_PURPLE;
-            src=Resources.testArray(5000);
+//            src=Resources.testArray(5000);
+            src=new String[2][stopListSet.size()];
+            for(int i=0, j=0; i<10000; i++){
+                StopList s = stopListSet.get(i);
+                if(s!=null){
+                    src[0][j]=String.valueOf(s.getCurStopId());
+                    src[1][j]=s.getCurStopName()+"("+s.getNextStopName()+" 방향)";
+                    j++;
+                }
+            }
         } else{
             labelStr="노선 검색";
             labelColor=Resources.COLOR_SKY;
-            src=Resources.testArray(222);
+//            src=Resources.testArray(222);
+            src=new String[2][busListSet.size()];
+            for(int i=0, j=0; i<1000; i++){
+                BusList b = busListSet.get(i);
+                if(b!=null){
+                    src[0][j]=String.valueOf(b.getLineId());
+                    src[1][j]=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")";
+                    j++;
+                }
+            }
         }
 
         JPanel panel=new JPanel();
@@ -242,14 +262,20 @@ public class BusGUI extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 int[] found = Resources.searchIndex(data, list.getSelectedValue());
-                if(type==TYPE_STOP)
+
                     if(found.length>1) {
                         String lst="";
-                        for(int i: found) lst=lst.concat(i+" ");
+                        for(int i: found) {
+                            lst=lst.concat(i+" ");
+                            if(type==TYPE_STOP) stopArrive(i).start();
+                            else lineInfo(i).start();
+                        }
                     // 보통 다음 정류장이 없는 경우 발생. 창 2개 다 띄울 것인가?
-                    alertPopup("여러 항목이 검색되었습니다", "선택된 숫자: "+lst, Color.BLACK, 20).start();
-                    } else stopArrive(found[0]).start();
-                else lineInfo(found[0]).start();
+                    alertPopup("여러 항목이 선택되었습니다", "선택된 숫자: "+lst, Color.BLACK, 20).start();
+                    } else {
+                        if(type==TYPE_STOP)stopArrive(found[0]).start();
+                        else lineInfo(found[0]).start();
+                    }
             }
         });
         JScrollPane scrollList=new JScrollPane(list);
@@ -281,9 +307,11 @@ public class BusGUI extends JFrame {
         Arrive arrive;
         try {
             arrive=new Arrive(id);
-        } catch (Exception e){
-            e.printStackTrace();
-            return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
+            arrive.setStopName(stopListSet.get(id).getCurStopName());
+            arrive.setStopTo(stopListSet.get(id).getNextStopName());
+        } catch (NullPointerException e){
+//            e.printStackTrace();
+            return alertPopup("에러", "광주광역시 정류장이 아닌 것 같습니다.", Color.red, 20);
         }
 
         BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 40, 80);
@@ -411,9 +439,15 @@ public class BusGUI extends JFrame {
     }
 
     private static Color busColor(int id){
-        // BusList의 kind를 불러와서 해당하는 색상 반환
-//        switch(BusList.getBusList().get(id).getKind())
-        return Resources.COLOR_YELLOW_BUS;
+//         BusList의 kind를 불러와서 해당하는 색상 반환
+        switch(busListSet.get(id).getlineKind()){
+            case "급행간선": return Resources.COLOR_RED_BUS;
+            case "간선": return Resources.COLOR_YELLOW_BUS;
+            case "지선": return Resources.COLOR_GREEN_BUS;
+            case "마을버스": return Resources.COLOR_TOWN_BUS;
+            case "공항버스": case "광역버스": return Resources.COLOR_WIDE_BUS;
+            default: return Color.gray;
+        }
     }
 
 
@@ -430,20 +464,21 @@ public class BusGUI extends JFrame {
     private static BusGUI lineInfo(int id) {
         BusLocationMap busLocationMap;
         BusLineMap busLineMap;
+        BusList b=busListSet.get(id);
         try {
             busLineMap = new BusLineMap(id);
             busLocationMap = new BusLocationMap(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return alertPopup("에러", "오류가 발생했습니다.", Color.red, 20);
+            return alertPopup("에러", "인터넷 상태를 확인해 보세요.", Color.red, 20);
         }
 
-        BusGUI window = new BusGUI(900, 900, busLineMap.getLineName(), Resources.IMG_BUS_ORANGE, 1000, 80);
+        BusGUI window = new BusGUI(900, 900, b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")", Resources.IMG_BUS_ORANGE, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
-        return insetWindow(window, lineInfoInner(busLineMap, busLocationMap), 20, 20, 20, 20);
+        return insetWindow(window, lineInfoInner(busLineMap, busLocationMap, b), 20, 20, 20, 20);
     }
 
-    private static JPanel lineInfoInner(BusLineMap busLineMap, BusLocationMap busLocationMap) {
+    private static JPanel lineInfoInner(BusLineMap busLineMap, BusLocationMap busLocationMap, BusList busList) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
@@ -459,17 +494,17 @@ public class BusGUI extends JFrame {
         lineName.setBorder(new EmptyBorder(10, 0, 30, 0));
 
         JPanel lineInfo = new JPanel();
-        lineInfo.setLayout(new GridLayout(2, 2));
+        lineInfo.setLayout(new GridLayout(2, 3));
         lineInfo.setBackground(Color.white);
 
-        String[] lineInfoRes = {"기점: "+busLineMap.getBusLines()[0].getStopName(), "종점: 종점", "첫차: 00:00", "막차: 23:59"};
-        for(int i = 0; i < 4; i++) {
+        String[] lineInfoRes = {"기점: "+busList.getDirDown(), "운행 차량 수: "+busLocationMap.getBusCount()+"대", "종점: "+busList.getDirUp(), "첫차: "+busList.getfirstTime(),  "배차간격: "+busList.getinterval(), "막차: "+busList.getlastTime()};
+        for(int i = 0; i < 6; i++) {
             JLabel lineInfos = new JLabel(lineInfoRes[i]);
-            lineInfos.setForeground(Resources.COLOR_GRAY);
+            lineInfos.setForeground(Color.gray);
             lineInfos.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
             lineInfos.setHorizontalAlignment(SwingConstants.CENTER);
             lineInfos.setVerticalAlignment(SwingConstants.CENTER);
-            lineInfos.setBorder(new EmptyBorder(10, 20, 10, 20));
+            lineInfos.setBorder(new EmptyBorder(10, 10, 10, 10));
             lineInfo.add(lineInfos);
         }
 
@@ -478,7 +513,7 @@ public class BusGUI extends JFrame {
         // legend
         JPanel legend1 = new JPanel();
         legend1.setLayout(new GridLayout(1, 2));
-        legend1.setBackground(Resources.COLOR_SKY);
+        legend1.setBackground(busColor(busLineMap.getLineId()));
         if(busLineMap.getBusLines().length>=7) legend1.setBorder(new EmptyBorder(0,0,0,15));
 
         String[] legendStr = new String[]{"정류장 이름", "버스", "저상", "비고"};
@@ -493,7 +528,7 @@ public class BusGUI extends JFrame {
 
         JPanel legend2 = new JPanel();
         legend2.setLayout(new GridLayout(1, 3));
-        legend2.setBackground(Resources.COLOR_SKY);
+        legend2.setBackground(busColor(busLineMap.getLineId()));
 
         legend1.add(legendLab[0]);
         for(int i = 1; i < 4; i++) legend2.add(legendLab[i]);
@@ -506,14 +541,14 @@ public class BusGUI extends JFrame {
 
         panel.add(lineDesc, BorderLayout.NORTH);
 
-        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocationMap));
+        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocationMap, busList));
         lineStopList.setBorder(null);
         panel.add(lineStopList, BorderLayout.CENTER);
 
         return panel;
     }
 
-    private static JPanel lineStopList(BusLineMap busLineMap, BusLocationMap busLocationMap) {
+    private static JPanel lineStopList(BusLineMap busLineMap, BusLocationMap busLocationMap, BusList busList) {
 
         BusLine[] busLines = busLineMap.getBusLines();
 
@@ -548,10 +583,13 @@ public class BusGUI extends JFrame {
                 stopPanel2.add(labels[i]);
             }
 
-            if (!labels[2].getText().equals("일반")) {
-                labels[2].setFont(Resources.nsq(Resources.FONT_BOLD, 25));
-                labels[2].setForeground(Color.red);
+            for(int j = 1; j < 3; j++){
+                if (!labels[j].getText().equals("일반")) {
+                    labels[j].setFont(Resources.nsq(Resources.FONT_BOLD, 25));
+                    labels[j].setForeground(Color.red);
+                }
             }
+
 
             stopPanel.add(stopBt);
             stopPanel.add(stopPanel2);
@@ -612,24 +650,24 @@ public class BusGUI extends JFrame {
             setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
             setForeground(Color.black);
 
-            switch (Integer.parseInt(indexList[index])%10){
-                case 0:
+            switch (busListSet.get(Integer.parseInt(indexList[index])).getlineKind()){
+                case "간선":
                     setForeground(Resources.COLOR_YELLOW_BUS);
                     setIcon(Resources.getBtImage(Resources.IMG_BUS_ORANGE, 50));
                     break;
-                case 1:
+                case "지선":
                     setForeground(Resources.COLOR_GREEN_BUS);
                     setIcon(Resources.getBtImage(Resources.IMG_BUS_GREEN, 50));
                     break;
-                case 2:
+                case "급행간선":
                     setForeground(Resources.COLOR_RED_BUS);
                     setIcon(Resources.getBtImage(Resources.IMG_BUS_RED, 50));
                     break;
-                case 3:
+                case "마을버스":
                     setForeground(Resources.COLOR_TOWN_BUS);
                     setIcon(Resources.getBtImage(Resources.IMG_BUS_TOWN, 50));
                     break;
-                case 4:
+                case "공항버스": case "광역버스":
                     setForeground(Resources.COLOR_WIDE_BUS);
                     setIcon(Resources.getBtImage(Resources.IMG_BUS_WIDE, 50));
                     break;

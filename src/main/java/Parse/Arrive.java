@@ -28,13 +28,13 @@ public class Arrive {
 
     public ArriveLine[] getLines() { return arriveLines; }
     public int getSize() { return size; }
-    public String getStopName() { return "정류장 이름"; }
+    public String getStopName() { return stopName; }
     public String getStopTo() {
-        if(stopTo!=null) return stopTo+" 방향";
+        if(!stopTo.equals("다음 정류장 없음")) return stopTo+" 방향";
         else return "다음 정류장 없음";
     }
     public String getStopNameWithTo() {
-        if(stopTo!=null) return stopName+"("+stopTo+" 방향)";
+        if(!stopTo.equals("다음 정류장 없음")) return stopName+"("+stopTo+" 방향)";
         return stopName+"(다음 정류장 없음)"; }
 
     /*
