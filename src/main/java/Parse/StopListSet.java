@@ -1,3 +1,5 @@
+package Parse;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -18,7 +20,7 @@ public class StopListSet {
         StopLists =new HashMap<>();
         for(int i=0;i<size;i++){
             StopList a = new StopList((JSONObject) jsonArray.get(i));
-            StopLists.put(a.curStopId, a);
+            StopLists.put(a.getCurStopId(), a);
         }
 
         return StopLists;
@@ -28,9 +30,8 @@ public class StopListSet {
         if (StopLists != null)
             for (int i = 0; i < 9999; i++)
                 if (StopLists.get(i) != null)
-                    System.out.println("정류장번호:" + StopLists.get(i).curStopId + "현제 정류장:" + StopLists.get(i).curStopName + "다음 정류장:" + StopLists.get(i).nextStopName);
+                    System.out.println("정류장번호:" + StopLists.get(i).getCurStopId() + "현제 정류장:" + StopLists.get(i).getCurStopName() + "다음 정류장:" + StopLists.get(i).getNextStopName());
 
 
     }
 }
-
