@@ -19,7 +19,11 @@ public class StopList {
 
     public int getCurStopId() { return curStopId; }
     public String getCurStopName() { return curStopName; }
-    public String getNextStopName() { return nextStopName; }
+    public String getNextStopName() {
+
+
+
+        return nextStopName; }
 
     //"RESULT_CODE":"SUCCSS"},"STATION_LIST":[{"STATION_NUM":1,
     // "BUSSTOP_NAME":"동원촌",

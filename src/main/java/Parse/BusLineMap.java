@@ -55,9 +55,9 @@ public class BusLineMap {
             else if (index == 2)
                 return "<기점>";
             else if (index == 3)
-                return "<<회차>>";
-            else
                 return "[종점]";
+            else
+                return "<종점>";
     }
     public String getLineName(){ return lineName; }
     public BusLine[] getBusLines() { return BusLines; }

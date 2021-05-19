@@ -220,7 +220,10 @@ public class BusGUI extends JFrame {
                 BusList b = busListSet.get(i);
                 if(b!=null){
                     src[0][j]=String.valueOf(b.getLineId());
-                    src[1][j]=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")";
+                    if(b.getlineKind().equals("광역버스") && !b.getLineName().contains("나주"))
+                        src[1][j]=b.getLineName()+"("+b.getDirUp()+"→"+b.getDirDown()+")";
+                    else
+                        src[1][j]=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")";
                     j++;
                 }
             }
@@ -264,17 +267,17 @@ public class BusGUI extends JFrame {
                 int[] found = Resources.searchIndex(data, list.getSelectedValue());
 
                     if(found.length>1) {
-                        String lst="";
-                        for(int i: found) {
-                            lst=lst.concat(i+" ");
-                            if(type==TYPE_STOP) stopArrive(i).start();
-                            else lineInfo(i).start();
+//                        String lst="";
+                        for(int i=0; i<found.length; i++) {
+//                            lst=lst.concat(i+" ");
+                            if(type==TYPE_STOP) stopArrive(found[i], " ("+(i+1)+"번째)").start();
+                            else lineInfo(found[i], " ("+(i+1)+"번째)").start();
                         }
                     // 보통 다음 정류장이 없는 경우 발생. 창 2개 다 띄울 것인가?
-                    alertPopup("여러 항목이 선택되었습니다", "선택된 숫자: "+lst, Color.BLACK, 20).start();
+                    alertPopup("여러 항목이 선택되었습니다", "해당하는 버스를 잘 골라주세요ㅠㅠ", Color.BLACK, 20).start();
                     } else {
-                        if(type==TYPE_STOP)stopArrive(found[0]).start();
-                        else lineInfo(found[0]).start();
+                        if(type==TYPE_STOP)stopArrive(found[0], "").start();
+                        else lineInfo(found[0], "").start();
                     }
             }
         });
@@ -302,7 +305,7 @@ public class BusGUI extends JFrame {
 
     ///////////////////////////////////////// Stop Notify Screen /////////////////////////////////////////////////
 
-    private static BusGUI stopArrive(int id){
+    private static BusGUI stopArrive(int id, String same){
 
         Arrive arrive;
         try {
@@ -314,7 +317,7 @@ public class BusGUI extends JFrame {
             return alertPopup("에러", "광주광역시 정류장이 아닌 것 같습니다.", Color.red, 20);
         }
 
-        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 40, 80);
+        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo()+same, Resources.IMG_STOP1, 40, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, stopArriveInner(arrive), 20, 20, 20, 20);
 
@@ -397,8 +400,8 @@ public class BusGUI extends JFrame {
             stopBt.setFont(Resources.nsq(Resources.FONT_BOLD, 20));
             lineBt.setForeground(Color.white);
 
-            lineBt.addActionListener(e -> lineInfo(l.getLineId()).start());
-            stopBt.addActionListener(e -> stopArrive(l.getCurStopId()).start());
+            lineBt.addActionListener(e -> lineInfo(l.getLineId(), "").start());
+            stopBt.addActionListener(e -> stopArrive(l.getCurStopId(), "").start());
 
             JPanel times=new JPanel();
             times.setLayout(new GridLayout(1, 2));
@@ -461,7 +464,7 @@ public class BusGUI extends JFrame {
 
     /////////////////////////////////////// Line Information Screen ////////////////////////////////////////////////
 
-    private static BusGUI lineInfo(int id) {
+    private static BusGUI lineInfo(int id, String same) {
         BusLocationMap busLocationMap;
         BusLineMap busLineMap;
         BusList b=busListSet.get(id);
@@ -473,7 +476,13 @@ public class BusGUI extends JFrame {
             return alertPopup("에러", "인터넷 상태를 확인해 보세요.", Color.red, 20);
         }
 
-        BusGUI window = new BusGUI(900, 900, b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")", Resources.IMG_BUS_ORANGE, 1000, 80);
+        String title;
+        if(b.getlineKind().equals("광역버스") && !b.getLineName().contains("나주"))
+            title=b.getLineName()+"("+b.getDirUp()+"→"+b.getDirDown()+")"+same;
+        else
+            title=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")"+same;
+
+        BusGUI window = new BusGUI(900, 900, title, Resources.IMG_BUS_ORANGE, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, lineInfoInner(busLineMap, busLocationMap, b), 20, 20, 20, 20);
     }
@@ -497,7 +506,10 @@ public class BusGUI extends JFrame {
         lineInfo.setLayout(new GridLayout(2, 3));
         lineInfo.setBackground(Color.white);
 
-        String[] lineInfoRes = {"기점: "+busList.getDirDown(), "운행 차량 수: "+busLocationMap.getBusCount()+"대", "종점: "+busList.getDirUp(), "첫차: "+busList.getfirstTime(),  "배차간격: "+busList.getinterval(), "막차: "+busList.getlastTime()};
+        String[] lineInfoRes;
+        if(busList.getlineKind().equals("광역버스") && !busList.getLineName().contains("나주"))
+            lineInfoRes = new String[]{"기점: "+busList.getDirUp(), "운행 차량 수: "+busLocationMap.getBusCount()+"대", "종점: "+busList.getDirDown(), "첫차: "+busList.getfirstTime(),  "배차간격: "+busList.getinterval(), "막차: "+busList.getlastTime()};
+        else lineInfoRes = new String[]{"기점: "+busList.getDirDown(), "운행 차량 수: "+busLocationMap.getBusCount()+"대", "종점: "+busList.getDirUp(), "첫차: "+busList.getfirstTime(),  "배차간격: "+busList.getinterval(), "막차: "+busList.getlastTime()};
         for(int i = 0; i < 6; i++) {
             JLabel lineInfos = new JLabel(lineInfoRes[i]);
             lineInfos.setForeground(Color.gray);
@@ -564,14 +576,14 @@ public class BusGUI extends JFrame {
             stopBt.setFont(Resources.nsq(Resources.FONT_BOLD, 25));
             stopBt.setBackground(Color.white);
             stopBt.setForeground(Resources.COLOR_PURPLE);
-            stopBt.addActionListener((e) -> stopArrive(l.getStopId()).start());
+            stopBt.addActionListener((e) -> stopArrive(l.getStopId(), "").start());
 
             JPanel stopPanel2 = new JPanel();
             stopPanel2.setLayout(new GridLayout(1, 3));
             stopPanel2.setBackground(Color.white);
             String[] str = new String[]{
-                    busLocationMap.getBusLocation(String.valueOf(l.getStopId())).getBusNumber(),
-                    busLocationMap.getBusLocation(String.valueOf(l.getStopId())).getIsLowBus(),
+                    busLocationMap.getBusLocation(l.getStopId()).getBusNumber(),
+                    busLocationMap.getBusLocation(l.getStopId()).getIsLowBus(),
                     busLineMap.flagData(l.getFlag())};
             JLabel[] labels = new JLabel[3];
 

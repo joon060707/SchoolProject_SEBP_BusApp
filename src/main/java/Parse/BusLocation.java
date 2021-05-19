@@ -2,7 +2,7 @@ package Parse;
 
 public class BusLocation {
     private String busNumber;
-//    private String curStopName;
+    //    private String curStopName;
     private String isLowBus;
 
     public BusLocation(String busNumber, String isLowBus){
@@ -11,7 +11,7 @@ public class BusLocation {
         this.isLowBus = isLowBus;
     }
 
-//    public String getCurStopName(){
+    //    public String getCurStopName(){
 //        return curStopName;
 //    }
     public String getBusNumber(){
