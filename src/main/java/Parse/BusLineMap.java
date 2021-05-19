@@ -2,16 +2,15 @@ package Parse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import Parse.BusLine;
 
 import java.io.IOException;
 
 
 public class BusLineMap {
-    private BusLine[] BusLines;
-    private int size;
-    private int lineId;
-    private String lineName;
+    public BusLine[] BusLines;
+    public int size;
+    public int lineId;
+    public String lineName;
 
 
     public BusLineMap(int id)throws IOException, org.json.simple.parser.ParseException{
@@ -46,21 +45,10 @@ public class BusLineMap {
     public void BusLinePrint(){
         System.out.println("정류장 개수: "+size);
         for(int i=0;i<size;i++)
-            System.out.println(" 정류장 번호: " +BusLines[i].getStopId() +" | 정류장 이름 : "+ BusLines[i].getStopName()+"  | 정류장 종류 : "+ flagData(BusLines[i].getFlag()));
+            System.out.println(" 정류장 번호: " +BusLines[i].StopId +" | 정류장 이름 : "+ BusLines[i].StopName+"  | 정류장 종류 : "+ BusLines[i].flag);
     }
 
-    public String flagData(int index) {     // 플래그 데이터는 BusLine 안에 들어가는 게 맞아 보여요!
-            if (index == 1)
-                return "일반";
-            else if (index == 2)
-                return "<기점>";
-            else if (index == 3)
-                return "[종점]";
-            else
-                return "<종점>";
-    }
     public String getLineName(){ return lineName; }
     public BusLine[] getBusLines() { return BusLines; }
     public int getLineId() { return lineId; }
-
 }
