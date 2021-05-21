@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 public class BusListSet {
     public static HashMap<Integer, BusList> buslist;
     public static int size;
+    public static String sizeString;
 
     public static HashMap<Integer, BusList> getBusLists(){
 
@@ -33,6 +34,11 @@ public class BusListSet {
                 }
             }
         }
-
+        }
+    public static String save() {
+        JSONObject jsonObject = new GetApiData("LINE").getData();
+        JSONArray jsonArray = (JSONArray) jsonObject.get("LINE_LIST");
+        sizeString = jsonObject.get("ROW_COUNT").toString();
+        return sizeString;
     }
 }
