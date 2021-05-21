@@ -35,10 +35,5 @@ public class BusListSet {
             }
         }
         }
-    public static String save() {
-        JSONObject jsonObject = new GetApiData("LINE").getData();
-        JSONArray jsonArray = (JSONArray) jsonObject.get("LINE_LIST");
-        sizeString = jsonObject.get("ROW_COUNT").toString();
-        return sizeString;
+
     }
-}

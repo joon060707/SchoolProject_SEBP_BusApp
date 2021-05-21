@@ -34,10 +34,4 @@ public class StopListSet {
 
 
     }
-    public static String save() {
-        JSONObject jsonObject = new GetApiData("STATION").getData();
-        JSONArray jsonArray = (JSONArray) jsonObject.get("STATION_LIST");
-        sizeString = jsonObject.get("ROW_COUNT").toString();
-        return sizeString;
-    }
 }
