@@ -6,19 +6,18 @@ import java.io.IOException;
 
 public class Main {
 
+    public static void main(String[] args) {
 
-    public static void main(String[] args) throws IOException, ParseException {
-
-        // Arrive
-        new Arrive(907).print();
-
-        // StopList
-        StopListSet.StopListPrint(StopListSet.getStopLists());
-
-        // BusList
-        BusListSet.BusListPrint(BusListSet.getBusLists());
-
-        new BusLineMap(9).BusLinePrint();
+//        // Arrive
+//        new Arrive(907).print();
+//
+//        // StopList
+//        StopListSet.StopListPrint(StopListSet.getStopLists());
+//
+//        // BusList
+//        BusListSet.BusListPrint(BusListSet.getBusLists());
+//
+//        new BusLineMap(9).BusLinePrint();
 
 
         BusGUI.mainMenu().start();
