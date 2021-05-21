@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="Level 2 Finished">
+
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_11_1.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/Dto/BusLineRequestDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/Dto/BusStopRequestDto.java" afterDir="false" />
@@ -22,6 +23,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/domain/busline/BusLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/busline/BusLine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/domain/busline/BusLineTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/busline/BusLineTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/domain/busstop/BusStopTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/busstop/BusStopTest.class" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +87,21 @@
   <component name="RunManager" selected="JUnit.FavoritesServiceTest.findAll">
     <configuration name="BusStopTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="domain.busstop.BusStopTest" />
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BusLineTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="domain.busline.BusLineTest" />
       <module name="maven" />
       <extension name="coverage">
         <pattern>
@@ -180,6 +197,11 @@
         <item itemvalue="JUnit.FavoritesServiceTest.save" />
         <item itemvalue="JUnit.FavoritesServiceTest.delete" />
         <item itemvalue="Application.BusStopTest" />
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.BusStopTest" />
+        <item itemvalue="Application.BusLineTest" />
       </list>
     </recent_temporary>
   </component>
