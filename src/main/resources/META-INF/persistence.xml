@@ -12,7 +12,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_aql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.id.new_generator_mapping" value="true"/>
+<!--            <property name="hibernate.id.new_generator_mapping" value="true"/>-->
         </properties>
     </persistence-unit>
 </persistence>

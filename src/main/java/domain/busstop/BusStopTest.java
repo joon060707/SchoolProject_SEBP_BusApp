@@ -1,6 +1,5 @@
 package domain.busstop;
 
-import domain.busline.BusLine;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,7 +26,7 @@ public class BusStopTest {
 
     }
     private static void logic(EntityManager em){
-        Integer id = 456;
+        Integer id = 124567;
         BusStop busStop = new BusStop.Builder()
                 .id(id)
                 .name("전남대후문정류")
@@ -38,11 +37,14 @@ public class BusStopTest {
 
         //전체 조회
         List<BusStop> BusStopList = em.createQuery("select b from BusStop b", BusStop.class).getResultList();
-        System.out.println(BusStopList.get(0).getId());
-        System.out.println(BusStopList.get(0).getName());
+        for(BusStop bs :BusStopList){
+            System.out.println(bs.getId());
+            System.out.println(bs.getName());
+
+        }
 
         //id로 삭제
-        BusStop findBusStop =em.find(BusStop.class, id);
-        em.remove(findBusStop);
+        BusStop foundBusLine =em.find(BusStop.class, id);
+        em.remove(foundBusLine);
     }
 }

@@ -26,6 +26,8 @@ public class BusLine {
         return name;
     }
 
+    public BusLine(){}
+
 
     private BusLine(Builder builder){
         id = builder.id;
