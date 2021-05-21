@@ -4,6 +4,7 @@ import Dto.BusLineRequestDto;
 import Dto.BusStopRequestDto;
 import domain.busline.BusLine;
 import domain.busstop.BusStop;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
@@ -19,6 +20,7 @@ public class FavoritesServiceTest {
         favoritesService.deleteAllStop();
     }
 
+    @After
     @Test
     public void save(){
         Integer id = 1;
@@ -138,8 +140,6 @@ public class FavoritesServiceTest {
         assertThat(busLineList.get(0).getName()).isEqualTo("일곡18");
         assertThat(busLineList.get(1).getId()).isEqualTo(2);
         assertThat(busLineList.get(1).getName()).isEqualTo("진월07");
-
-
 
 
     }

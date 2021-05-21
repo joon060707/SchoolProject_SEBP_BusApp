@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="Level 2 Finished">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_11_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Dto/BusLineRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Dto/BusStopRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/service/FavoritesService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/service/FavoritesServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maven.iml" beforeDir="false" afterPath="$PROJECT_DIR$/maven.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/busline/BusLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/busline/BusLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/busline/BusLineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/busline/BusLineTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/busstop/BusStopTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/busstop/BusStopTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/busline/BusLine$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/busline/BusLine$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/busline/BusLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/busline/BusLine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/busline/BusLineTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/busline/BusLineTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/busstop/BusStopTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/busstop/BusStopTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/FavoritesServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/FavoritesServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,20 +68,7 @@
       <recent name="Parse" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.FavoritesServiceTest">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -111,6 +85,17 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="maven" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -180,8 +165,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.FavoritesServiceTest" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
