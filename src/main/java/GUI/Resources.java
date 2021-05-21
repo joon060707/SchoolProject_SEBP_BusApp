@@ -34,6 +34,7 @@ public class Resources {
         return find;
     }
 
+    @Deprecated     // 진짜로!!
     // 리스트에서 해당 문자열의 번호를 반환
     public static int[] searchIndex(String[][] list, String what){
         ArrayList<Integer> found=new ArrayList<>();

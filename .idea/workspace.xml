@@ -5,27 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecbeb860-1b07-4007-a907-29bcffb4d185" name="Default Changelist" comment="Level 2 Finished">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_4_200.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_4_0_5_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_4_3_10_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_4_3_10_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_1_1_0_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_1_3_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_annotations_1_2_0_Beta1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_spec_javax_transaction_jboss_transaction_api_1_2_spec_1_0_0_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/busline/BusLine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/busline/BusLineTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/busstop/BusStop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/busstop/BusStopTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maven.iml" beforeDir="false" afterPath="$PROJECT_DIR$/maven.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/BusGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Resources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/BusGUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Resources.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Resources.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/Arrive.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLineMap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/BusLocation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parse/StopList.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +74,20 @@
       <recent name="Parse" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BusStopTest">
+  <component name="RunManager" selected="Application.Main">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BusLineTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="domain.busline.BusLineTest" />
       <module name="maven" />
@@ -120,24 +121,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.BusStopTest" />
         <item itemvalue="Application.BusLineTest" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>

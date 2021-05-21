@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class BusGUI extends JFrame {
@@ -264,21 +265,24 @@ public class BusGUI extends JFrame {
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                int[] found = Resources.searchIndex(data, list.getSelectedValue());
+                int index = Arrays.asList(data[1]).indexOf(list.getSelectedValue());        // Good!
+                if(type==TYPE_STOP)stopArrive(Integer.parseInt(data[0][index]), "").start();
+                        else lineInfo(Integer.parseInt(data[0][index]), "").start();
 
-                    if(found.length>1) {
-//                        String lst="";
-                        for(int i=0; i<found.length; i++) {
-//                            lst=lst.concat(i+" ");
-                            if(type==TYPE_STOP) stopArrive(found[i], " ("+(i+1)+"번째)").start();
-                            else lineInfo(found[i], " ("+(i+1)+"번째)").start();
-                        }
-                    // 보통 다음 정류장이 없는 경우 발생. 창 2개 다 띄울 것인가?
-                    alertPopup("여러 항목이 선택되었습니다", "해당하는 버스를 잘 골라주세요ㅠㅠ", Color.BLACK, 20).start();
-                    } else {
-                        if(type==TYPE_STOP)stopArrive(found[0], "").start();
-                        else lineInfo(found[0], "").start();
-                    }
+//                int[] found = Resources.searchIndex(data, list.getSelectedValue());
+//                    if(found.length>1) {
+////                        String lst="";
+//                        for(int i=0; i<found.length; i++) {
+////                            lst=lst.concat(i+" ");
+//                            if(type==TYPE_STOP) stopArrive(found[i], " ("+(i+1)+"번째)").start();
+//                            else lineInfo(found[i], " ("+(i+1)+"번째)").start();
+//                        }
+//                    // 보통 다음 정류장이 없는 경우 발생. 창 2개 다 띄울 것인가?
+//                    alertPopup("여러 항목이 선택되었습니다", "해당하는 버스를 잘 골라주세요ㅠㅠ", Color.BLACK, 20).start();
+//                    } else {
+//                        if(type==TYPE_STOP)stopArrive(found[0], "").start();
+//                        else lineInfo(found[0], "").start();
+//                    }
             }
         });
         JScrollPane scrollList=new JScrollPane(list);
@@ -553,14 +557,14 @@ public class BusGUI extends JFrame {
 
         panel.add(lineDesc, BorderLayout.NORTH);
 
-        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocationMap, busList));
+        JScrollPane lineStopList = new JScrollPane(lineStopList(busLineMap, busLocationMap));
         lineStopList.setBorder(null);
         panel.add(lineStopList, BorderLayout.CENTER);
 
         return panel;
     }
 
-    private static JPanel lineStopList(BusLineMap busLineMap, BusLocationMap busLocationMap, BusList busList) {
+    private static JPanel lineStopList(BusLineMap busLineMap, BusLocationMap busLocationMap) {
 
         BusLine[] busLines = busLineMap.getBusLines();
 
