@@ -15,7 +15,7 @@ public class FavoritesService {
 
     public FavoritesService(){}
 
-
+    // 버스노선 즐겨찾기 목록에 추가.
     public void save(BusLineRequestDto requestDto) {
         try {
             tx.begin();
@@ -26,7 +26,7 @@ public class FavoritesService {
         }
 
     }
-
+    // 버스정류장 즐겨찾기 목록에 추가.
     public void save(BusStopRequestDto requestDto) {
         try {
             tx.begin();
@@ -37,6 +37,7 @@ public class FavoritesService {
         }
     }
 
+    // id로 버스노선 즐겨찾기 목록에서 제
     public void delById(BusLineRequestDto requestDto) {
         try {
             tx.begin();
@@ -48,7 +49,7 @@ public class FavoritesService {
             tx.rollback();
         }
     }
-
+    // id로 버스정류장 즐겨찾기 목록에서 제거.
     public void delById(BusStopRequestDto requestDto) {
         try {
             tx.begin();
@@ -61,6 +62,7 @@ public class FavoritesService {
         }
     }
 
+    //버스 노선 즐겨찾기 목록 반환.
     public List<BusLine> findAllLines() {
         try {
             tx.begin();
@@ -74,6 +76,7 @@ public class FavoritesService {
         return null;
     }
 
+    //버스 정류장 즐겨찾기 목록환 반환.
     public List<BusStop> findAllStops() {
         try {
             tx.begin();
@@ -87,6 +90,7 @@ public class FavoritesService {
         return null;
     }
 
+    //모든 즐겨찾기 정류장 삭제.
     public void deleteAllStop(){
         try {
             tx.begin();
@@ -98,6 +102,8 @@ public class FavoritesService {
             tx.rollback();
         }
     }
+
+    //모든 즐겨찾기 버스노선 삭제.
     public void deleteAllLine(){
         try {
             tx.begin();
