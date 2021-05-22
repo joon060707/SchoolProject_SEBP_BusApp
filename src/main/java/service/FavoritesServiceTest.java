@@ -14,13 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FavoritesServiceTest {
     public FavoritesService favoritesService= new FavoritesService();
 
+    @After
     @Before
     public void cleanup(){
         favoritesService.deleteAllLine();
         favoritesService.deleteAllStop();
     }
 
-    @After
     @Test
     public void save(){
         Integer id = 1;
