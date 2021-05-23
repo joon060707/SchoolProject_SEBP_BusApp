@@ -12,8 +12,10 @@ public class Arrive {
     private final int size;
     private String stopName;     // from Stoplist
     private String stopTo;       // from Stoplist
+    private int id;
 
     public Arrive(int id){
+        this.id=id;
         JSONObject jsonObject = new GetApiData("ARRIVE", id).getData();
         size=Integer.parseInt(jsonObject.get("ROW_COUNT").toString());
 
@@ -28,6 +30,8 @@ public class Arrive {
 
     public ArriveLine[] getLines() { return arriveLines; }
     public int getSize() { return size; }
+
+    public int getId() { return id; }
     public String getStopName() { return stopName; }
     public String getStopTo() {
         if(!stopTo.equals("다음 정류장 없음")) return stopTo+" 방향";

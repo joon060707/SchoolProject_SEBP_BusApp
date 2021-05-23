@@ -37,7 +37,29 @@ public class FavoritesService {
         }
     }
 
-    // id로 버스노선 즐겨찾기 목록에서 제
+    // 검색
+    public boolean find(BusLineRequestDto requestDto){
+        BusLine foundBusLine;
+        try {
+            foundBusLine = em.find(BusLine.class, requestDto.getId());
+        } catch (Exception e) {
+            return false;
+        }
+        return foundBusLine != null;
+    }
+
+    public boolean find(BusStopRequestDto requestDto){
+        BusStop foundBusStop;
+        try {
+            foundBusStop = em.find(BusStop.class, requestDto.getId());
+        } catch (Exception e) {
+            return false;
+        }
+        return foundBusStop != null;
+    }
+
+
+    // id로 버스노선 즐겨찾기 목록에서 제거.
     public void delById(BusLineRequestDto requestDto) {
         try {
             tx.begin();

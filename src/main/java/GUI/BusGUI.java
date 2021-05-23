@@ -1,13 +1,16 @@
 package GUI;
 
+import Dto.BusLineRequestDto;
+import Dto.BusStopRequestDto;
 import Parse.*;
+import service.FavoritesService;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class BusGUI extends JFrame {
 
@@ -15,6 +18,8 @@ public class BusGUI extends JFrame {
 
     static HashMap<Integer, StopList> stopListSet;
     static HashMap<Integer, BusList> busListSet;
+
+    static FavoritesService favoritesService=new FavoritesService();
 
     public BusGUI(int width, int height, String title, String ico){
         setTitle(title);
@@ -66,6 +71,7 @@ public class BusGUI extends JFrame {
         stopBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
         stopBt.setForeground(Color.white);
         stopBt.addActionListener(e -> BusGUI.stopSelection().start());
+        stopBt.setBorder(null);
         panel.add(stopBt);
 
         JButton lineBt=new JButton(" 노선", Resources.getBtImage(Resources.IMG_BUS_ORANGE, 120));
@@ -74,10 +80,26 @@ public class BusGUI extends JFrame {
         lineBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
         lineBt.setForeground(Color.white);
         lineBt.addActionListener(e -> BusGUI.lineSelection().start());
+        lineBt.setBorder(null);
         panel.add(lineBt);
 
-        for (int i=0; i<5; i++) panel.add(new JLabel());
+        for (int i=0; i<4; i++) panel.add(new JLabel());
 
+        JPanel favWrap=new JPanel();
+        favWrap.setLayout(new GridLayout(2,1));
+        favWrap.setBackground(Color.white);
+        favWrap.setBorder(new EmptyBorder(10,10,10,10));
+        favWrap.add(new JLabel());
+
+        JButton favBt=new JButton("즐겨찾기", Resources.getBtImage(Resources.IMG_FAV_YES, 60));
+        favBt.setBackground(Color.green);
+        favBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 25));
+        favBt.setForeground(Color.black);
+        favBt.addActionListener(e -> favorite().start());
+        favBt.setBorder(null);
+        favWrap.add(favBt);
+
+        panel.add(favWrap);
         return panel;
     }
 
@@ -164,7 +186,7 @@ public class BusGUI extends JFrame {
         redBt.setBackground(Resources.COLOR_RED_BUS);
         redBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
         redBt.setForeground(Color.white);
-        redBt.addActionListener(e -> StatGUI.stat().start());
+//        redBt.addActionListener(e -> StatGUI.stat().start());
         road3.add(redBt);
 
         road3.add(emptyLabel(80,130));
@@ -235,19 +257,7 @@ public class BusGUI extends JFrame {
         panel.setBackground(Color.white);
         panel.setLayout(new BorderLayout(0, 10));
 
-        JPanel labelBgWrap=new JPanel();
-        labelBgWrap.setLayout(new BorderLayout());
-        labelBgWrap.setBackground(Color.white);
-        JPanel labelBg=new JPanel();
-        labelBg.setLayout(new FlowLayout(FlowLayout.LEFT));
-        labelBg.setBackground(labelColor);
-        JLabel label=new JLabel(labelStr);
-        label.setFont(Resources.nsq(Resources.FONT_NORMAL, 30));
-        label.setForeground(Color.white);
-
-        labelBg.add(label);
-        labelBgWrap.add(labelBg, BorderLayout.WEST);
-        panel.add(labelBgWrap, BorderLayout.NORTH);
+        panel.add(colorLabel(labelStr, labelColor), BorderLayout.NORTH);
         panel.add(search(src, type), BorderLayout.CENTER);
         return panel;
     }
@@ -337,11 +347,44 @@ public class BusGUI extends JFrame {
         stop.setLayout(new BorderLayout(0, 20));
         stop.setBackground(Color.white);
 
+        JPanel stopNameWrapper=new JPanel();
+        stopNameWrapper.setLayout(new FlowLayout(FlowLayout.CENTER));
+        stopNameWrapper.setBackground(Color.white);
+
         JLabel stopName=new JLabel(arrive.getStopName());
         stopName.setForeground(Resources.COLOR_BLUE_DARK);
         stopName.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
         stopName.setHorizontalAlignment(SwingConstants.CENTER);
         stopName.setVerticalAlignment(SwingConstants.CENTER);
+
+        // Favorite
+        BusStopRequestDto requestDto = new BusStopRequestDto.Builder()
+                .id(arrive.getId())
+                .name(arrive.getStopNameWithTo()).build();
+
+        JButton stopFav=new JButton();
+        if(favoritesService.find(requestDto))
+            stopFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_YES, 40));
+        else
+            stopFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_NO, 40));
+        stopFav.setBorder(null);
+        stopFav.setBackground(Color.white);
+
+        // Add
+        stopFav.addActionListener(e -> {
+            if(favoritesService.find(requestDto)) {
+                favoritesService.delById(requestDto);
+                stopFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_NO, 40));
+            }
+            else {
+                favoritesService.save(requestDto);
+                stopFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_YES, 40));
+            }
+        });
+
+        stopNameWrapper.add(stopName);
+        stopNameWrapper.add(stopFav);
+
 
         JLabel stopTo=new JLabel(arrive.getStopTo());
         stopTo.setForeground(Resources.COLOR_GRAY);
@@ -373,7 +416,7 @@ public class BusGUI extends JFrame {
         for(int i=2; i<4; i++) legendTime.add(legendLab[i]);
         legend.add(legendTime);
 
-        stop.add(stopName, BorderLayout.NORTH);
+        stop.add(stopNameWrapper, BorderLayout.NORTH);
         stop.add(stopTo, BorderLayout.CENTER);
         stop.add(legend, BorderLayout.SOUTH);
 
@@ -500,16 +543,49 @@ public class BusGUI extends JFrame {
         lineDesc.setLayout(new BorderLayout());
         lineDesc.setBackground(Color.white);
 
+        JPanel lineNameWrapper = new JPanel();
+        lineNameWrapper.setLayout(new FlowLayout(FlowLayout.CENTER));
+        lineNameWrapper.setBackground(Color.white);
+
         JLabel lineName = new JLabel(busLineMap.getLineName());
         lineName.setForeground(busColor(busLineMap.getLineId()));
         lineName.setFont(Resources.nsq(Resources.FONT_NORMAL, 40));
         lineName.setHorizontalAlignment(SwingConstants.CENTER);
         lineName.setVerticalAlignment(SwingConstants.CENTER);
-        lineName.setBorder(new EmptyBorder(10, 0, 30, 0));
+
+        // favorite
+        BusLineRequestDto requestDto = new BusLineRequestDto.Builder()
+                .id(busLineMap.getLineId())
+                .name(busLineMap.getLineName()+"("+busList.getDirDown()+"→"+busList.getDirUp()+")").build();
+
+        JButton lineFav=new JButton();
+        if(favoritesService.find(requestDto))
+            lineFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_YES, 40));
+        else
+            lineFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_NO, 40));
+        lineFav.setBorder(null);
+        lineFav.setBackground(Color.white);
+
+        // Add
+        lineFav.addActionListener(e -> {
+            if(favoritesService.find(requestDto)) {
+                favoritesService.delById(requestDto);
+                lineFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_NO, 40));
+            }
+            else {
+                favoritesService.save(requestDto);
+                lineFav.setIcon(Resources.getBtImage(Resources.IMG_FAV_YES, 40));
+            }
+        });
+
+        lineNameWrapper.add(lineName);
+        lineNameWrapper.add(lineFav);
+
 
         JPanel lineInfo = new JPanel();
         lineInfo.setLayout(new GridLayout(2, 3));
         lineInfo.setBackground(Color.white);
+        lineInfo.setBorder(new EmptyBorder(20,0,0,0));
 
         String[] lineInfoRes;
         if(busList.getlineKind().equals("광역버스") && !busList.getLineName().contains("나주"))
@@ -552,7 +628,7 @@ public class BusGUI extends JFrame {
         legend1.add(legend2);
 
 
-        lineDesc.add(lineName, BorderLayout.NORTH);
+        lineDesc.add(lineNameWrapper, BorderLayout.NORTH);
         lineDesc.add(lineInfo, BorderLayout.CENTER);
         lineDesc.add(legend1, BorderLayout.SOUTH);
 
@@ -615,6 +691,109 @@ public class BusGUI extends JFrame {
 
         return panel;
     }
+
+    ///////////////////////////////////////// Favorite Screen ////////////////////////////////////////////////////
+
+    public static BusGUI favorite(){
+        BusGUI window = new BusGUI(1280, 720, "즐겨찾기", Resources.IMG_FAV_YES, 320, 180);
+        window.setMinimumSize(new Dimension(800, 400));
+
+        if(getFav(TYPE_LINE)[0].length == 0 && getFav(TYPE_STOP)[0].length == 0)
+            return alertPopup("오류", "등록된 즐겨찾기가 없습니다.", Color.red, 20);
+
+
+        return insetWindow(window, favoriteInner(), 1, 10, 10, 10);
+    }
+
+    private static JPanel favoriteInner(){
+        JPanel panel=new JPanel();
+        panel.setBackground(Color.white);
+        panel.setLayout(new GridLayout(1,2, 10, 0));
+
+        //Stop
+        JPanel favStop=new JPanel();
+        favStop.setLayout(new BorderLayout(0,10));
+        favStop.setBackground(Color.white);
+
+        JPanel favStopTop=new JPanel();
+        favStopTop.setLayout(new BorderLayout(0,10));
+        favStopTop.setBackground(Color.white);
+        favStopTop.add(colorLabel("즐겨찾기", Resources.COLOR_PINK_DARK), BorderLayout.NORTH);
+        favStopTop.add(colorLabel("정류장", Resources.COLOR_PURPLE), BorderLayout.CENTER);
+
+        favStop.add(favStopTop, BorderLayout.NORTH);
+        favStop.add(favoriteList(TYPE_STOP), BorderLayout.CENTER);
+
+
+        //Line
+        JPanel favLine=new JPanel();
+        favLine.setLayout(new BorderLayout(0,10));
+        favLine.setBackground(Color.white);
+
+        JPanel favLineTop=new JPanel();
+        favLineTop.setLayout(new BorderLayout(0,10));
+        favLineTop.setBackground(Color.white);
+        favLineTop.add(colorLabel(" ", Color.white), BorderLayout.NORTH);
+        favLineTop.add(colorLabel("노선", Resources.COLOR_SKY), BorderLayout.CENTER);
+
+        favLine.add(favLineTop, BorderLayout.NORTH);
+        favLine.add(favoriteList(TYPE_LINE), BorderLayout.CENTER);
+
+
+        panel.add(favStop);
+        panel.add(favLine);
+
+        return panel;
+    }
+
+    private static String[][] getFav(int type){
+
+
+        String[][] res;
+
+        if(type==TYPE_LINE) {
+            List<domain.busline.BusLine>  list = favoritesService.findAllLines();
+            res=new String[2][list.size()];
+
+            for (int i=0; i< list.size(); i++){
+                res[0][i] = String.valueOf(list.get(i).getId());
+                res[1][i] = list.get(i).getName();
+            }
+        } else {
+            List<domain.busstop.BusStop>  list = favoritesService.findAllStops();
+            res=new String[2][list.size()];
+
+            for (int i=0; i< list.size(); i++){
+                res[0][i] = String.valueOf(list.get(i).getId());
+                res[1][i] = list.get(i).getName();
+            }
+        }
+
+        return res;
+    }
+
+    private static JScrollPane favoriteList(int type){
+        String[][] data = getFav(type);
+
+        JList<String> list=new JList<>(data[1]);
+        list.setFixedCellHeight(40);
+        list.setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
+        list.setForeground(Color.black);
+        if(type==TYPE_LINE) list.setCellRenderer(new Render(data[0]));
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int index = Arrays.asList(data[1]).indexOf(list.getSelectedValue());        // Good!
+                if(type==TYPE_STOP)stopArrive(Integer.parseInt(data[0][index]), "").start();
+                else lineInfo(Integer.parseInt(data[0][index]), "").start();
+
+            }
+        });
+        return new JScrollPane(list);
+    }
+
+
+
 
     ///////////////////////////////////////////// Etc Screen //////////////////////////////////////////////////////
 
@@ -748,6 +927,25 @@ public class BusGUI extends JFrame {
     private static JLabel emptyLabel(int width, int height){
         return new JLabel(Resources.getBtImage(Resources.IMG_EMPTY, width, height));
     }
+
+    // 컬러 라벨
+    private static JPanel colorLabel(String text, Color color){
+
+        JPanel labelBgWrap=new JPanel();
+        labelBgWrap.setLayout(new BorderLayout());
+        labelBgWrap.setBackground(Color.white);
+        JPanel labelBg=new JPanel();
+        labelBg.setLayout(new FlowLayout(FlowLayout.LEFT));
+        labelBg.setBackground(color);
+        JLabel label=new JLabel(text);
+        label.setFont(Resources.nsq(Resources.FONT_NORMAL, 30));
+        label.setForeground(Color.white);
+        labelBg.add(label);
+        labelBgWrap.add(labelBg, BorderLayout.WEST);
+
+        return labelBgWrap;
+    }
+
 
     // END
 

@@ -60,6 +60,8 @@ public class Resources {
     static final String IMG_STOP1 = "stop1.png";
     static final String IMG_STOP2 = "stop2.png";
     static final String IMG_EMPTY = "empty.png";
+    static final String IMG_FAV_YES = "fav_y.png";
+    static final String IMG_FAV_NO = "fav_n.png";
 
     // Icon
     // 정상 비율 아이콘: 버튼, 라벨
@@ -89,6 +91,7 @@ public class Resources {
     static final Color COLOR_PURPLE = new Color(112, 48, 160);
     static final Color COLOR_BLUE_DARK = new Color(0, 112, 192);
     static final Color COLOR_PINK = new Color(238,150,200);
+    static final Color COLOR_PINK_DARK = new Color(255,51,153);
 
     static final Color COLOR_RED_BUS = new Color(255, 84, 84);
     static final Color COLOR_YELLOW_BUS = new Color(255, 153, 0);
