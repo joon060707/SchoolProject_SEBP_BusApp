@@ -226,7 +226,7 @@ public class BusGUI extends JFrame {
             labelStr="정류장 검색";
             labelColor=Resources.COLOR_PURPLE;
 //            src=Resources.testArray(5000);
-            src=new String[stopListSet.size()][2];
+            src=new String[stopListSet.size()][2];      // 수정
             for(int i=0, j=0; i<10000; i++){
                 StopList s = stopListSet.get(i);
                 if(s!=null){
@@ -278,15 +278,11 @@ public class BusGUI extends JFrame {
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-
                 String[][] temp = new String[list.getModel().getSize()][2];
-                for(int i=0; i<list.getModel().getSize(); i++){
-                    temp[i]=list.getModel().getElementAt(i);
-                }
+                for(int i=0; i<list.getModel().getSize(); i++) temp[i]=list.getModel().getElementAt(i);
 
                 int index = list.getSelectedIndex();
                 System.out.println(temp[index][0]);
-//                int index = Arrays.asList(temp[1]).indexOf(list.getSelectedValue());
                 if(type==TYPE_STOP)stopArrive(Integer.parseInt(temp[index][0]), "").start();
                         else lineInfo(Integer.parseInt(temp[index][0]), "").start();
 
