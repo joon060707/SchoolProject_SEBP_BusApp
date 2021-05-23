@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class BusStopTest {
+public class FavoriteStopTest {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("h2jpa");
         EntityManager em = emf.createEntityManager();
@@ -27,24 +27,24 @@ public class BusStopTest {
     }
     private static void logic(EntityManager em){
         Integer id = 124567;
-        BusStop busStop = new BusStop.Builder()
+        FavoriteStop favoriteStop = new FavoriteStop.Builder()
                 .id(id)
                 .name("전남대후문정류")
                 .build();
 
         //등록
-        em.persist(busStop);
+        em.persist(favoriteStop);
 
         //전체 조회
-        List<BusStop> BusStopList = em.createQuery("select b from BusStop b", BusStop.class).getResultList();
-        for(BusStop bs :BusStopList){
+        List<FavoriteStop> favoriteStopList = em.createQuery("select b from FavoriteStop b", FavoriteStop.class).getResultList();
+        for(FavoriteStop bs : favoriteStopList){
             System.out.println(bs.getId());
             System.out.println(bs.getName());
 
         }
 
         //id로 삭제
-        BusStop foundBusLine =em.find(BusStop.class, id);
+        FavoriteStop foundBusLine =em.find(FavoriteStop.class, id);
         em.remove(foundBusLine);
     }
 }

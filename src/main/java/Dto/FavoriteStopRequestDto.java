@@ -1,13 +1,13 @@
 package Dto;
 
-import domain.busstop.BusStop;
+import domain.busstop.FavoriteStop;
 
-public class BusStopRequestDto {
+public class FavoriteStopRequestDto {
     private Integer id;
     private String name;
 
-    public BusStopRequestDto(){}
-    public BusStopRequestDto(Builder builder){
+    public FavoriteStopRequestDto(){}
+    public FavoriteStopRequestDto(Builder builder){
         id = builder.id;
         name = builder.name;
     }
@@ -30,14 +30,14 @@ public class BusStopRequestDto {
             return this;
         }
 
-        public BusStopRequestDto build(){
-            return new BusStopRequestDto(this);
+        public FavoriteStopRequestDto build(){
+            return new FavoriteStopRequestDto(this);
         }
 
     }
 
-    public BusStop toEntity(){
-        return new BusStop.Builder()
+    public FavoriteStop toEntity(){
+        return new FavoriteStop.Builder()
                 .id(id)
                 .name(name)
                 .build();

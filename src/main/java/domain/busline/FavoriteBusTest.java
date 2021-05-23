@@ -3,7 +3,7 @@ package domain.busline;
 import javax.persistence.*;
 import java.util.List;
 
-public class BusLineTest {
+public class FavoriteBusTest {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("h2jpa");
         EntityManager em = emf.createEntityManager();
@@ -23,31 +23,31 @@ public class BusLineTest {
     }
     private static void logic(EntityManager em){
         Integer id = 1234;
-        BusLine busLine = new BusLine.Builder()
+        FavoriteBus favoriteBus = new FavoriteBus.Builder()
                 .id(id)
                 .name("전남대1")
                 .build();
 
         Integer id2 = 4567;
-        BusLine busLine2 = new BusLine.Builder()
+        FavoriteBus favoriteBus2 = new FavoriteBus.Builder()
                 .id(id2)
                 .name("전남대2")
                 .build();
 
         //등록
-        em.persist(busLine);
-        em.persist(busLine2);
+        em.persist(favoriteBus);
+        em.persist(favoriteBus2);
 
 //        //전체 조회
-        List<BusLine> busLineList = em.createQuery("select b from BusLine b", BusLine.class).getResultList();
-        System.out.println(busLineList);
-        for(BusLine bl : busLineList){
+        List<FavoriteBus> favoriteBusList = em.createQuery("select b from FavoriteBus b", FavoriteBus.class).getResultList();
+        System.out.println(favoriteBusList);
+        for(FavoriteBus bl : favoriteBusList){
             System.out.println(bl.getId());
             System.out.println(bl.getName());
         }
 
         //id로 삭제
-        BusLine foundBusStop =em.find(BusLine.class, id);
+        FavoriteBus foundBusStop =em.find(FavoriteBus.class, id);
         em.remove(foundBusStop);
     }
 }

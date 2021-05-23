@@ -1,9 +1,9 @@
 package service;
 
-import Dto.BusLineRequestDto;
-import Dto.BusStopRequestDto;
-import domain.busline.BusLine;
-import domain.busstop.BusStop;
+import Dto.FavoriteBusRequestDto;
+import Dto.FavoriteStopRequestDto;
+import domain.busline.FavoriteBus;
+import domain.busstop.FavoriteStop;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +16,7 @@ public class FavoritesService {
     public FavoritesService(){}
 
     // 버스노선 즐겨찾기 목록에 추가.
-    public void save(BusLineRequestDto requestDto) {
+    public void save(FavoriteBusRequestDto requestDto) {
         try {
             tx.begin();
             em.persist(requestDto.toEntity());
@@ -27,7 +27,7 @@ public class FavoritesService {
 
     }
     // 버스정류장 즐겨찾기 목록에 추가.
-    public void save(BusStopRequestDto requestDto) {
+    public void save(FavoriteStopRequestDto requestDto) {
         try {
             tx.begin();
             em.persist(requestDto.toEntity());
@@ -38,33 +38,33 @@ public class FavoritesService {
     }
 
     // 검색
-    public boolean find(BusLineRequestDto requestDto){
-        BusLine foundBusLine;
+    public boolean find(FavoriteBusRequestDto requestDto){
+        FavoriteBus foundFavoriteBus;
         try {
-            foundBusLine = em.find(BusLine.class, requestDto.getId());
+            foundFavoriteBus = em.find(FavoriteBus.class, requestDto.getId());
         } catch (Exception e) {
             return false;
         }
-        return foundBusLine != null;
+        return foundFavoriteBus != null;
     }
 
-    public boolean find(BusStopRequestDto requestDto){
-        BusStop foundBusStop;
+    public boolean find(FavoriteStopRequestDto requestDto){
+        FavoriteStop foundFavoriteStop;
         try {
-            foundBusStop = em.find(BusStop.class, requestDto.getId());
+            foundFavoriteStop = em.find(FavoriteStop.class, requestDto.getId());
         } catch (Exception e) {
             return false;
         }
-        return foundBusStop != null;
+        return foundFavoriteStop != null;
     }
 
 
     // id로 버스노선 즐겨찾기 목록에서 제거.
-    public void delById(BusLineRequestDto requestDto) {
+    public void delById(FavoriteBusRequestDto requestDto) {
         try {
             tx.begin();
-            BusLine foundBusLine = em.find(BusLine.class, requestDto.getId());
-            em.remove(foundBusLine);
+            FavoriteBus foundFavoriteBus = em.find(FavoriteBus.class, requestDto.getId());
+            em.remove(foundFavoriteBus);
             tx.commit();
 
         } catch (Exception e) {
@@ -72,11 +72,11 @@ public class FavoritesService {
         }
     }
     // id로 버스정류장 즐겨찾기 목록에서 제거.
-    public void delById(BusStopRequestDto requestDto) {
+    public void delById(FavoriteStopRequestDto requestDto) {
         try {
             tx.begin();
-            BusStop foundBusStop = em.find(BusStop.class, requestDto.getId());
-            em.remove(foundBusStop);
+            FavoriteStop foundFavoriteStop = em.find(FavoriteStop.class, requestDto.getId());
+            em.remove(foundFavoriteStop);
             tx.commit();
 
         } catch (Exception e) {
@@ -85,12 +85,12 @@ public class FavoritesService {
     }
 
     //버스 노선 즐겨찾기 목록 반환.
-    public List<BusLine> findAllLines() {
+    public List<FavoriteBus> findAllLines() {
         try {
             tx.begin();
-            List<BusLine> busLineList = em.createQuery("SELECT bl FROM BusLine bl", BusLine.class).getResultList();
+            List<FavoriteBus> favoriteBusList = em.createQuery("SELECT bl FROM FavoriteBus bl", FavoriteBus.class).getResultList();
             tx.commit();
-            return busLineList;
+            return favoriteBusList;
 
         } catch (Exception e) {
             tx.rollback();
@@ -99,12 +99,12 @@ public class FavoritesService {
     }
 
     //버스 정류장 즐겨찾기 목록환 반환.
-    public List<BusStop> findAllStops() {
+    public List<FavoriteStop> findAllStops() {
         try {
             tx.begin();
-            List<BusStop> BusStopList = em.createQuery("SELECT bs FROM BusStop bs", BusStop.class).getResultList();
+            List<FavoriteStop> favoriteStopList = em.createQuery("SELECT bs FROM FavoriteStop bs", FavoriteStop.class).getResultList();
             tx.commit();
-            return BusStopList;
+            return favoriteStopList;
 
         } catch (Exception e) {
             tx.rollback();
@@ -116,7 +116,7 @@ public class FavoritesService {
     public void deleteAllStop(){
         try {
             tx.begin();
-            Query query = em.createQuery("delete from BusStop");
+            Query query = em.createQuery("delete from FavoriteStop");
             query.executeUpdate();
             tx.commit();
 
@@ -129,7 +129,7 @@ public class FavoritesService {
     public void deleteAllLine(){
         try {
             tx.begin();
-            Query query = em.createQuery("delete from BusLine");
+            Query query = em.createQuery("delete from FavoriteBus");
             query.executeUpdate();
             tx.commit();
 

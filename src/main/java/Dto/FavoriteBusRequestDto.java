@@ -1,13 +1,13 @@
 package Dto;
 
-import domain.busline.BusLine;
+import domain.busline.FavoriteBus;
 
-public class BusLineRequestDto {
+public class FavoriteBusRequestDto {
     private Integer id;
     private String name;
 
-    public BusLineRequestDto(){}
-    public BusLineRequestDto(Builder builder){
+    public FavoriteBusRequestDto(){}
+    public FavoriteBusRequestDto(Builder builder){
         id = builder.id;
         name = builder.name;
     }
@@ -30,14 +30,14 @@ public class BusLineRequestDto {
             return this;
         }
 
-        public BusLineRequestDto build(){
-            return new BusLineRequestDto(this);
+        public FavoriteBusRequestDto build(){
+            return new FavoriteBusRequestDto(this);
         }
 
     }
 
-    public BusLine toEntity(){
-        return new BusLine.Builder()
+    public FavoriteBus toEntity(){
+        return new FavoriteBus.Builder()
                 .id(id)
                 .name(name)
                 .build();

@@ -1,9 +1,9 @@
 package service;
 
-import Dto.BusLineRequestDto;
-import Dto.BusStopRequestDto;
-import domain.busline.BusLine;
-import domain.busstop.BusStop;
+import Dto.FavoriteBusRequestDto;
+import Dto.FavoriteStopRequestDto;
+import domain.busline.FavoriteBus;
+import domain.busstop.FavoriteStop;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,29 +27,29 @@ public class FavoritesServiceTest {
         String name = "광주역";
 
         // BusStop Test
-        BusStopRequestDto busStopRequestDto = new BusStopRequestDto.Builder()
+        FavoriteStopRequestDto favoriteStopRequestDto = new FavoriteStopRequestDto.Builder()
                 .id(id)
                 .name("광주역")
                 .build();
 
-        favoritesService.save(busStopRequestDto);
+        favoritesService.save(favoriteStopRequestDto);
 
-        List<BusStop> busStopList = favoritesService.findAllStops();
-        assertThat(busStopList.get(0).getId()).isEqualTo(id);
-        assertThat(busStopList.get(0).getName()).isEqualTo(name);
+        List<FavoriteStop> favoriteStopList = favoritesService.findAllStops();
+        assertThat(favoriteStopList.get(0).getId()).isEqualTo(id);
+        assertThat(favoriteStopList.get(0).getName()).isEqualTo(name);
 
 
         // BusLine Test
-        BusLineRequestDto busLineRequestDto = new BusLineRequestDto.Builder()
+        FavoriteBusRequestDto favoriteBusRequestDto = new FavoriteBusRequestDto.Builder()
                 .id(id)
                 .name("광주역")
                 .build();
 
-        favoritesService.save(busLineRequestDto);
+        favoritesService.save(favoriteBusRequestDto);
 
-        List<BusLine> busLineList = favoritesService.findAllLines();
-        assertThat(busLineList.get(0).getId()).isEqualTo(id);
-        assertThat(busLineList.get(0).getName()).isEqualTo(name);
+        List<FavoriteBus> favoriteBusList = favoritesService.findAllLines();
+        assertThat(favoriteBusList.get(0).getId()).isEqualTo(id);
+        assertThat(favoriteBusList.get(0).getName()).isEqualTo(name);
 
     }
 
@@ -59,43 +59,43 @@ public class FavoritesServiceTest {
         String name = "광주역";
 
         //BusStop test
-        BusStopRequestDto busStopRequestDto = new BusStopRequestDto.Builder()
+        FavoriteStopRequestDto favoriteStopRequestDto = new FavoriteStopRequestDto.Builder()
                 .id(id)
                 .name("광주역")
                 .build();
 
-        favoritesService.save(busStopRequestDto);
+        favoritesService.save(favoriteStopRequestDto);
 
-        List<BusStop> busStopsList = favoritesService.findAllStops();
-        assertThat(busStopsList.size()).isEqualTo(1);
+        List<FavoriteStop> favoriteStopsList = favoritesService.findAllStops();
+        assertThat(favoriteStopsList.size()).isEqualTo(1);
 
-        BusStopRequestDto busStopDelRequestDto =new BusStopRequestDto.Builder()
+        FavoriteStopRequestDto busStopDelRequestDto =new FavoriteStopRequestDto.Builder()
                 .id(id)
                 .build();
 
         favoritesService.delById(busStopDelRequestDto);
 
-        List<BusStop> busStopsList2 = favoritesService.findAllStops();
-        assertThat(busStopsList2.size()).isEqualTo(0);
+        List<FavoriteStop> favoriteStopsList2 = favoritesService.findAllStops();
+        assertThat(favoriteStopsList2.size()).isEqualTo(0);
 
         //BusLine Test
-        BusLineRequestDto busLineRequestDto = new BusLineRequestDto.Builder()
+        FavoriteBusRequestDto favoriteBusRequestDto = new FavoriteBusRequestDto.Builder()
                 .id(id)
                 .name("광주역")
                 .build();
 
-        favoritesService.save(busLineRequestDto);
+        favoritesService.save(favoriteBusRequestDto);
 
-        List<BusLine> busLineList = favoritesService.findAllLines();
-        assertThat(busStopsList.size()).isEqualTo(1);
+        List<FavoriteBus> favoriteBusList = favoritesService.findAllLines();
+        assertThat(favoriteStopsList.size()).isEqualTo(1);
 
-        BusLineRequestDto busLineDelRequestDto =new BusLineRequestDto.Builder()
+        FavoriteBusRequestDto busLineDelRequestDto =new FavoriteBusRequestDto.Builder()
                 .id(id)
                 .build();
 
         favoritesService.delById(busLineDelRequestDto);
 
-        List<BusLine> busStopList2 = favoritesService.findAllLines();
+        List<FavoriteBus> busStopList2 = favoritesService.findAllLines();
         assertThat(busStopList2.size()).isEqualTo(0);
 
 
@@ -104,42 +104,42 @@ public class FavoritesServiceTest {
     @Test
     public void findAll(){
         //BusStop Test
-        favoritesService.save(new BusStopRequestDto.Builder()
+        favoritesService.save(new FavoriteStopRequestDto.Builder()
                 .id(1)
                 .name("전남대")
                 .build()
         );
-        favoritesService.save(new BusStopRequestDto.Builder()
+        favoritesService.save(new FavoriteStopRequestDto.Builder()
                 .id(2)
                 .name("전남대후문")
                 .build()
         );
 
-        List<BusStop> busStopList =favoritesService.findAllStops();
-        assertThat(busStopList.size()).isEqualTo(2);
-        assertThat(busStopList.get(0).getId()).isEqualTo(1);
-        assertThat(busStopList.get(0).getName()).isEqualTo("전남대");
-        assertThat(busStopList.get(1).getId()).isEqualTo(2);
-        assertThat(busStopList.get(1).getName()).isEqualTo("전남대후문");
+        List<FavoriteStop> favoriteStopList =favoritesService.findAllStops();
+        assertThat(favoriteStopList.size()).isEqualTo(2);
+        assertThat(favoriteStopList.get(0).getId()).isEqualTo(1);
+        assertThat(favoriteStopList.get(0).getName()).isEqualTo("전남대");
+        assertThat(favoriteStopList.get(1).getId()).isEqualTo(2);
+        assertThat(favoriteStopList.get(1).getName()).isEqualTo("전남대후문");
 
         //BusLine Test
-        favoritesService.save(new BusLineRequestDto.Builder()
+        favoritesService.save(new FavoriteBusRequestDto.Builder()
                 .id(1)
                 .name("일곡18")
                 .build()
         );
-        favoritesService.save(new BusLineRequestDto.Builder()
+        favoritesService.save(new FavoriteBusRequestDto.Builder()
                 .id(2)
                 .name("진월07")
                 .build()
         );
 
-        List<BusLine> busLineList =favoritesService.findAllLines();
-        assertThat(busLineList.size()).isEqualTo(2);
-        assertThat(busLineList.get(0).getId()).isEqualTo(1);
-        assertThat(busLineList.get(0).getName()).isEqualTo("일곡18");
-        assertThat(busLineList.get(1).getId()).isEqualTo(2);
-        assertThat(busLineList.get(1).getName()).isEqualTo("진월07");
+        List<FavoriteBus> favoriteBusList =favoritesService.findAllLines();
+        assertThat(favoriteBusList.size()).isEqualTo(2);
+        assertThat(favoriteBusList.get(0).getId()).isEqualTo(1);
+        assertThat(favoriteBusList.get(0).getName()).isEqualTo("일곡18");
+        assertThat(favoriteBusList.get(1).getId()).isEqualTo(2);
+        assertThat(favoriteBusList.get(1).getName()).isEqualTo("진월07");
 
 
     }

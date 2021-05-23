@@ -8,8 +8,8 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "BUSSTOP")
-public class BusStop {
+@Table(name = "FAVORITESTOP")
+public class FavoriteStop {
     @Id
     @Column(name = "ID")
     private Integer id;
@@ -17,9 +17,9 @@ public class BusStop {
     @Column(name = "NAME")
     private String name;
 
-    public BusStop() {}
+    public FavoriteStop() {}
 
-    private BusStop(Builder builder){
+    private FavoriteStop(Builder builder){
         id = builder.id;
         name = builder.name;
 
@@ -48,8 +48,8 @@ public class BusStop {
             return this;
         }
 
-        public BusStop build(){
-            return new BusStop(this);
+        public FavoriteStop build(){
+            return new FavoriteStop(this);
         }
 
     }

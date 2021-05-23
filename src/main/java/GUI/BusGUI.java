@@ -1,8 +1,10 @@
 package GUI;
 
-import Dto.BusLineRequestDto;
-import Dto.BusStopRequestDto;
+import Dto.FavoriteBusRequestDto;
+import Dto.FavoriteStopRequestDto;
 import Parse.*;
+import domain.busline.FavoriteBus;
+import domain.busstop.FavoriteStop;
 import service.FavoritesService;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -352,7 +354,7 @@ public class BusGUI extends JFrame {
         stopName.setVerticalAlignment(SwingConstants.CENTER);
 
         // Favorite
-        BusStopRequestDto requestDto = new BusStopRequestDto.Builder()
+        FavoriteStopRequestDto requestDto = new FavoriteStopRequestDto.Builder()
                 .id(arrive.getId())
                 .name(arrive.getStopNameWithTo()).build();
 
@@ -548,7 +550,7 @@ public class BusGUI extends JFrame {
         lineName.setVerticalAlignment(SwingConstants.CENTER);
 
         // favorite
-        BusLineRequestDto requestDto = new BusLineRequestDto.Builder()
+        FavoriteBusRequestDto requestDto = new FavoriteBusRequestDto.Builder()
                 .id(busLineMap.getLineId())
                 .name(busLineMap.getLineName()+"("+busList.getDirDown()+"→"+busList.getDirUp()+")").build();
 
@@ -796,7 +798,7 @@ public class BusGUI extends JFrame {
         String[][] res;
 
         if(type==TYPE_LINE) {
-            List<domain.busline.BusLine>  list = favoritesService.findAllLines();
+            List<FavoriteBus>  list = favoritesService.findAllLines();
             res=new String[list.size()][2];
 
             for (int i=0; i< list.size(); i++){
@@ -804,7 +806,7 @@ public class BusGUI extends JFrame {
                 res[i][1] = list.get(i).getName();
             }
         } else {
-            List<domain.busstop.BusStop>  list = favoritesService.findAllStops();
+            List<FavoriteStop>  list = favoritesService.findAllStops();
             res=new String[list.size()][2];
 
             for (int i=0; i< list.size(); i++){
