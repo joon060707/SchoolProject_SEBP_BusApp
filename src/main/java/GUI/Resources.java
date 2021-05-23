@@ -23,13 +23,12 @@ public class Resources {
 
        ArrayList<String[]> found=new ArrayList<>();
 
-        for (int i=0; i<list[0].length; i++){
-            if(list[1][i].contains(what)) found.add(new String[]{list[0][i], list[1][i]});
+        for (int i=0; i<list.length; i++){
+            if(list[i][1].contains(what)) found.add(list[i]);
         }
-        String[][] find=new String[2][found.size()];
+        String[][] find=new String[found.size()][2];
         for (int i=0; i<found.size(); i++){
-            find[0][i]=found.get(i)[0];
-            find[1][i]=found.get(i)[1];
+            find[i]=found.get(i);
         }
         return find;
     }

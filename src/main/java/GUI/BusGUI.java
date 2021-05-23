@@ -226,12 +226,12 @@ public class BusGUI extends JFrame {
             labelStr="정류장 검색";
             labelColor=Resources.COLOR_PURPLE;
 //            src=Resources.testArray(5000);
-            src=new String[2][stopListSet.size()];
+            src=new String[stopListSet.size()][2];
             for(int i=0, j=0; i<10000; i++){
                 StopList s = stopListSet.get(i);
                 if(s!=null){
-                    src[0][j]=String.valueOf(s.getCurStopId());
-                    src[1][j]=s.getCurStopName()+"("+s.getNextStopName()+" 방향)";
+                    src[j][0]=String.valueOf(s.getCurStopId());
+                    src[j][1]=s.getCurStopName()+"("+s.getNextStopName()+" 방향)";
                     j++;
                 }
             }
@@ -239,15 +239,15 @@ public class BusGUI extends JFrame {
             labelStr="노선 검색";
             labelColor=Resources.COLOR_SKY;
 //            src=Resources.testArray(222);
-            src=new String[2][busListSet.size()];
+            src=new String[busListSet.size()][2];
             for(int i=0, j=0; i<1000; i++){
                 BusList b = busListSet.get(i);
                 if(b!=null){
-                    src[0][j]=String.valueOf(b.getLineId());
+                    src[j][0]=String.valueOf(b.getLineId());
                     if(b.getlineKind().equals("광역버스") && !b.getLineName().contains("나주"))
-                        src[1][j]=b.getLineName()+"("+b.getDirUp()+"→"+b.getDirDown()+")";
+                        src[j][1]=b.getLineName()+"("+b.getDirUp()+"→"+b.getDirDown()+")";
                     else
-                        src[1][j]=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")";
+                        src[j][1]=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")";
                     j++;
                 }
             }
@@ -268,32 +268,29 @@ public class BusGUI extends JFrame {
         center.setBackground(Color.white);
         center.setLayout(new BorderLayout(0, 10));
 
-        JList<String> list=new JList<>(data[1]);
+        JList<String[]> list=new JList<>(data);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setFixedCellHeight(40);
         list.setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
         list.setForeground(Color.black);
-        if(type==TYPE_LINE) list.setCellRenderer(new Render(data[0]));          // 아래 Render 클래스 참고...
+        if(type==TYPE_LINE) list.setCellRenderer(new Render());          // 아래 Render 클래스 참고...
+        else list.setCellRenderer(new RenderStop());
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                int index = Arrays.asList(data[1]).indexOf(list.getSelectedValue());        // Good!
-                if(type==TYPE_STOP)stopArrive(Integer.parseInt(data[0][index]), "").start();
-                        else lineInfo(Integer.parseInt(data[0][index]), "").start();
 
-//                int[] found = Resources.searchIndex(data, list.getSelectedValue());
-//                    if(found.length>1) {
-////                        String lst="";
-//                        for(int i=0; i<found.length; i++) {
-////                            lst=lst.concat(i+" ");
-//                            if(type==TYPE_STOP) stopArrive(found[i], " ("+(i+1)+"번째)").start();
-//                            else lineInfo(found[i], " ("+(i+1)+"번째)").start();
-//                        }
-//                    // 보통 다음 정류장이 없는 경우 발생. 창 2개 다 띄울 것인가?
-//                    alertPopup("여러 항목이 선택되었습니다", "해당하는 버스를 잘 골라주세요ㅠㅠ", Color.BLACK, 20).start();
-//                    } else {
-//                        if(type==TYPE_STOP)stopArrive(found[0], "").start();
-//                        else lineInfo(found[0], "").start();
-//                    }
+                String[][] temp = new String[list.getModel().getSize()][2];
+                for(int i=0; i<list.getModel().getSize(); i++){
+                    temp[i]=list.getModel().getElementAt(i);
+                }
+
+                int index = list.getSelectedIndex();
+                System.out.println(temp[index][0]);
+//                int index = Arrays.asList(temp[1]).indexOf(list.getSelectedValue());
+                if(type==TYPE_STOP)stopArrive(Integer.parseInt(temp[index][0]), "").start();
+                        else lineInfo(Integer.parseInt(temp[index][0]), "").start();
+
+
             }
         });
         JScrollPane scrollList=new JScrollPane(list);
@@ -306,8 +303,9 @@ public class BusGUI extends JFrame {
             public void keyReleased(KeyEvent e) {
                 String[][] find=Resources.search(data, textField.getText());
 //                for(String s: find[0])System.out.print(s+" ");
-                if(type==TYPE_LINE) list.setCellRenderer(new Render(find[0]));      // 이게 먼저 와야 함. 왜 그럴까?
-                list.setListData(find[1]);
+                if(type==TYPE_LINE) list.setCellRenderer(new Render());      // 이게 먼저 와야 함. 왜 그럴까?
+                else list.setCellRenderer(new RenderStop());
+                list.setListData(find);
             }});
 
         center.add(textField, BorderLayout.NORTH);
@@ -698,7 +696,7 @@ public class BusGUI extends JFrame {
         BusGUI window = new BusGUI(1280, 720, "즐겨찾기", Resources.IMG_FAV_YES, 320, 180);
         window.setMinimumSize(new Dimension(800, 400));
 
-        if(getFav(TYPE_LINE)[0].length == 0 && getFav(TYPE_STOP)[0].length == 0)
+        if(getFav(TYPE_LINE).length == 0 && getFav(TYPE_STOP).length == 0)
             return alertPopup("오류", "등록된 즐겨찾기가 없습니다.", Color.red, 20);
 
 
@@ -803,19 +801,19 @@ public class BusGUI extends JFrame {
 
         if(type==TYPE_LINE) {
             List<domain.busline.BusLine>  list = favoritesService.findAllLines();
-            res=new String[2][list.size()];
+            res=new String[list.size()][2];
 
             for (int i=0; i< list.size(); i++){
-                res[0][i] = String.valueOf(list.get(i).getId());
-                res[1][i] = list.get(i).getName();
+                res[i][0] = String.valueOf(list.get(i).getId());
+                res[i][1] = list.get(i).getName();
             }
         } else {
             List<domain.busstop.BusStop>  list = favoritesService.findAllStops();
-            res=new String[2][list.size()];
+            res=new String[list.size()][2];
 
             for (int i=0; i< list.size(); i++){
-                res[0][i] = String.valueOf(list.get(i).getId());
-                res[1][i] = list.get(i).getName();
+                res[i][0] = String.valueOf(list.get(i).getId());
+                res[i][1] = list.get(i).getName();
             }
         }
         return res;
@@ -823,17 +821,19 @@ public class BusGUI extends JFrame {
 
     private static JScrollPane favoriteList(int type, String[][] data){
 
-        JList<String> list=new JList<>(data[1]);
+        JList<String[]> list=new JList<>(data);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setFixedCellHeight(40);
         list.setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
         list.setForeground(Color.black);
-        if(type==TYPE_LINE) list.setCellRenderer(new Render(data[0]));
+        if(type==TYPE_LINE) list.setCellRenderer(new Render());
+        else list.setCellRenderer(new RenderStop());
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                int index = Arrays.asList(data[1]).indexOf(list.getSelectedValue());        // Good!
-                if(type==TYPE_STOP)stopArrive(Integer.parseInt(data[0][index]), "").start();
-                else lineInfo(Integer.parseInt(data[0][index]), "").start();
+                int index = Arrays.asList(data).indexOf(list.getSelectedValue());        // Good!
+                if(type==TYPE_STOP)stopArrive(Integer.parseInt(data[index][0]), "").start();
+                else lineInfo(Integer.parseInt(data[index][0]), "").start();
 
             }
         });
@@ -921,27 +921,26 @@ public class BusGUI extends JFrame {
     ///////////////////////////////////////////// Tools //////////////////////////////////////////////////////
 
 
+
     // Jlist 아이템별 내부 색상을 다르게 하려면 이렇게...
     // 출처: https://www.codejava.net/java-se/swing/jlist-custom-renderer-example
     // Android에서 RecyclerView와 비슷한 역할을 함
-    static class Render extends JLabel implements ListCellRenderer<String>{
+    static class Render extends JLabel implements ListCellRenderer<String[]>{
         // extends 원하는 요소 implements ListCellRenderer<원하는 클래스(String, BusList, StopList...)>
 
-        String[] indexList;
-        Render(String[] indexList){
-            this.indexList=indexList;
+        Render(){
             setHorizontalAlignment(LEFT);
             setOpaque(true);
         }
 
         @Override
-        public Component getListCellRendererComponent(JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<? extends String[]> list, String[] value, int index, boolean isSelected, boolean cellHasFocus) {
 
-            setText(value);
+            setText(value[1]);
             setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
             setForeground(Color.black);
 
-            switch (busListSet.get(Integer.parseInt(indexList[index])).getlineKind()){
+            switch (busListSet.get(Integer.parseInt(value[0])).getlineKind()){
                 case "간선":
                     setForeground(Resources.COLOR_YELLOW_BUS);
                     setIcon(Resources.getBtImage(Resources.IMG_BUS_ORANGE, 50));
@@ -966,6 +965,29 @@ public class BusGUI extends JFrame {
                     setIcon(null);
                     break;
             }
+            if(isSelected)
+                setBackground(Resources.COLOR_GRAY);
+            else setBackground(list.getBackground());
+            return this;
+        }
+    }
+
+
+    static class RenderStop extends JLabel implements ListCellRenderer<String[]>{
+        // extends 원하는 요소 implements ListCellRenderer<원하는 클래스(String, BusList, StopList...)>
+
+        RenderStop(){
+            setHorizontalAlignment(LEFT);
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends String[]> list, String[] value, int index, boolean isSelected, boolean cellHasFocus) {
+
+            setText(value[1]);
+            setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
+            setForeground(Color.black);
+
             if(isSelected)
                 setBackground(Resources.COLOR_GRAY);
             else setBackground(list.getBackground());
