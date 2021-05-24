@@ -21,19 +21,16 @@ public class Resources {
     // 리스트에서 해당 문자열을 갖는 항목을 반환
     public static String[][] search(String[][] list, String what){
 
-       ArrayList<String[]> found=new ArrayList<>();
+        ArrayList<String[]> found=new ArrayList<>();
+        for (int i=0; i<list.length; i++) if(list[i][1].contains(what) || list[i][0].contains(what)) found.add(list[i]);
 
-        for (int i=0; i<list.length; i++){
-            if(list[i][1].contains(what)) found.add(list[i]);
-        }
         String[][] find=new String[found.size()][2];
-        for (int i=0; i<found.size(); i++){
-            find[i]=found.get(i);
-        }
+        for (int i=0; i<found.size(); i++) find[i]=found.get(i);
+
         return find;
     }
 
-    @Deprecated     // 진짜로!!
+    @Deprecated
     // 리스트에서 해당 문자열의 번호를 반환
     public static int[] searchIndex(String[][] list, String what){
         ArrayList<Integer> found=new ArrayList<>();
@@ -47,7 +44,6 @@ public class Resources {
         }
         return find;
     }
-
 
     // Image
     static final String IMG_BUS_ORANGE = "bus1.png";

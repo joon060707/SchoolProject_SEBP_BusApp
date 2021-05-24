@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -275,7 +274,7 @@ public class BusGUI extends JFrame {
         list.setFixedCellHeight(40);
         list.setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
         list.setForeground(Color.black);
-        if(type==TYPE_LINE) list.setCellRenderer(new Render());          // 아래 Render 클래스 참고...
+        if(type==TYPE_LINE) list.setCellRenderer(new RenderLine());          // 아래 Render 클래스 참고...
         else list.setCellRenderer(new RenderStop());
         list.addMouseListener(new MouseAdapter() {
             @Override
@@ -285,8 +284,8 @@ public class BusGUI extends JFrame {
 
                 int index = list.getSelectedIndex();
                 System.out.println(temp[index][0]);
-                if(type==TYPE_STOP)stopArrive(Integer.parseInt(temp[index][0]), "").start();
-                        else lineInfo(Integer.parseInt(temp[index][0]), "").start();
+                if(type==TYPE_STOP)stopArrive(Integer.parseInt(temp[index][0])).start();
+                        else lineInfo(Integer.parseInt(temp[index][0])).start();
 
 
             }
@@ -298,14 +297,7 @@ public class BusGUI extends JFrame {
         textField.setForeground(Color.gray);
         textField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
-                String[][] find=Resources.search(data, textField.getText());
-//                for(String s: find[0])System.out.print(s+" ");
-                if(type==TYPE_LINE) list.setCellRenderer(new Render());      // 이게 먼저 와야 함. 왜 그럴까?
-                else list.setCellRenderer(new RenderStop());
-                list.setListData(find);
-            }});
-
+            public void keyReleased(KeyEvent e) { list.setListData(Resources.search(data, textField.getText())); }});
         center.add(textField, BorderLayout.NORTH);
         center.add(scrollList, BorderLayout.CENTER);
 
@@ -313,10 +305,9 @@ public class BusGUI extends JFrame {
     }
 
 
-
     ///////////////////////////////////////// Stop Notify Screen /////////////////////////////////////////////////
 
-    private static BusGUI stopArrive(int id, String same){
+    private static BusGUI stopArrive(int id){
 
         Arrive arrive;
         try {
@@ -328,7 +319,7 @@ public class BusGUI extends JFrame {
             return alertPopup("에러", "광주광역시 정류장이 아닌 것 같습니다.", Color.red, 20);
         }
 
-        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo()+same, Resources.IMG_STOP1, 40, 80);
+        BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 40, 80);
         window.setMinimumSize(new Dimension(320, 360));
         return insetWindow(window, stopArriveInner(arrive), 20, 20, 20, 20);
 
@@ -444,8 +435,8 @@ public class BusGUI extends JFrame {
             stopBt.setFont(Resources.nsq(Resources.FONT_BOLD, 20));
             lineBt.setForeground(Color.white);
 
-            lineBt.addActionListener(e -> lineInfo(l.getLineId(), "").start());
-            stopBt.addActionListener(e -> stopArrive(l.getCurStopId(), "").start());
+            lineBt.addActionListener(e -> lineInfo(l.getLineId()).start());
+            stopBt.addActionListener(e -> stopArrive(l.getCurStopId()).start());
 
             JPanel times=new JPanel();
             times.setLayout(new GridLayout(1, 2));
@@ -508,7 +499,7 @@ public class BusGUI extends JFrame {
 
     /////////////////////////////////////// Line Information Screen ////////////////////////////////////////////////
 
-    private static BusGUI lineInfo(int id, String same) {
+    private static BusGUI lineInfo(int id) {
         BusLocationMap busLocationMap;
         BusLineMap busLineMap;
         BusList b=busListSet.get(id);
@@ -522,9 +513,9 @@ public class BusGUI extends JFrame {
 
         String title;
         if(b.getlineKind().equals("광역버스") && !b.getLineName().contains("나주"))
-            title=b.getLineName()+"("+b.getDirUp()+"→"+b.getDirDown()+")"+same;
+            title=b.getLineName()+"("+b.getDirUp()+"→"+b.getDirDown()+")";
         else
-            title=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")"+same;
+            title=b.getLineName()+"("+b.getDirDown()+"→"+b.getDirUp()+")";
 
         BusGUI window = new BusGUI(900, 900, title, Resources.IMG_BUS_ORANGE, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
@@ -653,7 +644,7 @@ public class BusGUI extends JFrame {
             stopBt.setFont(Resources.nsq(Resources.FONT_BOLD, 25));
             stopBt.setBackground(Color.white);
             stopBt.setForeground(Resources.COLOR_PURPLE);
-            stopBt.addActionListener((e) -> stopArrive(l.getStopId(), "").start());
+            stopBt.addActionListener((e) -> stopArrive(l.getStopId()).start());
 
             JPanel stopPanel2 = new JPanel();
             stopPanel2.setLayout(new GridLayout(1, 3));
@@ -824,14 +815,14 @@ public class BusGUI extends JFrame {
         list.setFixedCellHeight(40);
         list.setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
         list.setForeground(Color.black);
-        if(type==TYPE_LINE) list.setCellRenderer(new Render());
+        if(type==TYPE_LINE) list.setCellRenderer(new RenderLine());
         else list.setCellRenderer(new RenderStop());
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                int index = Arrays.asList(data).indexOf(list.getSelectedValue());        // Good!
-                if(type==TYPE_STOP)stopArrive(Integer.parseInt(data[index][0]), "").start();
-                else lineInfo(Integer.parseInt(data[index][0]), "").start();
+                int index = list.getSelectedIndex();
+                if(type==TYPE_STOP)stopArrive(Integer.parseInt(data[index][0])).start();
+                else lineInfo(Integer.parseInt(data[index][0])).start();
 
             }
         });
@@ -923,10 +914,10 @@ public class BusGUI extends JFrame {
     // Jlist 아이템별 내부 색상을 다르게 하려면 이렇게...
     // 출처: https://www.codejava.net/java-se/swing/jlist-custom-renderer-example
     // Android에서 RecyclerView와 비슷한 역할을 함
-    static class Render extends JLabel implements ListCellRenderer<String[]>{
+    static class RenderLine extends JLabel implements ListCellRenderer<String[]>{
         // extends 원하는 요소 implements ListCellRenderer<원하는 클래스(String, BusList, StopList...)>
 
-        Render(){
+        RenderLine(){
             setHorizontalAlignment(LEFT);
             setOpaque(true);
         }
@@ -934,7 +925,7 @@ public class BusGUI extends JFrame {
         @Override
         public Component getListCellRendererComponent(JList<? extends String[]> list, String[] value, int index, boolean isSelected, boolean cellHasFocus) {
 
-            setText(value[1]);
+            setText("(#"+value[0]+") "+value[1]);
             setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
             setForeground(Color.black);
 
@@ -970,7 +961,6 @@ public class BusGUI extends JFrame {
         }
     }
 
-
     static class RenderStop extends JLabel implements ListCellRenderer<String[]>{
         // extends 원하는 요소 implements ListCellRenderer<원하는 클래스(String, BusList, StopList...)>
 
@@ -982,7 +972,7 @@ public class BusGUI extends JFrame {
         @Override
         public Component getListCellRendererComponent(JList<? extends String[]> list, String[] value, int index, boolean isSelected, boolean cellHasFocus) {
 
-            setText(value[1]);
+            setText("(#"+value[0]+") "+value[1]);
             setFont(Resources.nsq(Resources.FONT_NORMAL, 24));
             setForeground(Color.black);
 
