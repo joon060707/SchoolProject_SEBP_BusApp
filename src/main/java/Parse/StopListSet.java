@@ -16,6 +16,7 @@ public class StopListSet {
         JSONObject jsonObject = new GetApiData("STATION").getData();
         JSONArray jsonArray = (JSONArray) jsonObject.get("STATION_LIST");
         size = Integer.parseInt(jsonObject.get("ROW_COUNT").toString());
+        sizeString = jsonObject.get("ROW_COUNT").toString();
         StopLists =new HashMap<>();
         for(int i=0;i<size;i++){
             StopList a = new StopList((JSONObject) jsonArray.get(i));

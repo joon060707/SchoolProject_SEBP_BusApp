@@ -1,5 +1,8 @@
 import GUI.BusGUI;
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Main {
 
@@ -13,6 +16,13 @@ public class Main {
         ProcessBuilder run=new ProcessBuilder(cmd);
         try { run.start(); }
         catch (IOException e) { e.printStackTrace(); }
+
+//        // Java에서 브라우저 열기
+//        try {
+//            Desktop.getDesktop().browse(new URI("https://www.naver.com/"));
+//        } catch (IOException | URISyntaxException e) {
+//            e.printStackTrace();
+//        }
 
         BusGUI.mainMenu().start();
     }

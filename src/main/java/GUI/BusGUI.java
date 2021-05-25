@@ -187,7 +187,7 @@ public class BusGUI extends JFrame {
         redBt.setBackground(Resources.COLOR_RED_BUS);
         redBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
         redBt.setForeground(Color.white);
-//        redBt.addActionListener(e -> StatGUI.stat().start());
+        redBt.addActionListener(e -> StatGUI.stat().start());
         road3.add(redBt);
 
         road3.add(emptyLabel(80,130));

@@ -18,6 +18,7 @@ public class BusListSet {
         JSONObject jsonObject = new GetApiData("LINE").getData();
         JSONArray jsonArray=(JSONArray) jsonObject.get("LINE_LIST");
         size = Integer.parseInt(jsonObject.get("ROW_COUNT").toString());
+        sizeString = jsonObject.get("ROW_COUNT").toString();
         buslist = new HashMap<>();
         for(int i=0; i<size; i++) {
             BusList b = new BusList((JSONObject)jsonArray.get(i));
