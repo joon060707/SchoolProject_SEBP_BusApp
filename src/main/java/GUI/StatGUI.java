@@ -47,9 +47,9 @@ public class StatGUI extends BusGUI {
         frame.setPreferredSize(new Dimension(400,300));
         frame.pack();
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        return (StatGUI) window;
+        return (StatGUI) frame;
     }
 
 

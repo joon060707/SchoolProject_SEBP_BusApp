@@ -195,6 +195,7 @@ public class BusGUI extends JFrame {
         greenBt.setBackground(Resources.COLOR_GREEN_BUS);
         greenBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
         greenBt.setForeground(Color.white);
+        greenBt.addActionListener(e -> AboutGUI.about().start());
         road3.add(greenBt);
         for(int i=0; i<3; i++)road3.add(emptyLabel(80,130));
 

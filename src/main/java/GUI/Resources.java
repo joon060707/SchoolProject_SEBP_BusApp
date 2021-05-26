@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Resources {
 
+
+
     // 테스트를 위한 배열
     public static String[][] testArray(int size){
         String[][] array=new String[2][size];
@@ -57,6 +59,10 @@ public class Resources {
     static final String IMG_EMPTY = "empty.png";
     static final String IMG_FAV_YES = "fav_y.png";
     static final String IMG_FAV_NO = "fav_n.png";
+    static final String IMG_INFO = "info.png";
+    static final String IMG_LICENSE = "license.png";
+    static final String IMG_DEVELOPER = "dev.png";
+    static final String IMG_VERSION = "ver.png";
 
     // Icon
     // 정상 비율 아이콘: 버튼, 라벨
