@@ -820,8 +820,8 @@ public class BusGUI extends JFrame {
                 favoritesService.deleteAllLine();
                 break;
             default:
-                delFavStop();
-//                favoritesService.deleteAllStop();
+//                delFavStop();
+                favoritesService.deleteAllStop();
                 break;
         }
         window.dispose();
