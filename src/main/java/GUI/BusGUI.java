@@ -325,11 +325,11 @@ public class BusGUI extends JFrame {
 
         BusGUI window=new BusGUI(900, 900, arrive.getStopNameWithTo(), Resources.IMG_STOP1, 40, 80);
         window.setMinimumSize(new Dimension(320, 360));
-        return insetWindow(window, stopArriveInner(arrive), 20, 20, 20, 20);
+        return insetWindow(window, stopArriveInner(arrive, window), 20, 20, 20, 20);
 
     }
 
-    private static JPanel stopArriveInner(Arrive arrive){
+    private static JPanel stopArriveInner(Arrive arrive, BusGUI window){
         JPanel panel=new JPanel();
         panel.setLayout(new BorderLayout(0, 0));
         panel.setBackground(Color.white);
@@ -373,6 +373,15 @@ public class BusGUI extends JFrame {
             }
         });
 
+        JButton reset=new JButton(Resources.getBtImage(Resources.IMG_FAV_REFRESH, 50));
+        reset.setBorder(null);
+        reset.setBackground(null);
+        reset.addActionListener(e ->{
+            window.dispose();
+            stopArrive(arrive.getId()).start();
+        });
+
+        stopNameWrapper.add(reset);
         stopNameWrapper.add(stopName);
         stopNameWrapper.add(stopFav);
 
@@ -523,10 +532,10 @@ public class BusGUI extends JFrame {
 
         BusGUI window = new BusGUI(900, 900, title, Resources.IMG_BUS_ORANGE, 1000, 80);
         window.setMinimumSize(new Dimension(320, 360));
-        return insetWindow(window, lineInfoInner(busLineMap, busLocationMap, b), 20, 20, 20, 20);
+        return insetWindow(window, lineInfoInner(busLineMap, busLocationMap, b, window), 20, 20, 20, 20);
     }
 
-    private static JPanel lineInfoInner(BusLineMap busLineMap, BusLocationMap busLocationMap, BusList busList) {
+    private static JPanel lineInfoInner(BusLineMap busLineMap, BusLocationMap busLocationMap, BusList busList, BusGUI window) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
@@ -569,6 +578,15 @@ public class BusGUI extends JFrame {
             }
         });
 
+        JButton reset=new JButton(Resources.getBtImage(Resources.IMG_FAV_REFRESH, 50));
+        reset.setBorder(null);
+        reset.setBackground(null);
+        reset.addActionListener(e ->{
+            window.dispose();
+            lineInfo(busLineMap.getLineId()).start();
+        });
+
+        lineNameWrapper.add(reset);
         lineNameWrapper.add(lineName);
         lineNameWrapper.add(lineFav);
 
