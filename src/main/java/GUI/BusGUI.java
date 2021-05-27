@@ -6,6 +6,8 @@ import Parse.*;
 import domain.busline.FavoriteBus;
 import domain.busstop.FavoriteStop;
 import service.FavoritesService;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -169,6 +171,7 @@ public class BusGUI extends JFrame {
         yellowBt.setBackground(Resources.COLOR_YELLOW_BUS);
         yellowBt.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
         yellowBt.setForeground(Color.white);
+        yellowBt.addActionListener(e -> HelpGUI.help().start());
         road1.add(yellowBt);
         for(int i=0; i<4; i++)road1.add(emptyLabel(80,130));
 
@@ -690,13 +693,13 @@ public class BusGUI extends JFrame {
             return alertPopup("오류", "등록된 즐겨찾기가 없습니다.", Color.red, 20);
 
 
-        return insetWindow(window, favoriteInner(), 1, 10, 10, 10);
+        return insetWindow(window, favoriteInner(window), 1, 10, 10, 10);
     }
 
 
     final static int TYPE_ALL = 2;
 
-    private static JPanel favoriteInner(){
+    private static JPanel favoriteInner(BusGUI window){
 
         JPanel panel=new JPanel();
         panel.setBackground(Color.white);
@@ -726,36 +729,54 @@ public class BusGUI extends JFrame {
         favLineTop.setBackground(Color.white);
 
         JPanel menu=new JPanel();
-        menu.setLayout(new GridLayout(1, 5));
+        menu.setLayout(new GridLayout(1, 6));
         menu.setBackground(Color.white);
+
+        JPanel resetWrapper=new JPanel();
+        resetWrapper.setBackground(Color.white);
+        resetWrapper.setLayout(new GridLayout(1,2));
+
+        JButton reset=new JButton(Resources.getBtImage(Resources.IMG_FAV_REFRESH, 50));
+        reset.setBorder(null);
+        reset.setBackground(null);
+        reset.addActionListener(e ->{
+            window.dispose();
+            favorite().start();
+        });
+        resetWrapper.add(reset);
+        resetWrapper.add(new JLabel());
+        menu.add(resetWrapper);
         menu.add(colorLabel(" ", Color.white));
 
-//        JLabel label=new JLabel("전체 삭제");
-//        label.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
-//        label.setHorizontalAlignment(SwingConstants.CENTER);
-//        menu.add(label);
-//
-//        JButton delStop=new JButton("정류장");
-//        delStop.setBackground(Resources.COLOR_PURPLE);
-//        delStop.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
-//        delStop.setForeground(Color.white);
-//        delStop.addActionListener(e -> delFav(TYPE_STOP));
-//
-//        JButton delLine=new JButton("노선");
-//        delLine.setBackground(Resources.COLOR_SKY);
-//        delLine.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
-//        delLine.setForeground(Color.white);
-//        delLine.addActionListener(e -> delFav(TYPE_LINE));
-//
-//        JButton delAll=new JButton("둘 다");
-//        delAll.setBackground(Color.red);
-//        delAll.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
-//        delAll.setForeground(Color.white);
-//        delAll.addActionListener(e -> delFav(TYPE_ALL));
-//
-//        menu.add(delStop);
-//        menu.add(delLine);
-//        menu.add(delAll);
+        JLabel label=new JLabel("전체 삭제");
+        label.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        menu.add(label);
+
+        JButton delStop=new JButton("정류장");
+        delStop.setBackground(Resources.COLOR_PURPLE);
+        delStop.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
+        delStop.setForeground(Color.white);
+        delStop.addActionListener(e -> confirm(window, TYPE_STOP).start());
+        delStop.setMargin(new Insets(0,0,0,0));
+
+        JButton delLine=new JButton("노선");
+        delLine.setBackground(Resources.COLOR_SKY);
+        delLine.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
+        delLine.setForeground(Color.white);
+        delLine.addActionListener(e -> confirm(window, TYPE_LINE).start());
+        delLine.setMargin(new Insets(0,0,0,0));
+
+        JButton delAll=new JButton("둘 다");
+        delAll.setBackground(Color.red);
+        delAll.setFont(Resources.nsq(Resources.FONT_BOLD, 16));
+        delAll.setForeground(Color.white);
+        delAll.addActionListener(e -> confirm(window, TYPE_ALL).start());
+        delAll.setMargin(new Insets(0,0,0,0));
+
+        menu.add(delStop);
+        menu.add(delLine);
+        menu.add(delAll);
 
         favLineTop.add(menu, BorderLayout.NORTH);
         favLineTop.add(colorLabel("노선", Resources.COLOR_SKY), BorderLayout.CENTER);
@@ -770,18 +791,45 @@ public class BusGUI extends JFrame {
         return panel;
     }
 
-    private static void delFav(int type){
+
+    private static void delFav(BusGUI window, int type){
         switch (type){
             case TYPE_ALL:
-                favoritesService.deleteAllStop();
+                delFavStop();
+//                favoritesService.deleteAllStop();
             case TYPE_LINE:
-                favoritesService.deleteAllLine();
+                delFavLine();
+//                favoritesService.deleteAllLine();
                 break;
             default:
-                favoritesService.deleteAllStop();
+                delFavStop();
+//                favoritesService.deleteAllStop();
                 break;
         }
-        alertPopup("삭제됨", "즐겨찾기가 삭제되었습니다. 창을 새로 여세요.", Color.blue, 20).start();
+        window.dispose();
+        favorite().start();
+//        alertPopup("삭제됨", "즐겨찾기가 삭제되었습니다. 창을 새로 여세요.", Color.blue, 20).start();
+    }
+
+    // custom del favorite
+    private static void delFavLine(){
+        String[][] lineFav = getFav(TYPE_LINE);
+        for(String[] single : lineFav){
+            FavoriteBusRequestDto dto=new FavoriteBusRequestDto.Builder()
+                    .id(Integer.parseInt(single[0]))
+                    .name(single[1]).build();
+            favoritesService.delById(dto);
+        }
+    }
+
+    private static void delFavStop(){
+        String[][] lineFav = getFav(TYPE_STOP);
+        for(String[] single : lineFav){
+            FavoriteStopRequestDto dto=new FavoriteStopRequestDto.Builder()
+                    .id(Integer.parseInt(single[0]))
+                    .name(single[1]).build();
+            favoritesService.delById(dto);
+        }
     }
 
 
@@ -860,51 +908,53 @@ public class BusGUI extends JFrame {
     }
 
 
-//    public static BusGUI confirm(int type){
-//        BusGUI window = new BusGUI(400, 200, "경고", Resources.IMG_STOP1, 760, 440);
-//        window.setMinimumSize(new Dimension(400, 200));
-//        window.setLayout(null);
-//        window.mainContainer.setBackground(Color.white);
-//
-//        JLabel msg=new JLabel("정말 삭제하시겠습니까? 이 작업은 취소할 수 없습니다!");
-//        msg.setFont(Resources.nsq(Resources.FONT_BOLD, 20));
-//        msg.setForeground(Color.red);
-//        msg.setHorizontalAlignment(SwingConstants.CENTER);
-//        msg.setBounds(0,0,380,100);
-//
-//        JButton yes=new JButton("예");
-//        yes.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
-//        yes.setBackground(Color.yellow);
-//        yes.setForeground(Color.black);
-//        yes.setBounds(40,100,100,60);
-//        yes.addActionListener(e -> {
-//            switch (type){
-//                case TYPE_STOP:
-//                    delFav(favorite(), TYPE_STOP);
-//                    break;
-//                case TYPE_LINE:
-//                    break;
-//                case TYPE_ALL:
-//                    break;
-//                default: break;
-//            }
-//            window.dispose();
-//        });
-//
-//
-//        JButton no=new JButton("아니오");
-//        no.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
-//        no.setBackground(Color.orange);
-//        no.setForeground(Color.black);
-//        no.setBounds(230,100,100,60);
-//        no.addActionListener(e -> window.dispose());
-//
-//        window.add(msg);
-//        window.add(yes);
-//        window.add(no);
-//
-//        return window;
-//    }
+    public static BusGUI confirm(BusGUI fav, int type){
+        BusGUI window = new BusGUI(600, 200, "경고", Resources.IMG_STOP1, 660, 440);
+        window.setMinimumSize(new Dimension(600, 200));
+        window.setLayout(null);
+        window.mainContainer.setBackground(Color.white);
+
+        JLabel msg=new JLabel("정말 삭제하시겠습니까? 이 작업은 취소할 수 없습니다!");
+        msg.setFont(Resources.nsq(Resources.FONT_BOLD, 20));
+        msg.setForeground(Color.red);
+        msg.setHorizontalAlignment(SwingConstants.CENTER);
+        msg.setBounds(0,0,580,100);
+
+        JButton yes=new JButton("예");
+        yes.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
+        yes.setBackground(Color.yellow);
+        yes.setForeground(Color.black);
+        yes.setBounds(40,100,200,60);
+        yes.addActionListener(e -> {
+            switch (type){
+                case TYPE_STOP:
+                    delFav(fav, TYPE_STOP);
+                    break;
+                case TYPE_LINE:
+                    delFav(fav, TYPE_LINE);
+                    break;
+                case TYPE_ALL:
+                    delFav(fav, TYPE_ALL);
+                    break;
+                default: break;
+            }
+            window.dispose();
+        });
+
+
+        JButton no=new JButton("아니오");
+        no.setFont(Resources.nsq(Resources.FONT_NORMAL, 20));
+        no.setBackground(Color.orange);
+        no.setForeground(Color.black);
+        no.setBounds(330,100,200,60);
+        no.addActionListener(e -> window.dispose());
+
+        window.add(msg);
+        window.add(yes);
+        window.add(no);
+
+        return window;
+    }
 
     //END
 

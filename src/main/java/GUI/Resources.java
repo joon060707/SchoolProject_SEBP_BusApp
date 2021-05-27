@@ -59,10 +59,21 @@ public class Resources {
     static final String IMG_EMPTY = "empty.png";
     static final String IMG_FAV_YES = "fav_y.png";
     static final String IMG_FAV_NO = "fav_n.png";
+    static final String IMG_FAV_REFRESH = "refresh.png";
+
     static final String IMG_INFO = "info.png";
     static final String IMG_LICENSE = "license.png";
     static final String IMG_DEVELOPER = "dev.png";
     static final String IMG_VERSION = "ver.png";
+
+    static final String IMG_HELP = "help.png";
+    static final String IMG_STOPIMG1 ="stopimg1.PNG";
+    static final String IMG_STOPIMG3 ="stopimg3.PNG";
+    static final String IMG_LINEIMG1 = "lineimg1.PNG";
+    static final String IMG_LINEIMG2 = "lineimg2.PNG";
+    static final String IMG_FAVORIMG ="favorimg.PNG";
+    static final String IMG_FAVORIMG2 ="favorimg2.png";
+    static final String IMG_INFOIMG ="infoimg.PNG";
 
     // Icon
     // 정상 비율 아이콘: 버튼, 라벨
