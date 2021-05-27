@@ -86,6 +86,7 @@ public class FavoritesService {
 
     //버스 노선 즐겨찾기 목록 반환.
     public List<FavoriteBus> findAllLines() {
+        tx = em.getTransaction();
         try {
             tx.begin();
             List<FavoriteBus> favoriteBusList = em.createQuery("SELECT bl FROM FavoriteBus bl", FavoriteBus.class).getResultList();
@@ -100,6 +101,8 @@ public class FavoritesService {
 
     //버스 정류장 즐겨찾기 목록환 반환.
     public List<FavoriteStop> findAllStops() {
+        tx = em.getTransaction();
+
         try {
             tx.begin();
             List<FavoriteStop> favoriteStopList = em.createQuery("SELECT bs FROM FavoriteStop bs", FavoriteStop.class).getResultList();
