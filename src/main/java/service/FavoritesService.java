@@ -86,6 +86,7 @@ public class FavoritesService {
 
     //버스 노선 즐겨찾기 목록 반환.
     public List<FavoriteBus> findAllLines() {
+        em = emf.createEntityManager();
         tx = em.getTransaction();
         try {
             tx.begin();
@@ -101,6 +102,7 @@ public class FavoritesService {
 
     //버스 정류장 즐겨찾기 목록환 반환.
     public List<FavoriteStop> findAllStops() {
+        em = emf.createEntityManager();
         tx = em.getTransaction();
 
         try {

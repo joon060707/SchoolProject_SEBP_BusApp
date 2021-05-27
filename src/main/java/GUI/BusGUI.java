@@ -813,11 +813,11 @@ public class BusGUI extends JFrame {
     private static void delFav(BusGUI window, int type){
         switch (type){
             case TYPE_ALL:
-                delFavStop();
-//                favoritesService.deleteAllStop();
+//                delFavStop();
+                favoritesService.deleteAllStop();
             case TYPE_LINE:
-                delFavLine();
-//                favoritesService.deleteAllLine();
+//                delFavLine();
+                favoritesService.deleteAllLine();
                 break;
             default:
                 delFavStop();
