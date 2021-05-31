@@ -6,8 +6,6 @@ import Parse.*;
 import domain.busline.FavoriteBus;
 import domain.busstop.FavoriteStop;
 import service.FavoritesService;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -703,7 +701,7 @@ public class BusGUI extends JFrame {
 
     ///////////////////////////////////////// Favorite Screen ////////////////////////////////////////////////////
 
-    public static BusGUI favorite(){
+    private static BusGUI favorite(){
         BusGUI window = new BusGUI(1280, 720, "즐겨찾기", Resources.IMG_FAV_YES, 320, 180);
         window.setMinimumSize(new Dimension(800, 400));
 
