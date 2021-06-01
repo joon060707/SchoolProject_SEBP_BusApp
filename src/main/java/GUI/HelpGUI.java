@@ -31,7 +31,7 @@ public class HelpGUI extends BusGUI {
             AskBt[i].setBackground(Color.white);
             AskBt[i].setForeground(Color.black);
             window.add(AskBt[i]);
-            for (int j = 0; j < 4; j++) window.add(emptyLabel(80, 130));
+//            for (int j = 0; j < 4; j++) window.add(emptyLabel(80, 130));
         }
 
         AskBt[0].setBounds(0, 35, 500, 30);

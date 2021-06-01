@@ -37,7 +37,6 @@ public class BusGUI extends JFrame {
 
     // GUI.BusGUI(JFrame): 창
     // JPanel: 구역
-
     // window.start() : 창 띄우기
     // window.dispose() : 창 닫기
     // setBorder(new EmptyBorder(위, 왼, 아래, 오른)) : 여백 추가.... ㅠㅠ
@@ -701,7 +700,7 @@ public class BusGUI extends JFrame {
 
     ///////////////////////////////////////// Favorite Screen ////////////////////////////////////////////////////
 
-    private static BusGUI favorite(){
+    public static BusGUI favorite(){
         BusGUI window = new BusGUI(1280, 720, "즐겨찾기", Resources.IMG_FAV_YES, 320, 180);
         window.setMinimumSize(new Dimension(800, 400));
 
@@ -849,7 +848,7 @@ public class BusGUI extends JFrame {
     }
 
 
-    private static String[][] getFav(int type){
+    public static String[][] getFav(int type){
 
         String[][] res;
 
